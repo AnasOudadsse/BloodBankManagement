@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BloodCampController;
 use App\Http\Controllers\DonorController;
 use App\Http\Controllers\HospitalController;
 use Illuminate\Http\Request;
@@ -21,3 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 route::post('/addHospital', [HospitalController::class, 'storeHospital']);
+
+route::post('/addBloodCamp', [BloodCampController::class, 'storeBloodCamp']);

@@ -19,6 +19,6 @@ class BloodCamp extends Model
         return $this->hasMany(BloodCampStaff::class);
     }
     
-    protected $fillable = ['Name', 'Adress', 'StartTime', 'EndTime'];
+    protected $fillable = ['Name', 'Address', 'StartTime', 'EndTime'];
 
 }

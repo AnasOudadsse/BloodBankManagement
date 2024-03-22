@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 
 
-function BloodCampForm(){
+export function BloodCampForm(){
 
     const [BloodCampData, setBloodCampData] = useState({
         Name: '' ,
@@ -21,11 +21,12 @@ function BloodCampForm(){
         e.preventDefault();
         try{
             
-            const response  = await axios.post('http://127.0.0.1:8000/api/addHospital', BloodCampData)
-            console.log(BloodCampData)
+            const response  = await axios.post('http://127.0.0.1:8000/api/addBloodCamp', BloodCampData)
+            console.log(response.data)
         }
         catch(err){
             alert('There was an error submitting the form!', err);
+            console.log(BloodCampData)
 
         }
     }
@@ -65,6 +66,4 @@ function BloodCampForm(){
         <button type="submit">Submit</button>
       </form>
     )
-
-
 }
