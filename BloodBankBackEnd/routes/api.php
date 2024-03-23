@@ -3,6 +3,7 @@
 use App\Http\Controllers\BloodCampController;
 use App\Http\Controllers\DonorController;
 use App\Http\Controllers\HospitalController;
+use App\Http\Controllers\HospitalStaffController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,3 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 route::post('/addHospital', [HospitalController::class, 'storeHospital']);
 
 route::post('/addBloodCamp', [BloodCampController::class, 'storeBloodCamp']);
+
+route::get('/getHospitals', [HospitalStaffController::class, 'getHospitals']);
+
+route::Post('/addHospitalStaff', [HospitalStaffController::class, 'storeHospitalStaff']);
