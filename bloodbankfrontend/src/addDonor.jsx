@@ -138,7 +138,7 @@ export function DonorForm(){
             <option value="" selected disabled>Select bloodType</option>
             {BloodType.map((bloodType) => (
                 <>
-                    <option key={bloodType.id} value={bloodType.id}>{bloodType.BloodType    }</option>
+                    <option key={bloodType.id} value={bloodType.id}>{bloodType.BloodType}</option>
                 </>
             
     ))}
@@ -160,7 +160,7 @@ export function DonorForm(){
         onChange={handleChange}
         placeholder="Password"
       /><br /><br />
-      <button type="submit">Submit</button>
+      <button type="submit">Submit</button>    
     </form>
       )
 }

@@ -29,7 +29,7 @@ class Donor extends Model
         return $this->belongsTo(BloodType::class);
     }
 
-    protected $fillable = ['Name', 'PhoneNumber', 'Email', 'BirthDate', 'Gender', 'EncryptedPassword', 'Role', 'City', 'Address', 'Image','blood_id'];
+    protected $fillable = ['Cin','Name', 'PhoneNumber', 'Email', 'BirthDate', 'Gender', 'EncryptedPassword', 'Role', 'City', 'Address', 'Image','blood_id'];
 
     
 }

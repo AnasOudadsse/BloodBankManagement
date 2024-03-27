@@ -14,6 +14,6 @@ class BloodCampStaff extends Model
         return $this->belongsTo(BloodCamp::class);
     }
 
-    protected $fillable = ['Name', 'PhoneNumber', 'Email', 'BirthDate', 'Gender', 'EncryptedPassword', 'Role', 'blood_camp_id'];
+    protected $fillable = ['Cin', 'Name', 'PhoneNumber', 'Email', 'BirthDate', 'Gender', 'EncryptedPassword', 'Role', 'blood_camp_id'];
 
 }

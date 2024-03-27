@@ -13,6 +13,6 @@ class HospitalStaff extends Model
         return $this->belongsTo(Hospital::class);
     }
 
-    protected $fillable = ['Name', 'PhoneNumber', 'Email', 'BirthDate', 'Gender', 'EncryptedPassword', 'Role', 'Position', 'hospital_id'];
+    protected $fillable = ['Cin','Name', 'PhoneNumber', 'Email', 'BirthDate', 'Gender', 'EncryptedPassword', 'Role', 'Position', 'hospital_id'];
 
 }

@@ -23,5 +23,5 @@ class BloodBankAdmin extends Model
         return $this->hasMany(AnalysisReport::class);
     }
 
-    protected $fillable = ['Name', 'PhoneNumber', 'Email', 'BirthDate', 'Gender', 'EncryptedPassword', 'Role', 'blood_bank_id'];
+    protected $fillable = ['Cin','Name', 'PhoneNumber', 'Email', 'BirthDate', 'Gender', 'EncryptedPassword', 'Role', 'blood_bank_id'];
 }

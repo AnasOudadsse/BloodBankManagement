@@ -19,6 +19,8 @@ class DonorController extends Controller
     public function storeDonor(Request $request) {
         // Validate the incoming request data
         $validatedData = $request->validate([
+
+            'Cin' => 'required|string',
             'Name' => 'required|string',
             'PhoneNumber' => 'required',
             'Email' => 'required|email',
@@ -44,6 +46,8 @@ class DonorController extends Controller
     
         // Create the donor record, including the path of the uploaded image
         $donor = new Donor([
+            
+            'Cin' => $request->input('Cin'),
             'Name' => $request->input('Name'),
             'PhoneNumber' => $request->input('PhoneNumber'),
             'Email' => $request->input('Email'),
