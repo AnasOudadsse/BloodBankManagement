@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('blood_bank_admins', function (Blueprint $table) {
-            $table->id();
+            $table->string('Cin')->primary();
             $table->timestamps();
             $table->string('Name');
             $table->string('PhoneNumber');
