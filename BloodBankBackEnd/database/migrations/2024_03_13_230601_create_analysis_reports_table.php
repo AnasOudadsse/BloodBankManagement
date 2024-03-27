@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+
 return new class extends Migration
 {
     /**
@@ -17,8 +18,10 @@ return new class extends Migration
             $table->date('DateGenerated');
             $table->string('PdfLocation');
             $table->foreignId('donation_id')->constrained()->onDelete('cascade');
-            $table->foreignId('donor_id')->constrained();
-            $table->foreignId('blood_bank_admin_id')->constrained();
+            $table->string('donor_cin');
+            $table->string('blood_bank_admin_cin');
+            $table->foreign('donor_cin')->references('Cin')->on('donors');
+            $table->foreign('blood_bank_admin_cin')->references('Cin')->on('blood_bank_admins');
         });
     }
 

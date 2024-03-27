@@ -16,7 +16,8 @@ return new class extends Migration
             $table->timestamps();
             $table->integer('QuantityDonated');
             $table->date('DonationDate');
-            $table->foreignId('donor_id')->constrained();
+            $table->string('donor_cin');
+            $table->foreign('donor_cin')->references('Cin')->on('donors');
             $table->foreignId('blood_type_id')->constrained();
             $table->foreignId('blood_camp_id')->constrained();
         });

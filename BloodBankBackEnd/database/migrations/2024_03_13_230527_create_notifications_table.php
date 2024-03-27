@@ -17,8 +17,10 @@ return new class extends Migration
             $table->string('Message');
             $table->date('Date');
             $table->string('Status');
-            $table->foreignId('donor_id')->constrained();
-            $table->foreignId('blood_bank_admin_id')->constrained();
+            $table->string('donor_cin');
+            $table->string('blood_bank_admin_cin');
+            $table->foreign('donor_cin')->references('Cin')->on('donors');
+            $table->foreign('blood_bank_admin_cin')->references('Cin')->on('blood_bank_admins');
         });
     }
 
