@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import HospitalForm from "./addHospital";
-
 export function BloodCampStaffForm(){
 
     const [BloodCamps, setBloodCamps] = useState([])
@@ -49,8 +47,9 @@ export function BloodCampStaffForm(){
       };
 
       return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit}  class="max-w-sm mx-auto">
       <input
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         type="text"
         name="Cin"
         value={BloodCampStaffData.Cin}
@@ -58,31 +57,35 @@ export function BloodCampStaffForm(){
         placeholder="Cin"
       />
 
-      <br /><br />
+      <br />
       <input
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         type="text"
         name="Name"
         value={BloodCampStaffData.Name}
         onChange={handleChange}
         placeholder="Full Name"
-      />
+      />  <br />
 
       <input
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         type="tel"
         name="PhoneNumber"
         value={BloodCampStaffData.PhoneNumber}
         onChange={handleChange}
         placeholder="Phone Number"
-      /> <br /><br />
+      /> <br />
 
       <input
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         type="date"
         name="BirthDate"
         value={BloodCampStaffData.BirthDate}
         onChange={handleChange}
-      /> <br /> <br />
+      /> <br />
 
-      <select
+      <select 
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         name="Gender"
         value={BloodCampStaffData.Gender}
         onChange={handleChange}
@@ -91,9 +94,10 @@ export function BloodCampStaffForm(){
         <option value="Male">Male</option>
         <option value="Female">Female</option>
       </select>
-      <br /> <br />
+      <br />
 
       <select
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         name="blood_camp_id"
         value={BloodCampStaffData.blood_camp_id}
         onChange={handleChange}
@@ -108,24 +112,30 @@ export function BloodCampStaffForm(){
             
     ))}
 
-      </select><br /> <br />
+      </select><br />
 
       <input
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         type="email"
         name="Email"
         value={BloodCampStaffData.Email}
         onChange={handleChange}
         placeholder="Email"
-      /><br /> <br />
+      /><br />
 
       <input
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         type="password"
         name="EncryptedPassword"
         value={BloodCampStaffData.EncryptedPassword}
         onChange={handleChange}
         placeholder="Password"
-      /><br /> <br />
-      <button type="submit">Submit</button>
+      /><br />
+      <button 
+      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      type="submit">
+        Submit
+      </button>
     </form>
       )
 }
