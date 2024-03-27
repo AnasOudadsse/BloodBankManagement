@@ -4,6 +4,7 @@ import HospitalForm from './addHospital';
 import { BloodCampForm } from './addBloodCamp';
 import { HospitalStaffForm } from './addHospitalStaff';
 import { BloodCampStaffForm } from './addBloodCampStaff';
+import { DonorForm } from './addDonor';
 function App() {
   return (
     <BrowserRouter>
@@ -12,6 +13,7 @@ function App() {
           <Route path="/addBloodCamp" element={<BloodCampForm/>}/>
           <Route path="/addHospitalStaff" element={<HospitalStaffForm/>} />
           <Route path="/addBloodCampStaff" element={<BloodCampStaffForm/>} />
+          <Route path='/addDonor' element={<DonorForm/>} />
       </Routes>
     </BrowserRouter>
   );

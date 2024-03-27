@@ -36,3 +36,6 @@ route::get('/getBloodCamps', [BloodCampStaffController::class, 'getBloodCamps'])
 
 route::Post('/addBloodCampStaff', [BloodCampStaffController::class, 'storeBloodCampStaff']);
 
+route::get('/getBloodType', [DonorController::class, 'getBloodType']);
+
+route::Post('/addDonor', [DonorController::class, 'storeDonor']);

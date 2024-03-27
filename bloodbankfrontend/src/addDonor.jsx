@@ -14,11 +14,10 @@ export function DonorForm(){
         EncryptedPassword: '',
         Role: 'Donor',
         City: '',
-        Adress : '',
+        Address : '',
         Image: '',
         blood_id: ''
     })  
-    console.log(BloodType)
 
     useEffect( () =>
     {
@@ -27,7 +26,6 @@ export function DonorForm(){
             try {
                 const response = await axios.get('http://127.0.0.1:8000/api/getBloodType');
                 setBloodType(response.data);
-                console.log(response.data)
             }catch (error) {
                 console.error('Failed to fetch BloodType', error);
             }
@@ -37,29 +35,41 @@ export function DonorForm(){
     )
 
     const handleChange = (e)=>{
-        setDonorData({...DonorData, [e.target.name]: e.target.value})
-    }
+      if (e.target.name === "Image") {
+        // For file inputs, store the File object directly
+        setDonorData({ ...DonorData, Image: e.target.files[0] });
+    } else {
+        // For all other inputs, proceed as before
+        setDonorData({ ...DonorData, [e.target.name]: e.target.value });
+    }    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          await axios.post('http://127.0.0.1:8000/api/addDonor', DonorData);
+          await axios.post('http://127.0.0.1:8000/api/addDonor', DonorData, {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            }
+            });
+          console.log(DonorData)
           // Handle success (e.g., clear form, show success message)
         } catch (error) {
-          console.error('Failed to submit form', error);
+          console.error('Failed to submit form', error.response.data);
+          console.log('error :', DonorData)
+
           // Handle error
         }
       };
 
       return (
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} encType="multipart/form-data">
       <input
         type="text"
         name="Name"
         value={DonorData.Name}
         onChange={handleChange}
         placeholder="Full Name"
-      />
+      /> <br /><br />
 
       <input
         type="tel"
@@ -67,14 +77,14 @@ export function DonorForm(){
         value={DonorData.PhoneNumber}
         onChange={handleChange}
         placeholder="Phone Number"
-      />
+      /><br /><br />
 
       <input
         type="date"
         name="BirthDate"
-        value={DonorData.BirthDate}
+        value={DonorData.BirthDate} 
         onChange={handleChange}
-      />
+      /><br /><br />
 
       <select
         name="Gender"
@@ -84,7 +94,7 @@ export function DonorForm(){
         <option value="" selected disabled>Select Gender</option>
         <option value="Male">Male</option>
         <option value="Female">Female</option>
-      </select>
+      </select><br /><br />
 
       <input
         type="text"
@@ -92,7 +102,22 @@ export function DonorForm(){
         value={DonorData.City}
         onChange={handleChange}
         placeholder="City"
-      />
+      /><br /><br />
+
+      <input
+        type="text"
+        name="Address"
+        value={DonorData.Address}
+        onChange={handleChange}
+        placeholder="Address"
+      /><br /><br />
+
+      <input
+        type="file"
+        name="Image"
+        onChange={handleChange}
+        placeholder="Image"
+      /><br /><br />
 
       <select
         name="blood_id"
@@ -103,12 +128,12 @@ export function DonorForm(){
             <option value="" selected disabled>Select bloodType</option>
             {BloodType.map((bloodType) => (
                 <>
-                    <option key={bloodType.id} value={bloodType.id}>{bloodType.Name}</option>
+                    <option key={bloodType.id} value={bloodType.id}>{bloodType.BloodType    }</option>
                 </>
             
     ))}
 
-      </select>
+      </select><br /><br />
 
       <input
         type="email"
@@ -116,7 +141,7 @@ export function DonorForm(){
         value={DonorData.Email}
         onChange={handleChange}
         placeholder="Email"
-      />
+      /><br /><br />
 
       <input
         type="password"
@@ -124,7 +149,7 @@ export function DonorForm(){
         value={DonorData.EncryptedPassword}
         onChange={handleChange}
         placeholder="Password"
-      />
+      /><br /><br />
       <button type="submit">Submit</button>
     </form>
       )
