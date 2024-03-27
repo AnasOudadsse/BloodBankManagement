@@ -6,6 +6,7 @@ export function HospitalStaffForm(){
 
     const [Hospitals, setHospitals] = useState([])
     const [HospitalStaffData, setHospitalStaffData] = useState({
+        Cin: '',
         Name : '',
         PhoneNumber: '',
         Email: '',
@@ -53,11 +54,19 @@ export function HospitalStaffForm(){
       <form onSubmit={handleSubmit}>
       <input
         type="text"
+        name="Cin"
+        value={HospitalStaffData.Cin}
+        onChange={handleChange}
+        placeholder="Cin"
+      /><br /> <br />
+
+      <input
+        type="text"
         name="Name"
         value={HospitalStaffData.Name}
         onChange={handleChange}
         placeholder="Full Name"
-      />
+      /><br /> <br />
 
       <input
         type="tel"
@@ -65,14 +74,14 @@ export function HospitalStaffForm(){
         value={HospitalStaffData.PhoneNumber}
         onChange={handleChange}
         placeholder="Phone Number"
-      />
+      /><br /> <br />
 
       <input
         type="date"
         name="BirthDate"
         value={HospitalStaffData.BirthDate}
         onChange={handleChange}
-      />
+      /><br /> <br />
 
       <select
         name="Gender"
@@ -82,7 +91,7 @@ export function HospitalStaffForm(){
         <option value="" selected disabled>Select Gender</option>
         <option value="Male">Male</option>
         <option value="Female">Female</option>
-      </select>
+      </select><br /> <br />
 
       <input
         type="text"
@@ -90,7 +99,7 @@ export function HospitalStaffForm(){
         value={HospitalStaffData.Position}
         onChange={handleChange}
         placeholder="Position"
-      />
+      /><br /> <br />
 
       <select
         name="hospital_id"
@@ -107,7 +116,7 @@ export function HospitalStaffForm(){
             
     ))}
 
-      </select>
+      </select><br /> <br />
 
       <input
         type="email"
@@ -115,7 +124,7 @@ export function HospitalStaffForm(){
         value={HospitalStaffData.Email}
         onChange={handleChange}
         placeholder="Email"
-      />
+      /><br /> <br />
 
       <input
         type="password"
@@ -123,7 +132,7 @@ export function HospitalStaffForm(){
         value={HospitalStaffData.EncryptedPassword}
         onChange={handleChange}
         placeholder="Password"
-      />
+      /><br /> <br />
       <button type="submit">Submit</button>
     </form>
       )

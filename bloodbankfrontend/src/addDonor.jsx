@@ -6,6 +6,7 @@ export function DonorForm(){
 
     const [BloodType, setBloodType] = useState([])
     const [DonorData, setDonorData] = useState({
+        Cin: '',
         Name : '',
         PhoneNumber: '',
         Email: '',
@@ -63,6 +64,15 @@ export function DonorForm(){
 
       return (
       <form onSubmit={handleSubmit} encType="multipart/form-data">
+
+      <input
+        type="text"
+        name="Cin"
+        value={DonorData.Cin}
+        onChange={handleChange}
+        placeholder="Cin"
+      />
+      <br /><br />
       <input
         type="text"
         name="Name"

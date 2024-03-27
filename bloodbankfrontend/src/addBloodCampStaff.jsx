@@ -6,6 +6,7 @@ export function BloodCampStaffForm(){
 
     const [BloodCamps, setBloodCamps] = useState([])
     const [BloodCampStaffData, setBloodCampStaffData] = useState({
+        Cin: '',
         Name : '',
         PhoneNumber: '',
         Email: '',
@@ -51,6 +52,15 @@ export function BloodCampStaffForm(){
       <form onSubmit={handleSubmit}>
       <input
         type="text"
+        name="Cin"
+        value={BloodCampStaffData.Cin}
+        onChange={handleChange}
+        placeholder="Cin"
+      />
+
+      <br /><br />
+      <input
+        type="text"
         name="Name"
         value={BloodCampStaffData.Name}
         onChange={handleChange}
@@ -63,14 +73,14 @@ export function BloodCampStaffForm(){
         value={BloodCampStaffData.PhoneNumber}
         onChange={handleChange}
         placeholder="Phone Number"
-      />
+      /> <br /><br />
 
       <input
         type="date"
         name="BirthDate"
         value={BloodCampStaffData.BirthDate}
         onChange={handleChange}
-      />
+      /> <br /> <br />
 
       <select
         name="Gender"
@@ -81,6 +91,7 @@ export function BloodCampStaffForm(){
         <option value="Male">Male</option>
         <option value="Female">Female</option>
       </select>
+      <br /> <br />
 
       <select
         name="blood_camp_id"
@@ -97,7 +108,7 @@ export function BloodCampStaffForm(){
             
     ))}
 
-      </select>
+      </select><br /> <br />
 
       <input
         type="email"
@@ -105,7 +116,7 @@ export function BloodCampStaffForm(){
         value={BloodCampStaffData.Email}
         onChange={handleChange}
         placeholder="Email"
-      />
+      /><br /> <br />
 
       <input
         type="password"
@@ -113,7 +124,7 @@ export function BloodCampStaffForm(){
         value={BloodCampStaffData.EncryptedPassword}
         onChange={handleChange}
         placeholder="Password"
-      />
+      /><br /> <br />
       <button type="submit">Submit</button>
     </form>
       )
