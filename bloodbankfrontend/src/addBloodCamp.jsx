@@ -49,14 +49,14 @@ export function BloodCampForm(){
           placeholder="Address"
         />
         <input
-          type="date"
+          type="datetime-local"
           name="StartTime"
           value={BloodCampData.PhoneNumber}
           onChange={handleChange}
           placeholder="Start Date"
         />
         <input
-          type="date"
+          type="datetime-local"
           name="EndTime"
           value={BloodCampData.PhoneNumber}
           onChange={handleChange}
