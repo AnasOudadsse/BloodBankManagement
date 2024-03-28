@@ -2,11 +2,11 @@
 
 use App\Http\Controllers\BloodCampController;
 use App\Http\Controllers\BloodCampStaffController;
+use App\Http\Controllers\BloodRequestController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\DonorController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\HospitalStaffController;
-use App\Models\BloodCampStaff;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -47,3 +47,4 @@ route::get('searchBloodCamps', [DonationController::class, 'searchBloodCamps']);
 
 route::post('addDonation', [DonationController::class, 'storeDonation']);
 
+route::post('addBloodRequest', [BloodRequestController::class, 'store']);
