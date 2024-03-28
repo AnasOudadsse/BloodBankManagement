@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import AsyncSelect from 'react-select/async';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { DonorForm } from './addDonor';
 
 export const DonationForm = () => {
 
@@ -66,29 +68,32 @@ export const DonationForm = () => {
       console.log(response.data);
       // Handle success (clear form, show success message)
     } catch (error) {
-      console.error('Failed to record donation', error);
+      console.error('Failed to record donation', error.response.data);
+      console.log(donationData);
       // Handle error (show error message)
     }
   };
 
   return (
+    <>
     <form onSubmit={handleFormSubmit} class="max-w-sm mx-auto">
+        <br /><br />
       <AsyncSelect
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         cacheOptions
         loadOptions={loadDonorOptions}
         defaultOptions
-        onChange={handleInputChange('donor')}
+        onChange={handleInputChange('donor_cin')}
         placeholder="Search and select a donor..."
-      />
+      /> <br />
       <AsyncSelect
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         cacheOptions
         loadOptions={loadBloodCampOptions}
         defaultOptions
-        onChange={handleInputChange('bloodCamp')}
+        onChange={handleInputChange('blood_camp_id')}
         placeholder="Search and select a blood camp..."
-      />
+      /> <br />
       <select
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
         name="blood_id"
@@ -127,6 +132,10 @@ export const DonationForm = () => {
       <button type="submit"       class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
     >Record Donation</button>
     </form>
+
+    <Link to={'/addDonor'}> Donor not registered? Register now! </Link>
+
+    </>
   );
 };
 

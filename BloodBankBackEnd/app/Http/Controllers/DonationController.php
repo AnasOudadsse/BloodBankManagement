@@ -34,9 +34,9 @@ class DonationController extends Controller
             $validated = $request->validate([
                 'donor_cin' => 'required',
                 'blood_camp_id' => 'required',
-                'quantity' => 'required|numeric',
-                'date' => 'required|date',
-                'blood_type' => 'required', 
+                'QuantityDonated' => 'required|numeric',
+                'DonationDate' => 'required|date',
+                'blood_type_id' => 'required', 
             ]);
     
             // Create the donation record with the validated data
