@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\BloodCampController;
 use App\Http\Controllers\BloodCampStaffController;
+use App\Http\Controllers\DonationController;
 use App\Http\Controllers\DonorController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\HospitalStaffController;
@@ -39,3 +40,10 @@ route::Post('/addBloodCampStaff', [BloodCampStaffController::class, 'storeBloodC
 route::get('/getBloodType', [DonorController::class, 'getBloodType']);
 
 route::Post('/addDonor', [DonorController::class, 'storeDonor']);
+
+route::get('searchDonors', [DonationController::class, 'searchDonors']);
+
+route::get('searchBloodCamps', [DonationController::class, 'searchBloodCamps']);
+
+route::post('addDonation', [DonationController::class, 'storeDonation']);
+

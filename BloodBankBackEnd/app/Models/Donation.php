@@ -34,6 +34,6 @@ class Donation extends Model
 
 
     
-    protected $fillable = ['QuantityDonated', 'DonationDate', 'donor_id', 'blood_type_id', 'blood_camp_id'];
+    protected $fillable = ['QuantityDonated', 'DonationDate', 'donor_cin', 'blood_type_id', 'blood_camp_id'];
 
 }
