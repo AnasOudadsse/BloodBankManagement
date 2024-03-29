@@ -5,7 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class inventory extends Model
+class Inventory extends Model
 {
     use HasFactory;
+
+    public function bloodtype(){
+        return $this->belongsTo(BloodType::class);
+
+    }
 }

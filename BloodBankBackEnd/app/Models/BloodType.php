@@ -23,6 +23,12 @@ class BloodType extends Model
     public function BloodRequest(){
         return $this->hasMany(BloodRequest::class);
     }
+
+    public function inventory(){
+        return $this->hasOne(Inventory::class);
+    }
+
+
     
 
     protected $fillable = ['BloodType'];
