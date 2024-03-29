@@ -14,5 +14,9 @@ class BloodBank extends Model
         return $this->hasMany(BloodBankAdmin::class);
     }
 
-    protected $fillable = ['QuantityAvailable'];
+    public function inventory(){
+        return $this->hasMany(Inventory::class);
+    }
+
+    protected $fillable = ['Name','Address', 'Phone' ];
 }

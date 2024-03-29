@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('blood_type_id')->constrained('blood_types');
+            $table->foreignId('blood_bank_id')->constrained('blood_banks');   
             $table->integer('quantity_available');
         });
     }

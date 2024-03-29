@@ -13,4 +13,11 @@ class Inventory extends Model
         return $this->belongsTo(BloodType::class);
 
     }
+
+    public function bloodBank(){
+        return $this->belongsTo(BloodBank::class);
+
+    }
+
+    protected  $fillable = ['blood_type_id','blood_bank_id','quantity_available'];
 }
