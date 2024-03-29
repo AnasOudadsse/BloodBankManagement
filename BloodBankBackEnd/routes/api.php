@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BloodBankController;
 use App\Http\Controllers\BloodCampController;
 use App\Http\Controllers\BloodCampStaffController;
 use App\Http\Controllers\BloodRequestController;
@@ -48,3 +49,5 @@ route::get('searchBloodCamps', [DonationController::class, 'searchBloodCamps']);
 route::post('addDonation', [DonationController::class, 'storeDonation']);
 
 route::post('addBloodRequest', [BloodRequestController::class, 'store']);
+
+route::post('addAdmin', [BloodBankController::class , 'store']);
