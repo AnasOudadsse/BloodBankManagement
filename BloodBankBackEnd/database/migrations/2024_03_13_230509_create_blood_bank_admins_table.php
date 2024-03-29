@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('Gender');
             $table->string('EncryptedPassword');
             $table->string('Role');
+            $table->boolean('is_super_admin')->default(false);
             $table->foreignId('blood_bank_id');
         });
     }
