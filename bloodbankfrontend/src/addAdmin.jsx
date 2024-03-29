@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-export function HospitalStaffForm(){
+export function AdminForm(){
 
     const [AdminData, setAdminData] = useState({
         Cin: '',
