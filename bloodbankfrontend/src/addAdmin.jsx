@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 export function HospitalStaffForm(){
 
-    const [Hospitals, setHospitals] = useState([])
-    const [HospitalStaffData, setHospitalStaffData] = useState({
+    const [AdminData, setAdminData] = useState({
         Cin: '',
         Name : '',
         PhoneNumber: '',
@@ -14,34 +13,17 @@ export function HospitalStaffForm(){
         EncryptedPassword: '',
         Role: 'Admin',
         is_super_admin: false,
-        blood_bank_id: ''
+        blood_bank_id: '1'
     })  
-    console.log(Hospitals)
-
-    useEffect( () =>
-    {
-        const fetchHospitals = async ()=>
-        {
-            try {
-                const response = await axios.get('http://127.0.0.1:8000/api/getHospitals');
-                setHospitals(response.data);
-                console.log(response.data)
-            }catch (error) {
-                console.error('Failed to fetch hospitals', error);
-            }
-        }
-        fetchHospitals();
-    },[]
-    )
 
     const handleChange = (e)=>{
-        setHospitalStaffData({...HospitalStaffData, [e.target.name]: e.target.value})
+        setAdminData({...AdminData, [e.target.name]: e.target.value})
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-          await axios.post('http://127.0.0.1:8000/api/addHospitalStaff', HospitalStaffData);
+          await axios.post('http://127.0.0.1:8000/api/addAdmin', AdminData);
           // Handle success (e.g., clear form, show success message)
         } catch (error) {
           console.error('Failed to submit form', error);
@@ -54,7 +36,7 @@ export function HospitalStaffForm(){
       <input
         type="text"
         name="Cin"
-        value={HospitalStaffData.Cin}
+        value={AdminData.Cin}
         onChange={handleChange}
         placeholder="Cin"
       /><br /> <br />
@@ -62,7 +44,7 @@ export function HospitalStaffForm(){
       <input
         type="text"
         name="Name"
-        value={HospitalStaffData.Name}
+        value={AdminData.Name}
         onChange={handleChange}
         placeholder="Full Name"
       /><br /> <br />
@@ -70,7 +52,7 @@ export function HospitalStaffForm(){
       <input
         type="tel"
         name="PhoneNumber"
-        value={HospitalStaffData.PhoneNumber}
+        value={AdminData.PhoneNumber}
         onChange={handleChange}
         placeholder="Phone Number"
       /><br /> <br />
@@ -78,13 +60,13 @@ export function HospitalStaffForm(){
       <input
         type="date"
         name="BirthDate"
-        value={HospitalStaffData.BirthDate}
+        value={AdminData.BirthDate}
         onChange={handleChange}
       /><br /> <br />
 
       <select
         name="Gender"
-        value={HospitalStaffData.Gender}
+        value={AdminData.Gender}
         onChange={handleChange}
       >
         <option value="" selected disabled>Select Gender</option>
@@ -92,35 +74,11 @@ export function HospitalStaffForm(){
         <option value="Female">Female</option>
       </select><br /> <br />
 
-      <input
-        type="text"
-        name="Position"
-        value={HospitalStaffData.Position}
-        onChange={handleChange}
-        placeholder="Position"
-      /><br /> <br />
-
-      <select
-        name="hospital_id"
-        value={HospitalStaffData.hospital_id}
-        onChange={handleChange}
-      >                    
-      
-            <option value="" selected disabled>Select Hospital</option>
-            {Hospitals.map((hospital) => (
-                <>
-                    <option key={hospital.id} value={hospital.id}>{hospital.Name}</option>
-                </>
-                
-            
-    ))}
-
-      </select><br /> <br />
 
       <input
         type="email"
         name="Email"
-        value={HospitalStaffData.Email}
+        value={AdminData.Email}
         onChange={handleChange}
         placeholder="Email"
       /><br /> <br />
@@ -128,7 +86,7 @@ export function HospitalStaffForm(){
       <input
         type="password"
         name="EncryptedPassword"
-        value={HospitalStaffData.EncryptedPassword}
+        value={AdminData.EncryptedPassword}
         onChange={handleChange}
         placeholder="Password"
       /><br /> <br />
