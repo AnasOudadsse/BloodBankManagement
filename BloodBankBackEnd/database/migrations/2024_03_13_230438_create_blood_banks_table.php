@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('blood_banks', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer('QuantityAvailable');
+            $table->string('Name');
+            $table->text('Address');
+            $table->integer('Phone');
         });
     }
 
