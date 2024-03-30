@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->boolean('IsGood');
+            $table->string('lab_tech_cin');
             $table->foreignId('donation_id')->constrained();
             $table->foreign('lab_tech_cin')->references('Cin')->on('lab_teches');
         });
