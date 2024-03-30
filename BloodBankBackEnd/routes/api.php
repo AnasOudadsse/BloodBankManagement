@@ -9,6 +9,7 @@ use App\Http\Controllers\DonationController;
 use App\Http\Controllers\DonorController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\HospitalStaffController;
+use App\Http\Controllers\LabTechController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -52,3 +53,6 @@ route::post('addDonation', [DonationController::class, 'storeDonation']);
 route::post('addBloodRequest', [BloodRequestController::class, 'store']);
 
 route::post('addAdmin', [BloodBankAdminController::class , 'store']);
+
+route::post('addLabTech', [LabTechController::class , 'store']);
+
