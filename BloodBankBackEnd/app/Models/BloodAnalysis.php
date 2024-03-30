@@ -20,5 +20,5 @@ class BloodAnalysis extends Model
 
 
 
-    protected $fillable = ['IsGood', 'lab_tech_cin' ,'donation_id'];
+    protected $fillable = ['IsGood','AnalysisReport' ,'lab_tech_cin' ,'donation_id'];
 }
