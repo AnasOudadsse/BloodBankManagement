@@ -13,31 +13,11 @@ export const AnalysisForm = () => {
   });
 
 
-
-  // Use the id to fetch data or for form submission
-
-
-
   const handleChange = (e) =>{
-    setAnalysisData({...AnalysisData , [e.target.name]: e.target.name})
+    setAnalysisData({...AnalysisData , [e.target.name]: e.target.value})
   }
 
-  // useEffect( () =>
-  // {
-  //     const fetchDonation = async ()=>
-  //     {
-  //         try {
-  //             const response = await axios.get('http://127.0.0.1:8000/api/getDonations');
-  //             setdonationData(response.data);
-  //             console.log("response", response.data)
-  //             console.log(response.data)
-  //         }catch (error) {
-  //             console.error('Failed to fetch BloodCamps', error);
-  //         }
-  //     }
-  //     fetchDonation();
-  // },[]
-  // )
+
   useEffect(
     ()=>{
         const fetchDonation = async () =>
@@ -98,7 +78,7 @@ export const AnalysisForm = () => {
         <label htmlFor="good-blood" className="text-sm font-medium text-gray-600">
           Good Blood:
         </label>
-        <select onChange={handleChange} id="good-blood" className="mt-1 block w-full p-2 border border-gray-300 bg-white rounded shadow-sm">
+        <select onChange={handleChange} name='isGood' className="mt-1 block w-full p-2 border border-gray-300 bg-white rounded shadow-sm">
           <option>Select</option>
           <option value="yes">Yes</option>
           <option value="no">No</option>
@@ -108,9 +88,13 @@ export const AnalysisForm = () => {
         <label htmlFor="picture" className="text-sm font-medium text-gray-600">
           Picture:
         </label>
-        <input onChange={handleChange} id="picture" type="file" className="mt-1 block w-full p-2 border border-gray-300 bg-white rounded shadow-sm"/>
+        <input onChange={handleChange} name='AnalysisReport' type="file" className="mt-1 block w-full p-2 border border-gray-300 bg-white rounded shadow-sm"/>
       </div>
+      <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-700">
+        Submit
+      </button>
     </div>
+
     </form>
  
 
