@@ -9,6 +9,7 @@ import DonationForm from './addDonation';
 import { BloodRequestForm } from './addBloodRequest';
 import { AdminForm } from './addAdmin';
 import { LabTechForm } from './addLabTech';
+import DonationListView from './DonationList';
 function App() {
   return (
     <BrowserRouter>
@@ -22,6 +23,7 @@ function App() {
           <Route path='/addBloodRequest'  element={<BloodRequestForm/>} />
           <Route path='/addAdmin' element={<AdminForm/>} />
           <Route path="/addLabTech" element={<LabTechForm/>} />
+          <Route path='donationList' element={<DonationListView/>} />
       </Routes>
     </BrowserRouter>
   );

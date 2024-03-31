@@ -56,3 +56,5 @@ route::post('addAdmin', [BloodBankAdminController::class , 'store']);
 
 route::post('addLabTech', [LabTechController::class , 'store']);
 
+route::get('donationList', [DonationController::class , 'getDonationsWithDonors']);
+
