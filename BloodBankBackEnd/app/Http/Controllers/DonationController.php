@@ -50,6 +50,11 @@ class DonationController extends Controller
 
             return  response()->json($DonationsWithDonors);
         }
+
+        public function getDonations($id){
+            $donations =Donation::with('donor')->find($id);
+            return response()->json($donations);
+        }
     
 
 }

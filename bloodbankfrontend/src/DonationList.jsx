@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const DonationListView = () => {
   const [donationsWithDonors, setdonationsWithDonors] = useState([]);
@@ -46,7 +47,7 @@ const DonationListView = () => {
               <td class="px-6 py-4">{donation.donor.Cin}</td>
               <td class="px-6 py-4">{donation.donor.Name}</td>
               <td class="px-6 py-4">
-                <a href={`/donations/${donation.id}/report`}>Add Report</a>
+              <Link to={`/addAnalysis/${donation.id}`}>Add Report</Link>
               </td>
             </tr>
           ))}

@@ -58,3 +58,6 @@ route::post('addLabTech', [LabTechController::class , 'store']);
 
 route::get('donationList', [DonationController::class , 'getDonationsWithDonors']);
 
+route::get('getDonations', [DonationController::class , 'getDonations']);
+
+Route::get('/addAnalysis/{id}', [DonationController::class , 'getDonations']);
