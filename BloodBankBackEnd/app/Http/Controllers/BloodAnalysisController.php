@@ -13,7 +13,7 @@ class BloodAnalysisController extends Controller
 
     public function store(Request $request){
         $validatedAnalysis = $request->validate([
-            'isGood' => ['required'],
+            'IsGood' => 'required',
             'AnalysisReport' => 'required',
             ]);
 
@@ -26,7 +26,7 @@ class BloodAnalysisController extends Controller
         }
         
         $analysisReport = new BloodAnalysis([
-            'isGood'  => $validatedAnalysis['isGood'],
+            'IsGood'  => $request->input('IsGood'),
             'AnalysisReport' => $reportPath
         ]);
 
