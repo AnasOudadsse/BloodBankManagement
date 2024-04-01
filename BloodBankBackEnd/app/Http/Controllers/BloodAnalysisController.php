@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AnalysisReport;
+use App\Models\BloodAnalysis;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 
@@ -13,7 +14,7 @@ class BloodAnalysisController extends Controller
     public function store(Request $request){
         $validatedAnalysis = $request->validate([
             'isGood' => ['required'],
-            'AnalysisReport' => 'required|file|mimes:pdf,docx',
+            'AnalysisReport' => 'required',
             ]);
 
         if ($request->hasFile('AnalysisReport')){
@@ -24,7 +25,7 @@ class BloodAnalysisController extends Controller
             Log::info('file not received');
         }
         
-        $analysisReport = new AnalysisReport([
+        $analysisReport = new BloodAnalysis([
             'isGood'  => $validatedAnalysis['isGood'],
             'AnalysisReport' => $reportPath
         ]);

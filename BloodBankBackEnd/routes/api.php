@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BloodAnalysisController;
 use App\Http\Controllers\BloodBankAdminController;
 use App\Http\Controllers\BloodBankController;
 use App\Http\Controllers\BloodCampController;
@@ -61,3 +62,5 @@ route::get('donationList', [DonationController::class , 'getDonationsWithDonors'
 route::get('getDonations', [DonationController::class , 'getDonations']);
 
 Route::get('/addAnalysis/{id}', [DonationController::class , 'getDonations']);
+
+route::post('addAnalysis', [BloodAnalysisController::class ,'store']);

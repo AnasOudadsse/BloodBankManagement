@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class BloodAnalysis extends Model
 {
     use HasFactory;
-
+    protected $table = 'blood_analysis';
     public function donation(){
         return $this->belongsTo(Donation::class);
     }

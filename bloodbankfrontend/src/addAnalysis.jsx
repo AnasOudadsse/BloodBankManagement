@@ -12,10 +12,16 @@ export const AnalysisForm = () => {
     AnalysisReport: ''
   });
 
+  console.log(AnalysisData)
+
 
   const handleChange = (e) =>{
+    if (e.target.name === "AnalysisReport") {
+      // For file inputs, store the File object directly
+      setAnalysisData({ ...AnalysisData, AnalysisReport: e.target.files[0] });
+  } else {
     setAnalysisData({...AnalysisData , [e.target.name]: e.target.value})
-  }
+  }}
 
 
   useEffect(
@@ -40,11 +46,15 @@ export const AnalysisForm = () => {
   const handleSubmit = async (e) => {
       e.preventDefault();
 
-      try{
-        await axios.post('http://127.0.0.1:8000/api/addAnalysis', AnalysisData);
-      }
-      catch(error){
-        console.error('Failed to submit form', error);
+      try {
+        const response = await axios.post('http://127.0.0.1:8000/api/addAnalysis', AnalysisData, {
+          headers: {
+            'Content-Type': 'multipart/form-data'
+          }
+        });
+        console.log('Form submission successful', response.data);
+      } catch (error) {
+        console.error('Failed to submit form', error.response?.data || error);
       }
   }
 

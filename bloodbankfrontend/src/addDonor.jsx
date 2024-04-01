@@ -20,6 +20,8 @@ export function DonorForm(){
         blood_id: ''
     })  
 
+    console.log(DonorData)
+
     useEffect( () =>
     {
         const fetchBloodType = async ()=>
