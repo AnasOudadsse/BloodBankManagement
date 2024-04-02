@@ -10,7 +10,10 @@ export function SendNotificationForm() {
     bloodType: "",
     city: "",
   });
-  const [message, setMessage] = useState("");
+  const [notificationData, setNotificationData] = useState({
+    title: '',
+    message: '',
+  });
 
   useEffect(() => {
     // Fetch criteria for blood types and cities
@@ -37,17 +40,21 @@ export function SendNotificationForm() {
     }));
   };
 
-  const handleMessageChange = (e) => {
-    setMessage(e.target.value);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setNotificationData(prevState => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       // Adjust URL to your API endpoint
-      await axios.post("http://127.0.0.1:8000/api/sendNotification", {
+      await axios.post("http://127.0.0.1:8000/api/addNotification", {
         ...selectedCriteria,
-        message,
+        notificationData,
       });
       console.log("Notification sent successfully");
       // Reset form or give feedback to the user
@@ -99,6 +106,19 @@ export function SendNotificationForm() {
             ))}
           </select>
         </div>
+        <label htmlFor="title" className="block text-sm font-medium text-gray-700">
+            Title
+          </label>
+        <input
+          className="p-3 md:p-4 w-full border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            id="title"
+            type="text"
+            name="title"
+            value={notificationData.title}
+            onChange={handleChange}
+            required
+            placeholder="Notification Title"
+        />
 
         <div>
           <label htmlFor="message" className="block text-sm font-medium text-gray-700">
@@ -107,8 +127,8 @@ export function SendNotificationForm() {
           <textarea
             id="message"
             name="message"
-            value={message}
-            onChange={handleMessageChange}
+            value={notificationData.message}
+            onChange={handleChange }
             rows="4"
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
             placeholder="Type your notification message here"
