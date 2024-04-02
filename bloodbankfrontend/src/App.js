@@ -12,7 +12,7 @@ import { LabTechForm } from './addLabTech';
 import DonationListView from './DonationList';
 import { AnalysisForm } from './addAnalysis';
 import Dashboard from './Dashboard';
-import DonorView from './donorView1';
+import { SendNotificationForm } from './addNotification';
 function App() {
   return (
     <BrowserRouter>
@@ -29,7 +29,7 @@ function App() {
           <Route path='donationList' element={<DonationListView/>} />
           <Route path="/addAnalysis/:id" element={<AnalysisForm/>} />
           <Route path="/Dashboard" element={<Dashboard/>} />
-          <Route path="/DonorView" element={<DonorView/>} />
+          <Route path='/addNotif' element={<SendNotificationForm/>}   />
       </Routes>
     </BrowserRouter>
   );
