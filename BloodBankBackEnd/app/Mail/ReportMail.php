@@ -5,6 +5,7 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
@@ -16,29 +17,20 @@ class ReportMail extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct()
+    public $reportPdf;
+    public $donorName;
+
+    public function __construct($reportPdf,  $donorName)
     {
-        //
+        $this->reportPdf = $reportPdf;
+        $this->donorName = $donorName;
     }
 
-    /**
-     * Get the message envelope.
-     */
-    public function envelope(): Envelope
+    public function build()
     {
-        return new Envelope(
-            subject: 'Report Mail',
-        );
-    }
-
-    /**
-     * Get the message content definition.
-     */
-    public function content(): Content
-    {
-        return new Content(
-            view: 'view.name',
-        );
+        return $this->view('mail.test-email')
+                    ->subject('Your Blood Analysis Repory')
+                    ->with(['reportPdf' => $this->reportPdf, 'donorName' => $this->donorName]);
     }
 
     /**
@@ -48,6 +40,8 @@ class ReportMail extends Mailable
      */
     public function attachments(): array
     {
-        return [];
+        return [
+            Attachment::fromPath($this->reportPdf)
+        ];
     }
 }
