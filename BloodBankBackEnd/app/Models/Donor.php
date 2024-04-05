@@ -8,9 +8,11 @@ use App\Models\Notification;
 use App\Models\AnalysisReport;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Notifications\Notifiable;
 
 class Donor extends Model
 {
+    use Notifiable;
     use HasFactory;
 
     public function donation(){

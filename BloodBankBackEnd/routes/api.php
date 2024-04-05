@@ -11,6 +11,7 @@ use App\Http\Controllers\DonorController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\HospitalStaffController;
 use App\Http\Controllers\LabTechController;
+use App\Http\Controllers\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -64,3 +65,5 @@ route::get('getDonations', [DonationController::class , 'getDonations']);
 Route::get('/addAnalysis/{id}', [DonationController::class , 'getDonations']);
 
 route::post('addAnalysis', [BloodAnalysisController::class ,'store']);
+
+route::post('addNotification', [DonorController::class, 'send']);

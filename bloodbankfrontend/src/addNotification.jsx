@@ -4,7 +4,7 @@ import Cities from './MoroccanCities.json'
 export function SendNotificationForm() {
   const [criteria, setCriteria] = useState({
     bloodTypes: [],
-    cities: [],
+    cities: Cities,
   });
   const [selectedCriteria, setSelectedCriteria] = useState({
     bloodType: "",
@@ -15,22 +15,25 @@ export function SendNotificationForm() {
     message: '',
   });
 
+
+
   useEffect(() => {
-    // Fetch criteria for blood types and cities
-    const fetchCriteria = async () => {
+    const fetchBloodTypes = async () => {
       try {
-        // Adjust URLs to your API endpoints
-        const BloodTypes = await axios.get("http://127.0.0.1:8000/api/bloodTypes");
-        setCriteria({
-          bloodTypes: BloodTypes.data,
-          cities: Cities.data,
-        });
+        const response = await axios.get("http://127.0.0.1:8000/api/getBloodType");
+        setCriteria((prevCriteria) => ({
+          ...prevCriteria,
+          bloodTypes: response.data,
+        }));
       } catch (error) {
-        console.error("Failed to fetch criteria", error);
+        console.error("Failed to fetch blood types", error);
       }
     };
-    fetchCriteria();
+
+    fetchBloodTypes();
   }, []);
+  console.log(notificationData)
+
 
   const handleCriteriaChange = (e) => {
     const { name, value } = e.target;
@@ -52,14 +55,16 @@ export function SendNotificationForm() {
     e.preventDefault();
     try {
       // Adjust URL to your API endpoint
-      await axios.post("http://127.0.0.1:8000/api/addNotification", {
-        ...selectedCriteria,
-        notificationData,
+      await axios.post('http://127.0.0.1:8000/api/addNotification', notificationData, {
+        headers: {
+          'Content-Type': 'application/json',
+          // Include authentication headers if needed
+        }
       });
       console.log("Notification sent successfully");
       // Reset form or give feedback to the user
     } catch (error) {
-      console.error("Failed to send notification", error);
+      console.error("Failed to send notification", error.response.data);
     }
   };
 
@@ -98,11 +103,10 @@ export function SendNotificationForm() {
             onChange={handleCriteriaChange}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
           >
-            <option value="">Select City</option>
-            {criteria.cities.map((city) => (
-              <option key={city.id} value={city.name}>
-                {city.name}
-              </option>
+            {criteria.cities && criteria.cities.map((city) => (
+            <option key={city.id} value={city.ville}>
+                {city.ville}
+            </option>
             ))}
           </select>
         </div>
