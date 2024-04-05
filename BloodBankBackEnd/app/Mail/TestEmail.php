@@ -19,18 +19,20 @@ class TestEmail extends Mailable
      */
     public $title;
     public $emailContent;
+    public $donorName;
 
-    public function __construct($title, $emailContent)
+    public function __construct($title, $emailContent, $donorName)
     {
         $this->title = $title;
         $this->emailContent = $emailContent;
+        $this->donorName = $donorName;
     }
 
     public function build()
     {
         return $this->view('mail.test-email')
                     ->subject($this->title)
-                    ->with(['emailContent' => $this->emailContent]);
+                    ->with(['emailContent' => $this->emailContent, 'donorName' => $this->donorName]);
     }
 
 

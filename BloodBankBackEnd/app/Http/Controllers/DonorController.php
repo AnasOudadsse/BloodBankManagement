@@ -89,7 +89,8 @@ class DonorController extends Controller
 
         // $filePath = storage_path('app\public\donors\reports\WcmKzx8PKfTSvTKQNesflsjcI7H54k8Gw0Vn6r9R.pdf');
         foreach ($donors as $donor){
-                    Mail::to($donor->Email)->send(new TestEmail($title, $emailContent));
+                    $donorName =  $donor->Name;
+                    Mail::to($donor->Email)->send(new TestEmail($title, $emailContent, $donorName));
         }
     
         return 'Test email sent successfully.';

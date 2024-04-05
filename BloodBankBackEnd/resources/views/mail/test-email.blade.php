@@ -8,6 +8,7 @@
 </head>
 <body>
     <div>
+        <p>Dear {{ $donorName }},</p>
         <p>{{ $emailContent }}</p>
     </div>
     
