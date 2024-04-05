@@ -14,6 +14,7 @@ use App\Http\Controllers\LabTechController;
 use App\Http\Controllers\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Mail\TestEmail;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,3 +68,10 @@ Route::get('/addAnalysis/{id}', [DonationController::class , 'getDonations']);
 route::post('addAnalysis', [BloodAnalysisController::class ,'store']);
 
 route::post('addNotification', [DonorController::class, 'send']);
+
+Route::post('addNotification', function () {
+    $name = 'joe rogan';
+    Mail::to('milanouda2000@gmail.com')->send(new TestEmail($name));
+
+    return 'Test email sent successfully.';
+});
