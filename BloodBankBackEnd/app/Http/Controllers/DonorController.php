@@ -6,8 +6,9 @@ use App\Models\Donor;
 use App\Models\BloodType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use App\Notifications\DonorAlert;
-use Illuminate\Support\Facades\Notification;
+use App\Mail\TestEmail;
+use Illuminate\Support\Facades\Mail;
+
 
 class DonorController extends Controller
 {
@@ -66,4 +67,31 @@ class DonorController extends Controller
         return response()->json($donor, 201);
     }
 
+
+    public function sendAlertNotif(Request $request){
+        $validatedData = $request->validate([
+            'bloodType' => 'required',
+            'city' => 'required',
+            'title' => 'required',
+            'message' => 'required',
+        ]);
+
+        $bloodType = $validatedData['bloodType'];
+        $city = $validatedData['city'];
+    
+        $donors = Donor::where('blood_id', $bloodType)
+                       ->where('City', $city)
+                       ->get();
+
+
+        $title = $validatedData['title'];
+        $emailContent = $validatedData['message'];
+
+        // $filePath = storage_path('app\public\donors\reports\WcmKzx8PKfTSvTKQNesflsjcI7H54k8Gw0Vn6r9R.pdf');
+        foreach ($donors as $donor){
+                    Mail::to($donor->Email)->send(new TestEmail($title, $emailContent));
+        }
+    
+        return 'Test email sent successfully.';
+    }
 }

@@ -6,11 +6,9 @@ export function SendNotificationForm() {
     bloodTypes: [],
     cities: Cities,
   });
-  const [selectedCriteria, setSelectedCriteria] = useState({
+  const [notificationData, setNotificationData] = useState({
     bloodType: "",
     city: "",
-  });
-  const [notificationData, setNotificationData] = useState({
     title: '',
     message: '',
   });
@@ -37,7 +35,7 @@ export function SendNotificationForm() {
 
   const handleCriteriaChange = (e) => {
     const { name, value } = e.target;
-    setSelectedCriteria((prev) => ({
+    setNotificationData((prev) => ({
       ...prev,
       [name]: value,
     }));
@@ -79,13 +77,13 @@ export function SendNotificationForm() {
           <select
             id="bloodType"
             name="bloodType"
-            value={selectedCriteria.bloodType}
+            value={notificationData.bloodType}
             onChange={handleCriteriaChange}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
           >
             <option value="">Select Blood Type</option>
             {criteria.bloodTypes.map((type) => (
-              <option key={type.id} value={type.BloodType}>
+              <option key={type.id} value={type.id}>
                 {type.BloodType}
               </option>
             ))}
@@ -99,7 +97,7 @@ export function SendNotificationForm() {
           <select
             id="city"
             name="city"
-            value={selectedCriteria.city}
+            value={notificationData.city}
             onChange={handleCriteriaChange}
             className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md"
           >
