@@ -66,17 +66,4 @@ class DonorController extends Controller
         return response()->json($donor, 201);
     }
 
-    public function send(Request $request)
-    {
-        $validatedData = $request->validate([
-            'title' => 'required|string',
-            'message' => 'required|string',
-        ]);
-    
-        $users = Donor::all(); //
-        Notification::send($users, new DonorAlert($validatedData['title'], $validatedData['message']));
-    
-        return response()->json(['message' => 'Notification sent successfully.']);
-    }
-    
 }
