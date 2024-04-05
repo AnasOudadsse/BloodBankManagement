@@ -7,6 +7,10 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <div>
+        <p>
+            Dear {{ $donorName }}
+        </p>
+    </div>    
 </body>
 </html>

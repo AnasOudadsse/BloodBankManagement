@@ -14,6 +14,10 @@ class Donor extends Model
 {
     use Notifiable;
     use HasFactory;
+    protected $primaryKey = 'Cin';
+    public $incrementing = false;
+    protected $keyType = 'string';
+
 
     public function donation(){
         return $this->hasMany(Donation::class);

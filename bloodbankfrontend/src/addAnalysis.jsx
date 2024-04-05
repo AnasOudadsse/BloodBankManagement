@@ -12,7 +12,7 @@ export const AnalysisForm = () => {
     AnalysisReport: ''
   });
 
-  console.log(AnalysisData)
+
 
 
   const handleChange = (e) =>{
@@ -40,23 +40,36 @@ export const AnalysisForm = () => {
 
      } 
     fetchDonation()
-},[])
+},[id])
 
 
-  const handleSubmit = async (e) => {
-      e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-      try {
-        const response = await axios.post('http://127.0.0.1:8000/api/addAnalysis', AnalysisData, {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          }
-        });
-        console.log('Form submission successful', response.data);
-      } catch (error) {
-        console.error('Failed to submit form', error.response?.data || error);
-      }
+  const formData = new FormData();
+  formData.append('IsGood', AnalysisData.IsGood);
+  formData.append('donorCin', donationData.donor.Cin);
+  if (AnalysisData.AnalysisReport) {
+    formData.append('AnalysisReport', AnalysisData.AnalysisReport);
   }
+
+  try {
+    const response = await axios.post('http://127.0.0.1:8000/api/addAnalysis', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    for (let [key, value] of formData.entries()) {
+      console.log('formdata',key, value);
+    }
+    console.log('Form submission successful', response.data);
+  } catch (error) {
+    console.error('Failed to submit form', error.response?.data || error);
+    for (let [key, value] of formData.entries()) {
+      console.log('formdata',key, value);
+    }
+  }
+};
 
   return(
 

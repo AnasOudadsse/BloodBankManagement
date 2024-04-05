@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 const DonationListView = () => {
-  const [donationsWithDonors, setdonationsWithDonors] = useState([]);
+  const [donationsWithDonors, setDonationsWithDonors] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
 
   console.log(donationsWithDonors)
@@ -12,7 +12,7 @@ const DonationListView = () => {
     // Fetch donationsWithDonors when the component is mounted
     axios.get('http://127.0.0.1:8000/api/donationList')
       .then(response => {
-        setdonationsWithDonors(response.data);
+        setDonationsWithDonors(response.data);
       })
       .catch(error => {
         console.error('There was an error fetching the donationsWithDonors', error);
@@ -23,10 +23,17 @@ const DonationListView = () => {
     setSearchTerm(event.target.value);
   };
 
-  const filtereddonationsWithDonors = donationsWithDonors.filter(
-    donation =>
-      donation.donor.Cin.includes(searchTerm) || donation.donor.Name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredDonationsWithDonors = donationsWithDonors.filter(donation => {
+    // Using optional chaining to safely access nested properties
+    const donorCin = donation.donor?.Cin ?? '';
+    const donorName = donation.donor?.Name?.toLowerCase() ?? '';
+    
+    // Using toLowerCase() on searchTerm for case-insensitive comparison
+    const searchLower = searchTerm.toLowerCase();
+    
+    return donorCin.includes(searchLower) || donorName.includes(searchLower);
+  });
+
 
   return (
     <div>
@@ -41,17 +48,22 @@ const DonationListView = () => {
           </tr>
         </thead>
         <tbody>
-          {filtereddonationsWithDonors.map(donation => (
-            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700" key={donation.id}>
-              <td class="px-6 py-4">{donation.id}</td>
-              <td class="px-6 py-4">{donation.donor.Cin}</td>
-              <td class="px-6 py-4">{donation.donor.Name}</td>
-              <td class="px-6 py-4">
-              <Link to={`/addAnalysis/${donation.id}`}>Add Report</Link>
+          {filteredDonationsWithDonors.map(donation => (
+            <tr key={donation.id}>
+              <td>{donation.id}</td>
+              <td>{donation.donor?.Cin ?? 'N/A'}</td>
+              <td>{donation.donor?.Name ?? 'N/A'}</td>
+              <td>
+                {donation.donor ? (
+                  <Link to={`/addAnalysis/${donation.id}`}>Add Report</Link>
+                ) : (
+                  <span>No donor available</span>
+                )}
               </td>
             </tr>
           ))}
-        </tbody>
+</tbody>
+
       </table>
     </div>
   );
