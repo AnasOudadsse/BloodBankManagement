@@ -30,7 +30,6 @@ class BloodAnalysisController extends Controller
         $analysisReport->save();
 
         return response()->json($analysisReport, 201);
-
     }
 
     public function sendReport(Request $request){
