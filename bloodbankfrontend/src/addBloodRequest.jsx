@@ -8,7 +8,6 @@ export  const BloodRequestForm = () => {
     const [BloodRequest, setBloodRequest] = useState({
         Quantity: '',
         Urgency: '',
-        Status : '',
         blood_id : '',
         hospital_id : ''
 
@@ -89,7 +88,7 @@ export  const BloodRequestForm = () => {
             <option value="low">Low</option>
         </select> <br />
 
-        <select
+        {/* <select
             class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             name="Status"
             value={BloodRequest.Status}
@@ -100,7 +99,7 @@ export  const BloodRequestForm = () => {
             <option value="in_progress">In Progress</option>
             <option value="fulfilled">Fulfilled</option>
             <option value="cancelled">Cancelled</option>
-        </select> <br />
+        </select> <br /> */}
 
         <select        
         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
