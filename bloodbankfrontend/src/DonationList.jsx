@@ -50,10 +50,10 @@ const DonationListView = () => {
         <tbody>
           {filteredDonationsWithDonors.map(donation => (
             <tr key={donation.id}>
-              <td>{donation.id}</td>
-              <td>{donation.donor?.Cin ?? 'N/A'}</td>
-              <td>{donation.donor?.Name ?? 'N/A'}</td>
-              <td>
+              <td scope="col" class="px-6 py-3">{donation.id}</td>
+              <td scope="col" class="px-6 py-3">{donation.donor?.Cin ?? 'N/A'}</td>
+              <td scope="col" class="px-6 py-3">{donation.donor?.Name ?? 'N/A'}</td>
+              <td scope="col" class="px-6 py-3">
                 {donation.donor ? (
                   <Link to={`/addAnalysis/${donation.id}`}>Add Report</Link>
                 ) : (

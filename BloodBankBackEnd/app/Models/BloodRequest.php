@@ -16,7 +16,7 @@ class BloodRequest extends Model
     }
     
     public function bloodType(){
-        return $this->belongsTo(BloodType::class);
+        return $this->belongsTo(BloodType::class, 'blood_id');
     }
 
     protected $fillable = ['Quantity', 'Urgency', 'Status', 'blood_id', 'hospital_id'];

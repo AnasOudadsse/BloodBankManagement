@@ -13,6 +13,8 @@ import DonationListView from './DonationList';
 import { AnalysisForm } from './addAnalysis';
 import Dashboard from './Dashboard';
 import { SendNotificationForm } from './addNotification';
+import { ListedBloodRequests } from './ListBloodRequestHS';
+import InlineEditTable from './editRequestHS';
 function App() {
   return (
     <BrowserRouter>
@@ -30,6 +32,9 @@ function App() {
           <Route path="/addAnalysis/:id" element={<AnalysisForm/>} />
           <Route path="/Dashboard" element={<Dashboard/>} />
           <Route path='/addNotif' element={<SendNotificationForm/>}   />
+          <Route path='bloodRequestList' element={<ListedBloodRequests/>} />
+          <Route path='editable' element={<InlineEditTable/>} />
+
       </Routes>
     </BrowserRouter>
   );

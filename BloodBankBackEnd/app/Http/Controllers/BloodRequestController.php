@@ -11,7 +11,6 @@ class BloodRequestController extends Controller
         $validateRequest = $request->validate([
             'Quantity' => 'required',
             'Urgency'=> 'required',
-            'Status' => 'required',
             'blood_id' => 'required',
             'hospital_id' => 'required'
         ]);
@@ -19,5 +18,12 @@ class BloodRequestController extends Controller
         BloodRequest::create($validateRequest);
 
         return  response()->json(['message' => "Successfully Created"],201);
+    }
+
+
+    function getBloodRequetsWithBloodAndHospital(){
+        $bloodRequest = BloodRequest::with('bloodType','hospital')->get();
+
+        return  response()->json($bloodRequest);
     }
 }

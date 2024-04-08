@@ -71,3 +71,5 @@ route::post('addNotification', [DonorController::class, 'send']);
 Route::post('addNotification', [DonorController::class, 'sendAlertNotif'] );
 
 route::post('addAnalysis', [BloodAnalysisController::class, 'sendReport']);
+
+route::get('getBloodRequests', [BloodRequestController::class,'getBloodRequetsWithBloodAndHospital']);
