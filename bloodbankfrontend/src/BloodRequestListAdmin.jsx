@@ -3,9 +3,10 @@ import axios from 'axios';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-export function ListedBloodRequests() {
+export function ListedBloodRequestsAdmin() {
     const [BloodRequests, setBloodRequests] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [status, setStatus] = useState('');
 
     useEffect(() => {
         const fetchBloodRequests = async () => {
@@ -31,6 +32,10 @@ export function ListedBloodRequests() {
 
         return bloodRequestId.includes(searchLower) || HospitalName.toLowerCase().includes(searchLower);
     });
+
+    const updateStatus = (e) =>{
+        setStatus(e.target.value);
+    }
 
     return (
         <div>
@@ -61,11 +66,20 @@ export function ListedBloodRequests() {
                             <td className="px-6 py-3">{e.id}</td>
                             <td className="px-6 py-3">{e.Quantity}</td>
                             <td className="px-6 py-3">{e.Urgency}</td>
-                            <td className="px-6 py-3">{e.Status}</td>
+                            <td className="px-6 py-3"> 
+                                <select
+                                    value={status}
+                                    onChange={updateStatus}
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                                >
+                                    <option value="pending">Pending</option>
+                                    <option value="approved">Approved</option>
+                                    <option value="declined">Declined</option>
+                                    {/* Add more status options as needed */}
+                                </select></td>
                             <td className="px-6 py-3">{e.blood_type?.BloodType}</td>
                             <td className="px-6 py-3">{e.hospital?.Name ?? 'No hospital info'}</td>
                             <td className="px-6 py-3 w-10" > 
-                            <Link className='px-1' to={'/editable'}> <FontAwesomeIcon icon={faEdit}/> </Link> 
                             <Link className='px-1' >  <FontAwesomeIcon icon={faTrashAlt} /> </Link>
                             
                             </td>
