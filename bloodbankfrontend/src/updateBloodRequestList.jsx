@@ -80,6 +80,7 @@ export function ListedBloodRequestsAdmin() {
                             <td className="px-6 py-3">{e.blood_type?.BloodType}</td>
                             <td className="px-6 py-3">{e.hospital?.Name ?? 'No hospital info'}</td>
                             <td className="px-6 py-3 w-10" > 
+                            <Link className='px-1' >  <FontAwesomeIcon icon={faEdit} /> </Link>
                             <Link className='px-1' >  <FontAwesomeIcon icon={faTrashAlt} /> </Link>
                             
                             </td>
