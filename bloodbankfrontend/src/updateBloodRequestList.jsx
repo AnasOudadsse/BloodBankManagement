@@ -34,7 +34,7 @@ export function ListedBloodRequestsAdmin() {
     });
 
     const updateStatus = (e) =>{
-        setStatus(e.target.value);
+        e.target.value = status
     }
 
     return (
@@ -68,7 +68,7 @@ export function ListedBloodRequestsAdmin() {
                             <td className="px-6 py-3">{e.Urgency}</td>
                             <td className="px-6 py-3"> 
                                 <select
-                                    value={status}
+                                    value={e.Status}
                                     onChange={updateStatus}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 >

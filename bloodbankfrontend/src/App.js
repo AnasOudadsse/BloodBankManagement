@@ -15,7 +15,7 @@ import Dashboard from './Dashboard';
 import { SendNotificationForm } from './addNotification';
 import { ListedBloodRequests } from './ListBloodRequestHS';
 import InlineEditTable from './editRequestHS';
-import { ListedBloodRequestsAdmin } from './BloodRequestListAdmin';
+import { ListedBloodRequestsAdmin } from './updateBloodRequestList';
 function App() {
   return (
     <BrowserRouter>
