@@ -15,7 +15,7 @@ import Dashboard from './Dashboard';
 import { SendNotificationForm } from './addNotification';
 import { ListedBloodRequests } from './ListBloodRequest';
 import InlineEditTable from './editRequestHS';
-import { ListedBloodRequestsAdmin } from './updateBloodRequestList';
+import { ListedBloodRequestsAdmin, UpdateBloodRequest } from './updateBloodRequestList';
 function App() {
   return (
     <BrowserRouter>
@@ -34,7 +34,7 @@ function App() {
           <Route path="/Dashboard" element={<Dashboard/>} />
           <Route path='/addNotif' element={<SendNotificationForm/>}   />
           <Route path='bloodRequestList' element={<ListedBloodRequests/>} />
-          <Route path='bloodRequestListAdmin' element={<ListedBloodRequestsAdmin/>} />
+          <Route path='editBloodRequest/:id' element={<UpdateBloodRequest/>} />
           <Route path='editable' element={<InlineEditTable/>} />
 
       </Routes>

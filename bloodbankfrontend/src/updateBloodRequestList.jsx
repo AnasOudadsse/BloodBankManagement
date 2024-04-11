@@ -1,52 +1,30 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-export function ListedBloodRequestsAdmin() {
-    const [BloodRequests, setBloodRequests] = useState([]);
-    const [searchTerm, setSearchTerm] = useState('');
-    const [status, setStatus] = useState('');
+import { useParams } from 'react-router-dom';
 
+export function UpdateBloodRequest() {
+
+    let {id} = useParams()
+    const [BloodRequest, setBloodRequest] = useState([]);
+    // const [updatedBloodRequest, setUpdatedBloodRequest] = useState([]);
     useEffect(() => {
-        const fetchBloodRequests = async () => {
+        const fetchBloodRequest = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/getBloodRequests');
+                const response = await axios.get(`http://127.0.0.1:8000/api/editBloodRequest/${id}`);
                 console.log(response.data);
-                setBloodRequests(response.data);
+                setBloodRequest(response.data);
             } catch (err) {
                 console.log('Failed to fetch blood requests', err.response?.data);
             }
         };
-        fetchBloodRequests();
+        fetchBloodRequest();
     }, []);
 
-    const handleSearch = (event) => {
-        setSearchTerm(event.target.value);
-    };
 
-    const filteredBloodRequests = BloodRequests.filter(bloodRequest => {
-        const searchLower = searchTerm.toLowerCase();
-        const bloodRequestId = String(bloodRequest.id);
-        const HospitalName = bloodRequest.hospital?.Name ?? 'No hospital info available';
-
-        return bloodRequestId.includes(searchLower) || HospitalName.toLowerCase().includes(searchLower);
-    });
-
-    const updateStatus = (e) =>{
-        e.target.value = status
-    }
 
     return (
         <div>
-            <input
-                type="text"
-                name="searchBar"
-                placeholder="Search by request ID or hospital..."
-                value={searchTerm}
-                onChange={handleSearch}
-                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-            />
+
             <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
@@ -56,20 +34,22 @@ export function ListedBloodRequestsAdmin() {
                         <th scope="col" className="w-32 px-6 py-3">Status</th>
                         <th scope="col" className="w-32 px-6 py-3">Blood Type</th>
                         <th scope="col" className="w-48 px-6 py-3">Hospital name</th>
-                        <th scope="col" className="w-48 px-6 py-3">Action</th>
                         
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredBloodRequests.map((e) => (
+                    {BloodRequest.map((e) => (
                         <tr key={e.id}>
-                            <td className="px-6 py-3">{e.id}</td>
+                            <td className="px-6 py-3">
+                                <input type="text" 
+                                value={e.id}  
+                                />
+                            </td>
                             <td className="px-6 py-3">{e.Quantity}</td>
                             <td className="px-6 py-3">{e.Urgency}</td>
                             <td className="px-6 py-3"> 
                                 <select
                                     value={e.Status}
-                                    onChange={updateStatus}
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                                 >
                                     <option value="pending">Pending</option>
@@ -79,11 +59,6 @@ export function ListedBloodRequestsAdmin() {
                                 </select></td>
                             <td className="px-6 py-3">{e.blood_type?.BloodType}</td>
                             <td className="px-6 py-3">{e.hospital?.Name ?? 'No hospital info'}</td>
-                            <td className="px-6 py-3 w-10" > 
-                            <Link className='px-1' >  <FontAwesomeIcon icon={faEdit} /> </Link>
-                            <Link className='px-1' >  <FontAwesomeIcon icon={faTrashAlt} /> </Link>
-                            
-                            </td>
                         </tr>
                     ))}
                 </tbody>

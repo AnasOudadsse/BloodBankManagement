@@ -65,7 +65,7 @@ export function ListedBloodRequests() {
                             <td className="px-6 py-3">{e.blood_type?.BloodType}</td>
                             <td className="px-6 py-3">{e.hospital?.Name ?? 'No hospital info'}</td>
                             <td className="px-6 py-3 w-10" > 
-                            <Link className='px-1' to={'/editable'}> <FontAwesomeIcon icon={faEdit}/> </Link> 
+                            <Link className='px-1' to={`/editBloodRequest/${e.id}`}> <FontAwesomeIcon icon={faEdit}/> </Link> 
                             <Link className='px-1' >  <FontAwesomeIcon icon={faTrashAlt} /> </Link>
                             
                             </td>

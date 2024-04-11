@@ -26,4 +26,10 @@ class BloodRequestController extends Controller
 
         return  response()->json($bloodRequest);
     }
+
+    function getBloodRequest($id){
+        $bloodRequest = BloodRequest::with('bloodType','hospital')->where('id', $id)->get();
+
+       return response()->json($bloodRequest);
+    }
 }
