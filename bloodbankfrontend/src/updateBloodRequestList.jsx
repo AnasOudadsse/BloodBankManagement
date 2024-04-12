@@ -6,7 +6,7 @@ export function UpdateBloodRequest() {
     let { id } = useParams();
     const [BloodType, setBloodType] = useState([])
     const [Hospitals, setHospitals] = useState([])
-    const [bloodRequest, setBloodRequest] = useState(null); // Initialized as null
+    const [bloodRequest, setBloodRequest] = useState(null); 
 
     useEffect(() => {
         const fetchBloodRequest = async () => {
@@ -77,7 +77,6 @@ export function UpdateBloodRequest() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            // Adjust this payload as necessary for your backend
             const payload = {        
                 Quantity : bloodRequest.Quantity , 
                 // Status : bloodRequest.Status , 
