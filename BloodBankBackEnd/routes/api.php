@@ -75,3 +75,5 @@ route::post('addAnalysis', [BloodAnalysisController::class, 'sendReport']);
 route::get('getBloodRequests', [BloodRequestController::class,'getBloodRequetsWithBloodAndHospital']);
 
 route::get('editBloodRequest/{id}', [BloodRequestController::class,'getBloodRequest']);
+
+route::put('updateBloodRequest', [BloodRequestController::class,'updateBloodRequest']);

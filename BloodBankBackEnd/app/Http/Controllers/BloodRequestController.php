@@ -32,4 +32,17 @@ class BloodRequestController extends Controller
 
        return response()->json($bloodRequest);
     }
+
+    function updateBloodRequest(request $request){
+        $bloodRequest = BloodRequest::find($request->id);
+
+        $bloodRequest->update([
+            'Quantity' => $request->Quantity,
+            'Urgency'=> $request->Urgency ,
+            'blood_id' => $request->blood_id ,
+            'hospital_id' => $request->hospital_id
+        ]);
+
+        return response()->json("The data has been updated");
+    }
 }
