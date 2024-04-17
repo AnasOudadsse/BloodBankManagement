@@ -32,6 +32,18 @@ export function ListedBloodRequests() {
         return bloodRequestId.includes(searchLower) || HospitalName.toLowerCase().includes(searchLower);
     });
 
+
+    const deleteItem = async (id) =>{
+        try{
+            const response = await axios.post('http://127.0.0.1:8000/api/deleteRequest', id);
+
+        }
+        catch(err){
+            console.log('Failed to delete request', err.response?.data);
+        }
+
+
+    }
     return (
         <div>
             <input
@@ -66,7 +78,7 @@ export function ListedBloodRequests() {
                             <td className="px-6 py-3">{e.hospital?.Name ?? 'No hospital info'}</td>
                             <td className="px-6 py-3 w-10" > 
                             <Link className='px-1' to={`/editBloodRequest/${e.id}`}> <FontAwesomeIcon icon={faEdit}/> </Link> 
-                            <Link className='px-1' >  <FontAwesomeIcon icon={faTrashAlt} /> </Link>
+                            <button className='px-1' onClick={ ()=> deleteItem(e.id)} >  <FontAwesomeIcon icon={faTrashAlt} /> </button>
                             
                             </td>
                         </tr>

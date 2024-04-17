@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
-
+import { useNavigate, useParams } from 'react-router-dom';
 export function UpdateBloodRequest() {
     let { id } = useParams();
     const [BloodType, setBloodType] = useState([])
     const [Hospitals, setHospitals] = useState([])
     const [bloodRequest, setBloodRequest] = useState(null); 
+    let navigate = useNavigate();
+
+    useEffect(() => {
+        console.log('blood request',bloodRequest)
+    }, [bloodRequest]);
 
     useEffect(() => {
         const fetchBloodRequest = async () => {
@@ -44,6 +48,7 @@ export function UpdateBloodRequest() {
           {
               try {
                   const response = await axios.get('http://127.0.0.1:8000/api/getBloodType');
+                  console.log('bloodtype',response.data)
                   setBloodType(response.data);
               }catch (error) {
                   console.error('Failed to fetch BloodType', error);
@@ -89,6 +94,7 @@ export function UpdateBloodRequest() {
 
             const response = await axios.put(`http://127.0.0.1:8000/api/updateBloodRequest`, payload);
             if (response.status === 200) {
+                navigate('/bloodrequestlist')
                 alert('Blood request updated successfully');
             } else {                
                 console.log('payload',payload)
@@ -123,7 +129,13 @@ export function UpdateBloodRequest() {
                                 <input type="number" value={bloodRequest.Quantity} onChange={(e) => handleInputChange('Quantity', e.target.value)} />
                             </td>
                             <td className="px-6 py-3">
-                                <input type="text" value={bloodRequest.Urgency} onChange={(e) => handleInputChange('Urgency', e.target.value)} />
+                                <select name="Urgency"  value={bloodRequest.Urgency}  onChange={(e) => handleInputChange('Urgency', e.target.value)}  >
+                                    <option value="" disabled>Select Urgency</option>
+                                    <option value="immediate">Immediate</option>
+                                    <option value="high">High</option>
+                                    <option value="medium">Medium</option>
+                                    <option value="low">Low</option>
+                                </select>
                             </td>
                             {/* <td className="px-6 py-3">
                                 <select value={bloodRequest.Status} onChange={(e) => handleInputChange('Status', e.target.value)}>
@@ -133,11 +145,30 @@ export function UpdateBloodRequest() {
                                 </select>
                             </td> */}
                             <td className="px-6 py-3">
-                                <input type="text" value={bloodRequest.blood_type?.BloodType} onChange={(e) => handleInputChange('BloodType', e.target.value)} />
+
+                                <select name="blood_id" onChange={ (e) => handleInputChange('blood_id', e.target.value)}>
+                                    
+                                        <option value="">Select the blood type</option>
+                                        {
+                                        BloodType.map(e =>
+                                        (
+                                            <option value={e.id}>{e.BloodType}</option>
+                                        ))
+                                    }
+                                </select>
+
                             </td>
                             <td className="px-6 py-3">
-                                <input type="text" value={bloodRequest.hospital?.Name} onChange={(e) => handleInputChange('HospitalName', e.target.value)} />
-                            </td>
+                            <select name="hospital_id" onChange={ (e) => handleInputChange('hospital_id', e.target.value)}>
+                                    
+                                    <option value="">Select the hospital</option>
+                                    {
+                                    Hospitals.map(e =>
+                                    (
+                                        <option value={e.id}>{e.Name}</option>
+                                    ))
+                                }
+                            </select>  </td>
                         </tr>
                     </tbody>
                 </table>
