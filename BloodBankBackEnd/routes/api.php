@@ -1,19 +1,19 @@
 <?php
 
-use App\Http\Controllers\BloodAnalysisController;
-use App\Http\Controllers\BloodBankAdminController;
-use App\Http\Controllers\BloodBankController;
-use App\Http\Controllers\BloodCampController;
-use App\Http\Controllers\BloodCampStaffController;
-use App\Http\Controllers\BloodRequestController;
-use App\Http\Controllers\DonationController;
-use App\Http\Controllers\DonorController;
-use App\Http\Controllers\HospitalController;
-use App\Http\Controllers\HospitalStaffController;
-use App\Http\Controllers\LabTechController;
-use App\Http\Controllers\NotificationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DonorController;
+use App\Http\Controllers\LabTechController;
+use App\Http\Controllers\DonationController;
+use App\Http\Controllers\HospitalController;
+use App\Http\Controllers\BloodBankController;
+use App\Http\Controllers\BloodCampController;
+use App\Http\Controllers\BloodRequestController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\BloodAnalysisController;
+use App\Http\Controllers\HospitalStaffController;
+use App\Http\Controllers\BloodBankAdminController;
+use App\Http\Controllers\BloodCampStaffController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,3 +77,5 @@ route::get('getBloodRequests', [BloodRequestController::class,'getBloodRequetsWi
 route::get('editBloodRequest/{id}', [BloodRequestController::class,'getBloodRequest']);
 
 route::put('updateBloodRequest', [BloodRequestController::class,'updateBloodRequest']);
+
+route::post('deleteRequest', [BloodRequestController::class,'deleteRequest']);

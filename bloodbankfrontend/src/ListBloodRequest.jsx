@@ -6,6 +6,7 @@ import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 export function ListedBloodRequests() {
     const [BloodRequests, setBloodRequests] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
+    const [render, setRender] = useState(0)
 
     useEffect(() => {
         const fetchBloodRequests = async () => {
@@ -34,9 +35,13 @@ export function ListedBloodRequests() {
 
 
     const deleteItem = async (id) =>{
+        const data = {
+            id: id
+        } 
         try{
-            const response = await axios.post('http://127.0.0.1:8000/api/deleteRequest', id);
-
+            const response = await axios.post('http://127.0.0.1:8000/api/deleteRequest', data);
+            // setRender(render + 1)
+            window.location.reload()
         }
         catch(err){
             console.log('Failed to delete request', err.response?.data);
