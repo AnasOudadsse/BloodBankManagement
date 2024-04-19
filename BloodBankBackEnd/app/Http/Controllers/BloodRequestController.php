@@ -45,6 +45,15 @@ class BloodRequestController extends Controller
 
         return response()->json("The data has been updated");
     }
+    function updateBloodRequestStatus(request $request){
+        $bloodRequest = BloodRequest::find($request->id);
+
+        $bloodRequest->update([
+            'Status' => $request->Status
+        ]);
+
+        return response()->json("The data has been updated");
+    }
 
     function deleteRequest(Request $request){
         $bloodRequest = BloodRequest::find($request->id);

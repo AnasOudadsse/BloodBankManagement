@@ -41,16 +41,18 @@ export function UpdateBloodRequestStatus() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const payload = {        
+            const payload = {   
+                id : id,     
                 Status : bloodRequest.Status , 
-
             };
             console.log('payload',payload)
 
-            const response = await axios.put(`http://127.0.0.1:8000/api/updateBloodRequest`, payload);
+            const response = await axios.put(`http://127.0.0.1:8000/api/updateBloodRequestStatus`, payload);
             if (response.status === 200) {
                 navigate('/bloodrequestlist')
                 alert('Blood request updated successfully');
+                console.log('payload',payload)
+
             } else {                
                 console.log('payload',payload)
                 console.error('Failed to update blood request:', response.data);
@@ -73,6 +75,7 @@ export function UpdateBloodRequestStatus() {
                         <th scope="col" className="w-20 px-6 py-3">ID</th>
                         <th scope="col" className="w-32 px-6 py-3">Quantity</th>
                         <th scope="col" className="w-32 px-6 py-3">Urgency</th>
+                        <th scope="col" className="w-32 px-6 py-3">Status</th>
                         <th scope="col" className="w-32 px-6 py-3">Blood Type</th>
                         <th scope="col" className="w-48 px-6 py-3">Hospital Name</th>
                     </tr>

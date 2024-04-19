@@ -78,4 +78,6 @@ route::get('editBloodRequest/{id}', [BloodRequestController::class,'getBloodRequ
 
 route::put('updateBloodRequest', [BloodRequestController::class,'updateBloodRequest']);
 
+route::put('updateBloodRequestStatus    ', [BloodRequestController::class,'updateBloodRequestStatus']);
+
 route::post('deleteRequest', [BloodRequestController::class,'deleteRequest']);
