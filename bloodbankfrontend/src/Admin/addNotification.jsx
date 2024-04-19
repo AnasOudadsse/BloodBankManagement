@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Cities from './MoroccanCities.json'
+import Cities from '../MoroccanCities.json'
 export function SendNotificationForm() {
   const [criteria, setCriteria] = useState({
     bloodTypes: [],
