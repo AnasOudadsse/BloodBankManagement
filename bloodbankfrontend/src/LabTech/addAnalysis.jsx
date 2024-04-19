@@ -47,6 +47,7 @@ const handleSubmit = async (e) => {
   e.preventDefault();
 
   const formData = new FormData();
+  formData.append('donation_id', donationData.id);
   formData.append('IsGood', AnalysisData.IsGood);
   formData.append('donorCin', donationData.donor.Cin);
   if (AnalysisData.AnalysisReport) {
