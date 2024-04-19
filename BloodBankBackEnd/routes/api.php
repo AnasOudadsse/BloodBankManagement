@@ -8,6 +8,7 @@ use App\Http\Controllers\DonationController;
 use App\Http\Controllers\HospitalController;
 use App\Http\Controllers\BloodBankController;
 use App\Http\Controllers\BloodCampController;
+use App\Http\Controllers\InventoryController;
 use App\Http\Controllers\BloodRequestController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\BloodAnalysisController;
@@ -81,3 +82,5 @@ route::put('updateBloodRequest', [BloodRequestController::class,'updateBloodRequ
 route::put('updateBloodRequestStatus    ', [BloodRequestController::class,'updateBloodRequestStatus']);
 
 route::post('deleteRequest', [BloodRequestController::class,'deleteRequest']);
+
+route::post('addAnalysis', [InventoryController::class, 'verifyDonation']);
