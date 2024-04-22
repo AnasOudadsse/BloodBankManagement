@@ -8,8 +8,6 @@ use Illuminate\Http\Request;
 class InventoryController extends Controller
 {
 
-
-
 public function verifyDonation(Request $request) {
     $donation = Donation::find($request->donation_id);
     
@@ -34,6 +32,5 @@ public function verifyDonation(Request $request) {
 
     return response()->json(['message' => 'Donation verified successfully']);
 }
-
 
 }
