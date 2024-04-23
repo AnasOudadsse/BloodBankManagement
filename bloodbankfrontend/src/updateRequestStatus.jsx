@@ -49,7 +49,7 @@ export function UpdateBloodRequestStatus() {
 
             const response = await axios.put(`http://127.0.0.1:8000/api/updateBloodRequestStatus`, payload);
             if (response.status === 200) {
-                navigate('/bloodrequestlist')
+                navigate('/bloodrequestliststatus')
                 alert('Blood request updated successfully');
                 console.log('payload',payload)
 

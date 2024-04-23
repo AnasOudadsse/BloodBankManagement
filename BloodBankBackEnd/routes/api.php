@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DonorController;
@@ -79,7 +80,9 @@ route::get('editBloodRequest/{id}', [BloodRequestController::class,'getBloodRequ
 
 route::put('updateBloodRequest', [BloodRequestController::class,'updateBloodRequest']);
 
-route::put('updateBloodRequestStatus    ', [BloodRequestController::class,'updateBloodRequestStatus']);
+route::put('updateBloodRequestStatus', [BloodRequestController::class,'updateBloodRequestStatus']);
+
+// route::put('updateBloodRequestStatus', [InventoryController::class,'updateInventoryFromDeliveredRequests']);
 
 route::post('deleteRequest', [BloodRequestController::class,'deleteRequest']);
 

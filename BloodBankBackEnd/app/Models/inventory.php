@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Inventory extends Model
 {
@@ -15,7 +15,7 @@ class Inventory extends Model
     }
 
     public function bloodBank(){
-        return $this->belongsTo(BloodBank::class);
+        return $this->belongsTo(BloodBank::class, 'blood_id');
 
     }
 
