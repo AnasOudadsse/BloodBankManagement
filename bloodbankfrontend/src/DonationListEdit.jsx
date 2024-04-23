@@ -35,6 +35,20 @@ const DonationListEdit = () => {
     return donorCin.includes(searchLower) || donorName.includes(searchLower);
   });
 
+  const deleteItem = async (id) =>{
+    const data = {
+        id: id
+    } 
+    try{
+        const response = await axios.post('http://127.0.0.1:8000/api/deleteDonation', data);
+        // setRender(render + 1)
+        window.location.reload()
+    }
+    catch(err){
+        console.log('Failed to delete request', err.response?.data);
+    }
+  }
+
 
   return (
     <div>
@@ -58,7 +72,7 @@ const DonationListEdit = () => {
                 {donation.donor ? (
                   <>                  
                   <Link className='px-1' to={`/editDonation/${donation.id}`}> <FontAwesomeIcon icon={faEdit}/> </Link> 
-                  <button className='px-1' onClick={ ()=> deleteItem(e.id)} >  <FontAwesomeIcon icon={faTrashAlt} /> </button>
+                  <button className='px-1' onClick={ ()=> deleteItem(donation.id)} >  <FontAwesomeIcon icon={faTrashAlt} /> </button>
 
                   </>
                   
@@ -75,4 +89,4 @@ const DonationListEdit = () => {
   );
 };
 
-export default DonationListView;
+export default DonationListEdit;

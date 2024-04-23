@@ -18,6 +18,7 @@ import InlineEditTable from './editRequestHS';
 import { UpdateBloodRequest } from './updateBloodRequestList';
 import { UpdateBloodRequestStatus } from './updateRequestStatus';
 import {ListedBloodRequestsAdmin} from './Admin/ListBloodRequestAdmin'
+import DonationListEdit from './DonationListEdit';
 function App() {
   return (
     <BrowserRouter>
@@ -39,7 +40,9 @@ function App() {
           <Route path='bloodRequestListstatus' element={<ListedBloodRequestsAdmin/>} />
           <Route path='editBloodRequest/:id' element={<UpdateBloodRequest/>} />
           <Route path='editBloodRequeststatus/:id' element={<UpdateBloodRequestStatus/>} />
+          <Route path='editDonation' element={<DonationListEdit/>} />
           <Route path='editable' element={<InlineEditTable/>} />
+          
 
       </Routes>
     </BrowserRouter>

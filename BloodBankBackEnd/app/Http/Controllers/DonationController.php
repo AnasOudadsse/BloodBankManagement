@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Donor;
-use App\Models\BloodCamp;
 use App\Models\Donation;
+use App\Models\BloodCamp;
+use Illuminate\Http\Request;
 
 class DonationController extends Controller
 {
@@ -54,6 +54,14 @@ class DonationController extends Controller
         public function getDonations($id){
             $donations =Donation::with('donor')->find($id);
             return response()->json($donations);
+        }
+
+        function deleteDonation(Request $request){
+            $donation = Donation::find($request->id);
+    
+            $donation->delete();
+    
+            return response()->json("The donation has been deleted");
         }
     
 
