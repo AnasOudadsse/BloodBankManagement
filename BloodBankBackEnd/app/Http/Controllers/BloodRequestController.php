@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Log;
 use App\Models\Inventory;
 use App\Models\BloodRequest;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BloodRequestController extends Controller
 {
@@ -48,32 +48,41 @@ class BloodRequestController extends Controller
         return response()->json("The data has been updated");
     }
     function updateBloodRequestStatus(request $request){
+    // Start by validating the request data
+    $validated = $request->validate([
+        'BloodType' => 'required|numeric',
+        'Quantity'  => 'required|numeric',
+        'Status'    => 'required|string',
+        'id'        => 'required|numeric',
+    ]);
+
         $bloodRequest = BloodRequest::find($request->id);
 
         $bloodRequest->update([
             'Status' => $request->Status
         ]);
-                // Fetch all delivered blood requests that have not yet been processed
-                $deliveredRequests = BloodRequest::where('status', 'approved')
-                ->get();
 
-                foreach ($deliveredRequests as $request) {
-                // Assume there's a relationship set up to fetch the related blood type
-                $bloodType = $request->bloodType;
+        if ($validated['Status'] === "approved") {
+            $inventory = Inventory::where('blood_type_id', $validated['BloodType'])->firstOrFail();
 
-                // Update the inventory
-                $inventory = Inventory::where('blood_type_id', $bloodType->id)->first();
-                if ($inventory) {
-                $inventory->quantity_available -= $request->quantity;
+            if ($inventory->quantity_available >= $validated['Quantity']) {
+                
+                $inventory->quantity_available -= $validated['Quantity'];
                 $inventory->save();
+                
+                return response()->json("The inventory data has been updated", 200);
+            } else {
+                // If not enough quantity, throw an exception
+                throw new \Exception('Not enough inventory to fulfill the request.');
+            }
+        }
+        else{
+            return response()->json("status not tracked", 200);
+        }
 
-                Log::info("Updated inventory for blood type {$bloodType->id}: Decrement by {$request->quantity}");
-                }
+        return response()->json("The data has been updated", 200);
+
 }
-        return response()->json("The data has been updated");
-
-        
-    }
 
     function deleteRequest(Request $request){
         $bloodRequest = BloodRequest::find($request->id);

@@ -44,6 +44,8 @@ export function UpdateBloodRequestStatus() {
             const payload = {   
                 id : id,     
                 Status : bloodRequest.Status , 
+                BloodType : bloodRequest.blood_id,
+                Quantity : bloodRequest.Quantity
             };
             console.log('payload',payload)
 
