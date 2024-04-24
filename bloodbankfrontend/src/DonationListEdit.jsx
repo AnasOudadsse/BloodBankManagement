@@ -59,6 +59,8 @@ const DonationListEdit = () => {
             <th scope="col" class="px-6 py-3">Donation ID</th>
             <th scope="col" class="px-6 py-3">Donor CIN</th>
             <th scope="col" class="px-6 py-3">Donor Name</th>
+            <th scope="col" class="px-6 py-3">Quantity donated</th>
+            <th scope="col" class="px-6 py-3">Donation date</th>
             <th scope="col" class="px-6 py-3">Actions</th>
           </tr>
         </thead>

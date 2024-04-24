@@ -43,7 +43,9 @@ const DonationListView = () => {
           <tr>
             <th scope="col" class="px-6 py-3">Donation ID</th>
             <th scope="col" class="px-6 py-3">Donor CIN</th>
-            <th scope="col" class="px-6 py-3">Donor Name</th>
+            <th scope="col" class="px-6 py-3">Blood type</th>
+            <th scope="col" class="px-6 py-3">Quantity donated</th>
+            <th scope="col" class="px-6 py-3">Donation date</th>
             <th scope="col" class="px-6 py-3">Actions</th>
           </tr>
         </thead>
@@ -53,6 +55,8 @@ const DonationListView = () => {
               <td scope="col" class="px-6 py-3">{donation.id}</td>
               <td scope="col" class="px-6 py-3">{donation.donor?.Cin ?? 'N/A'}</td>
               <td scope="col" class="px-6 py-3">{donation.donor?.Name ?? 'N/A'}</td>
+              <td scope="col" class="px-6 py-3">{donation.donor?.QuantityDonated   ?? 'N/A'}</td>
+              <td scope="col" class="px-6 py-3">{donation.donor?.DonationDate ?? 'N/A'}</td>
               <td scope="col" class="px-6 py-3">
                 {donation.donor ? (
                   <Link to={`/addAnalysis/${donation.id}`}>Add Report</Link>

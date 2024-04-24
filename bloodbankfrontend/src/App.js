@@ -1,22 +1,22 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import HospitalForm from './Admin/addHospital';
-import { BloodCampForm } from './Admin/addBloodCamp';
-import { HospitalStaffForm } from './Admin/addHospitalStaff';
-import { BloodCampStaffForm } from './Admin/addBloodCampStaff';
-import { DonorForm } from './BloodCampStaff/addDonor';
-import DonationForm from './BloodCampStaff/addDonation';
-import { BloodRequestForm } from './HospitalStaff/addBloodRequest';
-import { AdminForm } from './Admin/addAdmin';
-import { LabTechForm } from './Admin/addLabTech';
-import DonationListView from './LabTech/DonationList';
-import { AnalysisForm } from './LabTech/addAnalysis';
+import HospitalForm from './addHospital';
+import { BloodCampForm } from './addBloodCamp';
+import { HospitalStaffForm } from './addHospitalStaff';
+import { BloodCampStaffForm } from './addBloodCampStaff';
+import { DonorForm } from './addDonor';
+import DonationForm from './addDonation';
+import { BloodRequestForm } from './addBloodRequest';
+import { AdminForm } from './addAdmin';
+import { LabTechForm } from './addLabTech';
+import DonationListView from './DonationList';
+import { AnalysisForm } from './addAnalysis';
 import Dashboard from './Dashboard';
-import { SendNotificationForm } from './Admin/addNotification';
+import { SendNotificationForm } from './addNotification';
 import { ListedBloodRequests } from './ListBloodRequest';
 import { UpdateBloodRequest } from './updateBloodRequestList';
 import { UpdateBloodRequestStatus } from './updateRequestStatus';
-import {ListedBloodRequestsAdmin} from './Admin/ListBloodRequestAdmin'
+import {ListedBloodRequestsAdmin} from './ListBloodRequestAdmin'
 import DonationListEdit from './DonationListEdit';
 function App() {
   return (
@@ -39,7 +39,7 @@ function App() {
           <Route path='bloodRequestListstatus' element={<ListedBloodRequestsAdmin/>} />
           <Route path='editBloodRequest/:id' element={<UpdateBloodRequest/>} />
           <Route path='editBloodRequeststatus/:id' element={<UpdateBloodRequestStatus/>} />
-          <Route path='editDonationList' element={<DonationListEdit/>} />
+          <Route path='DonationListedit' element={<DonationListEdit/>} />
           
 
       </Routes>
