@@ -58,7 +58,6 @@ const DonationListEdit = () => {
           <tr>
             <th scope="col" class="px-6 py-3">Donation ID</th>
             <th scope="col" class="px-6 py-3">Donor CIN</th>
-            <th scope="col" class="px-6 py-3">Donor Name</th>
             <th scope="col" class="px-6 py-3">Quantity donated</th>
             <th scope="col" class="px-6 py-3">Donation date</th>
             <th scope="col" class="px-6 py-3">Actions</th>
@@ -69,7 +68,8 @@ const DonationListEdit = () => {
             <tr key={donation.id}>
               <td scope="col" class="px-6 py-3">{donation.id}</td>
               <td scope="col" class="px-6 py-3">{donation.donor?.Cin ?? 'N/A'}</td>
-              <td scope="col" class="px-6 py-3">{donation.donor?.Name ?? 'N/A'}</td>
+              <td scope="col" class="px-6 py-3">{donation.QuantityDonated?? 'N/A'}</td>
+              <td scope="col" class="px-6 py-3">{donation.DonationDate ?? 'N/A'}</td>
               <td scope="col" class="px-6 py-3">
                 {donation.donor ? (
                   <>                  
