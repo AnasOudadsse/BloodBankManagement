@@ -89,3 +89,7 @@ route::post('deleteRequest', [BloodRequestController::class,'deleteRequest']);
 route::post('deleteDonation', [DonationController::class,'deleteDonation']);
 
 route::post('addAnalysis', [InventoryController::class, 'verifyDonation']);
+
+route::get('editDonation/{id}', [DonationController::class, 'getDonationsWithDonors']);
+
+route::put('updateDonation', [DonationController::class, 'updateDonation']);

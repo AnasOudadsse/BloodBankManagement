@@ -64,5 +64,26 @@ class DonationController extends Controller
             return response()->json("The donation has been deleted");
         }
     
+        function updateDonation(Request $request){
+            $donation = Donation::find($request->id);  
 
+            $validatedData = $request->validate([
+                'DonationDate' => 'required|date',
+                'QuantityDonated' => 'required|numeric|min:1',
+                'blood_camp_id' => 'required|numeric',
+                'blood_type_id' => 'required|numeric', 
+                'donor_cin' => 'required|string|max:255',
+            ]);
+
+            $donation->update([
+                'DonationDate' => $validatedData['DonationDate'] ,
+                'QuantityDonated' => $validatedData['QuantityDonated'] ,
+                'blood_camp_id'=> $validatedData['blood_camp_id'] ,
+                'blood_type_id' => $validatedData['blood_type_id'] ,
+                'donor_cin' => $validatedData['donor_cin'] ,
+            ]);
+
+            return response()->json(['data' => $donation], 200);        }
+
+        
 }
