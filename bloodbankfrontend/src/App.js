@@ -14,7 +14,6 @@ import { AnalysisForm } from './LabTech/addAnalysis';
 import Dashboard from './Dashboard';
 import { SendNotificationForm } from './Admin/addNotification';
 import { ListedBloodRequests } from './ListBloodRequest';
-import InlineEditTable from './editRequestHS';
 import { UpdateBloodRequest } from './updateBloodRequestList';
 import { UpdateBloodRequestStatus } from './updateRequestStatus';
 import {ListedBloodRequestsAdmin} from './Admin/ListBloodRequestAdmin'
@@ -40,8 +39,7 @@ function App() {
           <Route path='bloodRequestListstatus' element={<ListedBloodRequestsAdmin/>} />
           <Route path='editBloodRequest/:id' element={<UpdateBloodRequest/>} />
           <Route path='editBloodRequeststatus/:id' element={<UpdateBloodRequestStatus/>} />
-          <Route path='editDonation' element={<DonationListEdit/>} />
-          <Route path='editable' element={<InlineEditTable/>} />
+          <Route path='editDonationList' element={<DonationListEdit/>} />
           
 
       </Routes>
