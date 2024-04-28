@@ -19,6 +19,7 @@ import { UpdateBloodRequestStatus } from './updateRequestStatus';
 import {ListedBloodRequestsAdmin} from './ListBloodRequestAdmin'
 import DonationListEdit from './DonationListEdit';
 import { UpdateDonation } from './updateDonation';
+import LoginPage from './Login';
 function App() {
   return (
     <BrowserRouter>
@@ -42,6 +43,7 @@ function App() {
           <Route path='editBloodRequeststatus/:id' element={<UpdateBloodRequestStatus/>} />
           <Route path='editDonation/:id' element={<UpdateDonation/>} />
           <Route path='DonationListedit' element={<DonationListEdit/>} />
+          <Route path='login' element={<LoginPage/>} />
   
       </Routes>
     </BrowserRouter>

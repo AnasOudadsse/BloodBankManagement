@@ -93,3 +93,11 @@ route::post('addAnalysis', [InventoryController::class, 'verifyDonation']);
 route::get('editDonation/{id}', [DonationController::class, 'getDonationsWithDonors']);
 
 route::put('updateDonation', [DonationController::class, 'updateDonation']);
+
+Route::post('/login', 'AuthController@login');
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/user', function (Request $request) {
+        return response()->json($request->user());
+    });
+    Route::post('/logout', 'AuthController@logout');
+});
