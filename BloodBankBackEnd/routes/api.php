@@ -3,6 +3,7 @@
 use App\Models\Inventory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DonorController;
 use App\Http\Controllers\LabTechController;
 use App\Http\Controllers\DonationController;
@@ -94,10 +95,11 @@ route::get('editDonation/{id}', [DonationController::class, 'getDonationsWithDon
 
 route::put('updateDonation', [DonationController::class, 'updateDonation']);
 
-Route::post('/login', 'AuthController@login');
-Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/user', function (Request $request) {
-        return response()->json($request->user());
-    });
-    Route::post('/logout', 'AuthController@logout');
-});
+Route::post('/login', [AuthController::class, 'login']);
+    
+// Route::middleware('auth:sanctum')->group(function () {
+//     Route::get('/user', function (Request $request) {
+//         return response()->json($request->user());
+//     });
+//     Route::post('/logout', 'AuthController@logout');
+// });

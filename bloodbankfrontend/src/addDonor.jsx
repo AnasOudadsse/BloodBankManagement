@@ -14,7 +14,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { Header } from "./header";
-import Footer from "./footer.";
+import Footer from "./footer";
 
 export function DonorForm() {
   const [BloodType, setBloodType] = useState([]);

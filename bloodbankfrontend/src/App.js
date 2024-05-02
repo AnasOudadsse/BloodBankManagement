@@ -20,6 +20,7 @@ import {ListedBloodRequestsAdmin} from './ListBloodRequestAdmin'
 import DonationListEdit from './DonationListEdit';
 import { UpdateDonation } from './updateDonation';
 import LoginPage from './Login';
+import HomePage from './HomePage';
 function App() {
   return (
     <BrowserRouter>
@@ -44,6 +45,7 @@ function App() {
           <Route path='editDonation/:id' element={<UpdateDonation/>} />
           <Route path='DonationListedit' element={<DonationListEdit/>} />
           <Route path='login' element={<LoginPage/>} />
+          <Route path='/' element={<HomePage/>} />
   
       </Routes>
     </BrowserRouter>

@@ -40,6 +40,34 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'Admin' => [
+            'driver' => 'session',
+            'provider' => 'bloodbankadmins',
+        ],
+        'Donor' => [
+            'driver' => 'session',
+            'provider' => 'donors',
+        ],
+        'BloodCampStaff' => [
+            'driver' => 'session',
+            'provider' => 'bloodcampstaffs',
+        ],
+        'HospitalStaff' => [
+            'driver' => 'session',
+            'provider' => 'hospitalstaffs',
+        ],    
+        'LabTech' => [
+            'driver' => 'session',
+            'provider' => 'labtechs',
+        ],
+        'superadmin' => [
+            'driver' => 'session',
+            'provider' => 'superadmin',
+        ],  
+        'api' => [
+            'driver' => 'passport',
+            'provider' => 'users',
+        ],
     ],
 
     /*
@@ -62,8 +90,32 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\Models\User::class,
+            'model' => App\Models\User::class,  // Ensure this class exists
         ],
+        'donors' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Donor::class,
+        ],
+        'bloodcampstaffs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\BloodCampStaff::class,
+        ],
+        'hospitalstaffs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\HospitalStaff::class,
+        ],
+        'labtechs' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\LabTech::class,
+        ],
+        'bloodbankadmins' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\BloodBankAdmin::class,
+        ],
+        // 'superadmins' => [
+        //     'driver' => 'eloquent',
+        //     'model' => App\Models\User::class,
+        // ],
 
         // 'users' => [
         //     'driver' => 'database',

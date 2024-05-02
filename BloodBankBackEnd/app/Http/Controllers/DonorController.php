@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Donor;
+use App\Mail\TestEmail;
 use App\Models\BloodType;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use App\Mail\TestEmail;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 
@@ -55,7 +56,7 @@ class DonorController extends Controller
             'Email' => $request->input('Email'),
             'BirthDate' => $request->input('BirthDate'),
             'Gender' => $request->input('Gender'),
-            'EncryptedPassword' => $request->input('EncryptedPassword'), // Consider hashing this password before storage
+            'EncryptedPassword' => Hash::make($request->input('EncryptedPassword')),
             'Role' => $request->input('Role'),
             'City' => $request->input('City'),
             'Address' => $request->input('Address'),

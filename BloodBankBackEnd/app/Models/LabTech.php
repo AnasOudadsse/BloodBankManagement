@@ -3,13 +3,19 @@
 namespace App\Models;
 
 use App\Models\BloodAnalysis;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class LabTech extends Model
 {
     use HasFactory;
+    use HasApiTokens;
 
+    protected $primaryKey = 'Cin';
+    public $incrementing = false;
+    protected $keyType = 'string';
+    
     public function bloodAnalysis(){
         return $this->hasMany(BloodAnalysis::class);
     }

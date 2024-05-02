@@ -4,13 +4,19 @@ namespace App\Models;
 
 use App\Models\BloodBank;
 use App\Models\Notification;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class BloodBankAdmin extends Model
 {
     use HasFactory;
+    use HasApiTokens;
 
+    protected $primaryKey = 'Cin';
+    public $incrementing = false;
+    protected $keyType = 'string';
+    
     public function bloodBank(){
         return $this->belongsTo(BloodBank::class);
     }

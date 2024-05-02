@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BloodBankAdmin;
 use Illuminate\Http\Request;
+use App\Models\BloodBankAdmin;
+use Illuminate\Support\Facades\Hash;
 
 class BloodBankAdminController extends Controller
 {
@@ -22,8 +23,24 @@ class BloodBankAdminController extends Controller
             'blood_bank_id' => 'required|in:1'
         ]);
 
+        $admin = new BloodBankAdmin(
+            [
+                'Cin' => $request->input('Cin'),
+                'Name' => $request->input('Name'),
+                'PhoneNumber' => $request->input('PhoneNumber'),
+                'Email' => $request->input('Email'),
+                'BirthDate' => $request->input('BirthDate'),
+                'Gender' => $request->input('Gender'),
+                'EncryptedPassword' => Hash::make($request->input('EncryptedPassword')) ,
+                'Role' => $request->input('Role'),
+                'is_super_admin' => $request->input('is_super_admin'),
+                'blood_bank_id' => $request->input('blood_bank_id')
+            ]
+            );      
+                    
+            
+            $admin->save();
 
-         BloodBankAdmin::create($validateAdmin);
             return  response()->json(['message'=> $validateAdmin['Name']. " has been added as an admin for the blood bank."]);
     }
 

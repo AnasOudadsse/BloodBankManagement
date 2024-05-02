@@ -6,14 +6,18 @@ use App\Models\Donation;
 use App\Models\BloodType;
 use App\Models\Notification;
 use App\Models\AnalysisReport;
+use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Donor extends Model
 {
     use Notifiable;
     use HasFactory;
+    use HasApiTokens;
+    
     protected $primaryKey = 'Cin';
     public $incrementing = false;
     protected $keyType = 'string';
