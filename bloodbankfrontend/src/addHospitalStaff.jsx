@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import HospitalForm from "./addHospital";
+import { Header } from "./header";
 
 export function HospitalStaffForm(){
 
@@ -50,7 +51,11 @@ export function HospitalStaffForm(){
         }
       };
 
+
       return (
+        <>
+        <Header/>
+
       <form onSubmit={handleSubmit}>
       <input
         type="text"
@@ -135,5 +140,6 @@ export function HospitalStaffForm(){
       /><br /> <br />
       <button type="submit">Submit</button>
     </form>
+    </>
       )
 }

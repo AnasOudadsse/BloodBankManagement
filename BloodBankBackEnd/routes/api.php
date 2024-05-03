@@ -104,3 +104,5 @@ Route::post('/login', [AuthController::class, 'login']);
 Route::get('/isLogged', function (Request $request) {
     return response()->json(['isLoggedIn' => $request->user() ? true : false]);
 });
+
+Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Header } from './header';
 function HospitalForm() {
   const [HospitalData, setHospitalData] = useState({
     Name: '',
@@ -24,6 +25,8 @@ function HospitalForm() {
   };
 
   return (
+    <>
+    <Header/>
     <form onSubmit={handleSubmit}>
       <input
         type="text"
@@ -48,6 +51,7 @@ function HospitalForm() {
       />
       <button type="submit">Submit</button>
     </form>
+    </>
   );
 }
 
