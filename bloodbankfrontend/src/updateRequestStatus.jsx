@@ -18,6 +18,8 @@ export function UpdateBloodRequestStatus() {
                 setBloodRequest(response.data[0]); 
             } catch (err) {
                 console.error('Failed to fetch blood request:', err.response?.data || err.message);
+                navigate('/login');
+
             }
         };
         fetchBloodRequest();
@@ -58,6 +60,7 @@ export function UpdateBloodRequestStatus() {
             } else {                
                 console.log('payload',payload)
                 console.error('Failed to update blood request:', response.data);
+                navigate('/login');
 
             }
         } catch (err) {

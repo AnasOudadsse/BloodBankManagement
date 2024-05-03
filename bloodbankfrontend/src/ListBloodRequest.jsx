@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 export function ListedBloodRequests() {
     const [BloodRequests, setBloodRequests] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
     const [render, setRender] = useState(0)
+
+    let navigate = useNavigate();
 
     useEffect(() => {
         const fetchBloodRequests = async () => {
@@ -16,6 +18,8 @@ export function ListedBloodRequests() {
                 setBloodRequests(response.data);
             } catch (err) {
                 console.log('Failed to fetch blood requests', err.response?.data);
+                navigate('/login');
+
             }
         };
         fetchBloodRequests();

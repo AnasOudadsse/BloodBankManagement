@@ -32,9 +32,10 @@ export const BloodDonationLogin = () => {
                 const data = response.data;
 
                 console.log('Login successful:', data);
+                console.log('token :', data.access_token);
 
                 // Handle success
-                localStorage.setItem('token', data.token);
+                localStorage.setItem('token', data.access_token);
 
                 // Navigate based on user role
                 if (data.role === 'Donor') {
@@ -51,8 +52,9 @@ export const BloodDonationLogin = () => {
         }
     };
 
-    return (
+    return (    
         <Flex align="center" justify="center" height="100vh">
+            <a href="addhospital">addhospital</a>
             <Container width={formCardSize}>
                 <form onSubmit={handleLogin}>
                     <VStack spacing={4}>

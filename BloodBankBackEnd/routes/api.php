@@ -33,6 +33,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::middleware(['auth:sanctum'])->group(function () {
+
 route::post('/addHospital', [HospitalController::class, 'storeHospital']);
 
 route::post('/addBloodCamp', [BloodCampController::class, 'storeBloodCamp']);
@@ -81,7 +83,7 @@ route::get('editBloodRequest/{id}', [BloodRequestController::class,'getBloodRequ
 
 route::put('updateBloodRequest', [BloodRequestController::class,'updateBloodRequest']);
 
-route::put('updateBloodRequestStatus', [BloodRequestController::class,'updateBloodRequestStatus']);
+route::middleware(['auth:sanctum', 'role:Admin'])->put('updateBloodRequestStatus', [BloodRequestController::class,'updateBloodRequestStatus']);
 
 // route::put('updateBloodRequestStatus', [InventoryController::class,'updateInventoryFromDeliveredRequests']);
 
@@ -94,12 +96,11 @@ route::post('addAnalysis', [InventoryController::class, 'verifyDonation']);
 route::get('editDonation/{id}', [DonationController::class, 'getDonationsWithDonors']);
 
 route::put('updateDonation', [DonationController::class, 'updateDonation']);
+});
 
 Route::post('/login', [AuthController::class, 'login']);
     
-// Route::middleware('auth:sanctum')->group(function () {
-//     Route::get('/user', function (Request $request) {
-//         return response()->json($request->user());
-//     });
-//     Route::post('/logout', 'AuthController@logout');
-// });
+
+Route::get('/isLogged', function (Request $request) {
+    return response()->json(['isLoggedIn' => $request->user() ? true : false]);
+});
