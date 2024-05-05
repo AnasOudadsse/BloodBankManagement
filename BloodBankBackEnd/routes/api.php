@@ -47,10 +47,6 @@ route::get('/getBloodCamps', [BloodCampStaffController::class, 'getBloodCamps'])
 
 route::Post('/addBloodCampStaff', [BloodCampStaffController::class, 'storeBloodCampStaff']);
 
-route::get('/getBloodType', [DonorController::class, 'getBloodType']);
-
-route::Post('/addDonor', [DonorController::class, 'storeDonor']);
-
 route::get('searchDonors', [DonationController::class, 'searchDonors']);
 
 route::get('searchBloodCamps', [DonationController::class, 'searchBloodCamps']);
@@ -106,3 +102,7 @@ Route::get('/isLogged', function (Request $request) {
 });
 
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout']);
+
+route::Post('/addDonor', [DonorController::class, 'storeDonor']);
+
+route::get('/getBloodType', [DonorController::class, 'getBloodType']);

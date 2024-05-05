@@ -15,9 +15,12 @@ import {
 } from "@chakra-ui/react";
 import { Header } from "./header";
 import Footer from "./footer";
+import { useNavigate } from "react-router";
 
 export function DonorForm() {
   const [BloodType, setBloodType] = useState([]);
+  const navigate = useNavigate()
+  const [role, setRole] = useState('Donor')
   const [DonorData, setDonorData] = useState({
     Cin: "",
     Name: "",
@@ -54,6 +57,13 @@ export function DonorForm() {
     }
   };
 
+  useEffect(() => {
+    // Check for role in local storage
+    setRole(localStorage.getItem('role'));
+      console.log('role :', role)            
+  
+  }, []);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formData = new FormData();
@@ -76,6 +86,7 @@ export function DonorForm() {
         duration: 9000,
         isClosable: true,
       });
+
     } catch (error) {
       toast({
         title: "Registration failed",
@@ -85,6 +96,11 @@ export function DonorForm() {
         isClosable: true,
       });
     }
+    if (role === 'Donor') {
+      navigate('/login');
+    } else if (role === 'Admin' || role === 'BloodCampStaff' ){
+      navigate('/addDonor');
+  }
   };
 
   return (

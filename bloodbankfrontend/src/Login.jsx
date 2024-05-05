@@ -3,18 +3,20 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import {
     Box, Button, Flex, FormControl, FormLabel, Heading, Input, VStack, Container,Text,
-    InputGroup, InputRightElement, useBoolean, Stack, useBreakpointValue, IconButton
+    InputGroup, InputRightElement, useBoolean, Stack, useBreakpointValue, IconButton, useToast
 } from '@chakra-ui/react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { Header } from './header';
 
 export const BloodDonationLogin = () => {
 
     const [showPassword, setShowPassword] = useState(true);
     const [credentials, setCredentials] = useState({ Email: '', EncryptedPassword: '', Role: 'Donor' });
-    const [error, setError] = useState('');
+    const [Error, setError] = useState('');
     const navigate = useNavigate();
     const formCardSize = useBreakpointValue({ base: '90%', md: '420px' });
     const handleClick = () => setShowPassword(!showPassword);
+    const toast = useToast();
 
     const handleChange = (e) => {
         setCredentials({ ...credentials, [e.target.name]: e.target.value });
@@ -43,23 +45,38 @@ export const BloodDonationLogin = () => {
                 localStorage.setItem('token', data.access_token);
                 localStorage.setItem('role', data.role);
 
+                toast({
+                    title: "Login successful",
+                    description: "You have been logged in.",
+                    status: "success",
+                    duration: 9000,
+                    isClosable: true,
+                    position: "top-right" 
+                  });
+
                 // Navigate based on user role
                 if (data.role === 'Donor') {
                     navigate('/dashboard');
                 } else {
                     navigate('/addDonor');
                 }
-            } else {
-                // Handle errors
-                console.error('Login failed:', response.data.message);
             }
         } catch (err) {
             setError(err.response?.data?.message || 'An error occurred');
+            toast({
+                title: "Login failed",
+                description: Error,
+                status: "error",
+                duration: 9000,
+                isClosable: true,
+                position: "top-right" 
+              });
         }
     };
 
     return (  
         <>  
+        <Header/>
         <Flex minHeight="100vh" width="full" align="center" justifyContent="space-around" bg={'gray.50'}>
             <VStack
                 w={formCardSize}
@@ -124,10 +141,9 @@ export const BloodDonationLogin = () => {
             Log In
           </Button>
         </VStack>
-        {error && <Box color="red">{error}</Box>}
         <Flex justifyContent="space-around" w="full">
           <Button variant="link" colorScheme="black">
-            Sign Up
+            <a href="addDonor">Sign Up</a>
           </Button>
           <Button variant="link" colorScheme="black">
             Reset Password
