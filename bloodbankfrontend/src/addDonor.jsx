@@ -99,7 +99,7 @@ export function DonorForm() {
     if (role === 'Donor') {
       navigate('/login');
     } else if (role === 'Admin' || role === 'BloodCampStaff' ){
-      navigate('/addDonor');
+      navigate('/');
   }
   };
 

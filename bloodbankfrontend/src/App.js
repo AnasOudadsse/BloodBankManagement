@@ -66,29 +66,196 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-          <Route path="/addHospital" element={isLoggedIn ?                         
-          <RoleProtectedRoute allowedRoles={['Admin']}>
-            <HospitalForm />
-        </RoleProtectedRoute>
-            : <Navigate to="/login" replace/>}/>
-          <Route path="/addBloodCamp" element={<BloodCampForm/>}/>
-          <Route path="/addHospitalStaff" element={<HospitalStaffForm/>} />
-          <Route path="/addBloodCampStaff" element={<BloodCampStaffForm/>} />
-          <Route path='/addDonor' element={<DonorForm/>} />
-          <Route path='/addDonation' element={<DonationForm/>} />
-          <Route path='/addBloodRequest'  element={<BloodRequestForm/>} />
-          <Route path='/addAdmin' element={<AdminForm/>} />
-          <Route path="/addLabTech" element={<LabTechForm/>} />
-          <Route path='donationList' element={<DonationListView/>} />
-          <Route path="/addAnalysis/:id" element={<AnalysisForm/>} />
-          <Route path="/Dashboard" element={<Dashboard/>} />
-          <Route path='/addNotif' element={<SendNotificationForm/>}   />
-          <Route path='bloodRequestList' element={<ListedBloodRequests/>} />
-          <Route path='bloodRequestListstatus' element={<ListedBloodRequestsAdmin/>} />
-          <Route path='editBloodRequest/:id' element={<UpdateBloodRequest/>} />
-          <Route path='editBloodRequeststatus/:id' element={<UpdateBloodRequestStatus/>} />
-          <Route path='editDonation/:id' element={<UpdateDonation/>} />
-          <Route path='DonationListedit' element={<DonationListEdit/>} />
+              <Route
+                path="/addHospital"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                        <HospitalForm />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+            <Route
+                path="/addBloodCamp"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                        <BloodCampForm />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+            <Route
+                path="/addHospitalStaff"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                        <HospitalStaffForm />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+            <Route
+                path="/addBloodCampStaff"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                        <BloodCampStaffForm />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+            <Route
+                path="/addDonor"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                        <DonorForm />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+            <Route
+                path="/addDonation"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                        <DonationForm />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+            <Route
+                path="/addBloodRequest"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                        <BloodRequestForm />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+            <Route
+                path="/addAdmin"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                        <AdminForm />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+            <Route
+                path="/addLabTech"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                        <LabTechForm />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+            <Route
+                path="/donationList"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                        <DonationListView />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+            <Route
+                path="/addAnalysis/:id"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                        <AnalysisForm />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+            <Route
+                path="/Dashboard"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                        <Dashboard />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+            <Route
+                path="/addNotif"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                        <SendNotificationForm />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+            <Route
+                path="/bloodRequestList"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                        <ListedBloodRequests />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+            <Route
+                path="/bloodRequestListstatus"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                        <ListedBloodRequestsAdmin />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+            <Route
+                path="/editBloodRequest/:id"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                        <UpdateBloodRequest />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+            <Route
+                path="/editBloodRequeststatus/:id"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                        <UpdateBloodRequestStatus />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+            <Route
+                path="/editDonation/:id"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                        <UpdateDonation />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+            <Route
+                path="/DonationListedit"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                        <DonationListEdit />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
           <Route path='login' element={<LoginPage/>} />
           <Route path='/' element={<HomePage/>} />
           <Route path='/unauthorized' element={<UnauthorizedPage/>} />
