@@ -29,6 +29,9 @@ export const Header = () => {
           <Heading as="h1" size="lg" letterSpacing={'tighter'}>
             Blood Donation Network
           </Heading>
+          {
+            is
+          }
           <Flex alignItems={'center'}>
             <Button variant={'solid'} colorScheme={'red'} size={'sm'} mr={4}>
               Donate

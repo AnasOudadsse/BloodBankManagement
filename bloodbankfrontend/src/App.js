@@ -23,8 +23,8 @@ import LoginPage from './Login';
 import HomePage from './HomePage';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
-
+import RoleProtectedRoute from './RoleProtectiongRoute';
+import UnauthorizedPage from './unauthorized';
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -66,7 +66,11 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-          <Route path="/addHospital" element={isLoggedIn ? <HospitalForm /> : <Navigate to="/login" replace/>}/>
+          <Route path="/addHospital" element={isLoggedIn ?                         
+          <RoleProtectedRoute allowedRoles={['Admin']}>
+            <HospitalForm />
+        </RoleProtectedRoute>
+            : <Navigate to="/login" replace/>}/>
           <Route path="/addBloodCamp" element={<BloodCampForm/>}/>
           <Route path="/addHospitalStaff" element={<HospitalStaffForm/>} />
           <Route path="/addBloodCampStaff" element={<BloodCampStaffForm/>} />
@@ -87,7 +91,8 @@ function App() {
           <Route path='DonationListedit' element={<DonationListEdit/>} />
           <Route path='login' element={<LoginPage/>} />
           <Route path='/' element={<HomePage/>} />
-  
+          <Route path='/unauthorized' element={<UnauthorizedPage/>} />
+        
       </Routes>
     </BrowserRouter>
   );

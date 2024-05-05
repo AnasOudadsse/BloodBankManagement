@@ -36,9 +36,12 @@ export const BloodDonationLogin = () => {
 
                 console.log('Login successful:', data);
                 console.log('token :', data.access_token);
+                console.log('role :', data.role);
+                
 
                 // Handle success
                 localStorage.setItem('token', data.access_token);
+                localStorage.setItem('role', data.role);
 
                 // Navigate based on user role
                 if (data.role === 'Donor') {
