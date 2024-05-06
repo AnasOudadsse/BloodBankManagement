@@ -26,7 +26,7 @@ class AuthController extends Controller
         ]);
 
         
-    // Iterate through models to find the user
+    // Iterateé through models to find the user
         $user = null;
         $role = null;
         $models = [

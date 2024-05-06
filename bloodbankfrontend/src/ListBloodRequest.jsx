@@ -3,23 +3,22 @@ import axios from 'axios';
 import { Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { Header } from "./header";
 export function ListedBloodRequests() {
     const [BloodRequests, setBloodRequests] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [render, setRender] = useState(0)
+    const [render, setRender] = useState(0);
 
     let navigate = useNavigate();
 
     useEffect(() => {
         const fetchBloodRequests = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/getBloodRequests');
+                const response = await axios.get('http://127.0.0.1:8000/api/getBloodRequestforHospital');
                 console.log(response.data);
                 setBloodRequests(response.data);
             } catch (err) {
                 console.log('Failed to fetch blood requests', err.response?.data);
-                navigate('/login');
-
             }
         };
         fetchBloodRequests();
@@ -29,7 +28,7 @@ export function ListedBloodRequests() {
         setSearchTerm(event.target.value);
     };
 
-    const filteredBloodRequests = BloodRequests.filter(bloodRequest => {
+    const filteredBloodRequests = BloodRequests?.filter(bloodRequest => {
         const searchLower = searchTerm.toLowerCase();
         const bloodRequestId = String(bloodRequest.id);
         const HospitalName = bloodRequest.hospital?.Name ?? 'No hospital info available';
@@ -54,6 +53,8 @@ export function ListedBloodRequests() {
 
     }
     return (
+        <>
+        <Header/>
         <div>
             <input
                 type="text"
@@ -95,5 +96,6 @@ export function ListedBloodRequests() {
                 </tbody>
             </table>
         </div>
+        </>
     );
 }

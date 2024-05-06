@@ -32,6 +32,7 @@ function App() {
   // Effect to check authentication status
   useEffect(() => {
     // Check for token in local storage
+    localStorage.setItem('role', 'Donor');
     const token = localStorage.getItem('token');
     if (token) {
       console.log('user is logged in', ' token :', token)            
@@ -55,13 +56,9 @@ function App() {
       }, (error) => Promise.reject(error));
     };
 
-    setupInterceptor(); // Call the setup function
+    setupInterceptor(); 
   }, []); 
  
-  // if (loading) {
-  //    return <div>Loading...</div>; // Or a loading spinner
-  // }
-
 
   return (
     <BrowserRouter>
@@ -104,22 +101,22 @@ function App() {
                     </RoleProtectedRoute>
                 ) : (
                     <Navigate to="/login" replace />
-                )}
+                )}  
             />
             <Route
                 path="/addDonor"
-                element={isLoggedIn ? (
-                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                element={ <>
+                    <RoleProtectedRoute allowedRoles={['Donor', 'BloodCampStaff']}>
                         <DonorForm />
-                    </RoleProtectedRoute>
-                ) : (
-                    <Navigate to="/login" replace />
-                )}
+                    </RoleProtectedRoute>   
+                    {/* <Navigate to="/login" replace /> */}
+                    </>
+                }
             />
             <Route
                 path="/addDonation"
                 element={isLoggedIn ? (
-                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                    <RoleProtectedRoute allowedRoles={['BloodCampStaff']}>
                         <DonationForm />
                     </RoleProtectedRoute>
                 ) : (
@@ -129,7 +126,7 @@ function App() {
             <Route
                 path="/addBloodRequest"
                 element={isLoggedIn ? (
-                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                    <RoleProtectedRoute allowedRoles={['HospitalStaff']}>
                         <BloodRequestForm />
                     </RoleProtectedRoute>
                 ) : (
@@ -139,7 +136,7 @@ function App() {
             <Route
                 path="/addAdmin"
                 element={isLoggedIn ? (
-                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                    <RoleProtectedRoute allowedRoles={['SuperAdmin']}>
                         <AdminForm />
                     </RoleProtectedRoute>
                 ) : (
@@ -159,7 +156,7 @@ function App() {
             <Route
                 path="/donationList"
                 element={isLoggedIn ? (
-                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                    <RoleProtectedRoute allowedRoles={['LabTech']}>
                         <DonationListView />
                     </RoleProtectedRoute>
                 ) : (
@@ -169,7 +166,7 @@ function App() {
             <Route
                 path="/addAnalysis/:id"
                 element={isLoggedIn ? (
-                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                    <RoleProtectedRoute allowedRoles={['LabTech']}>
                         <AnalysisForm />
                     </RoleProtectedRoute>
                 ) : (
@@ -199,7 +196,7 @@ function App() {
             <Route
                 path="/bloodRequestList"
                 element={isLoggedIn ? (
-                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                    <RoleProtectedRoute allowedRoles={['HospitalStaff']}>
                         <ListedBloodRequests />
                     </RoleProtectedRoute>
                 ) : (

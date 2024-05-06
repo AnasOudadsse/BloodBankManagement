@@ -52,7 +52,7 @@ return [
             'driver' => 'session',
             'provider' => 'bloodcampstaffs',
         ],
-        'HospitalStaff' => [
+        'hospitalstaffs' => [
             'driver' => 'session',
             'provider' => 'hospitalstaffs',
         ],    
