@@ -108,3 +108,5 @@ Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logo
 route::Post('/addDonor', [DonorController::class, 'storeDonor']);
 
 route::get('/getBloodType', [DonorController::class, 'getBloodType']);
+
+route::get('getBloodRequests', [BloodRequestController::class,'getBloodRequetsWithBloodAndHospital']);

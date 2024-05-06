@@ -44,6 +44,7 @@ export const BloodDonationLogin = () => {
                 // Handle success
                 localStorage.setItem('token', data.access_token);
                 localStorage.setItem('role', data.role);
+                localStorage.setItem('user', JSON.stringify(data.user) );
 
                 toast({
                     title: "Login successful",

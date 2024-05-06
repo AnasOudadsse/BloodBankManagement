@@ -7,14 +7,15 @@ import { Header } from "./header";
 export function ListedBloodRequests() {
     const [BloodRequests, setBloodRequests] = useState([]);
     const [searchTerm, setSearchTerm] = useState('');
-    const [render, setRender] = useState(0);
-
+    const user = localStorage.getItem('user')
     let navigate = useNavigate();
+    const [filteredRequests, setFilteredRequests] = useState([]);
+
 
     useEffect(() => {
         const fetchBloodRequests = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:8000/api/getBloodRequestforHospital');
+                const response = await axios.get('http://127.0.0.1:8000/api/getBloodRequests');
                 console.log(response.data);
                 setBloodRequests(response.data);
             } catch (err) {
@@ -35,6 +36,13 @@ export function ListedBloodRequests() {
 
         return bloodRequestId.includes(searchLower) || HospitalName.toLowerCase().includes(searchLower);
     });
+
+    const bloodrequestHospital = BloodRequests.filter(br=>{
+        let userr = JSON.parse(user) 
+        console.log(userr)
+        console.log(br.hospital_id)
+        return br.hospital_id == userr.hospital_id
+    })
 
 
     const deleteItem = async (id) =>{
@@ -78,7 +86,7 @@ export function ListedBloodRequests() {
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredBloodRequests.map((e) => (
+                    {bloodrequestHospital.map((e) => (
                         <tr key={e.id}>
                             <td className="px-6 py-3">{e.id}</td>
                             <td className="px-6 py-3">{e.Quantity}</td>

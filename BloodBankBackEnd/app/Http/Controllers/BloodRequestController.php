@@ -30,29 +30,29 @@ class BloodRequestController extends Controller
         return  response()->json($bloodRequest);
     }
 
-    function getBloodRequestforHospital(Request $request)
-    {
-            // Retrieve the logged-in hospital staff member
-            $staff = $request->user('hospitalstaffs'); // Pass guard name if needed
+    // function getBloodRequestforHospital(Request $request)
+    // {
+    //         // Retrieve the logged-in hospital staff member
+    //         $staff = $request->user('hospitalstaffs'); // Pass guard name if needed
 
-            if ($staff) {
-                return response()->json(['message' => 'Authenticated', 'data' => $staff]);
-            } else {
-                return response()->json(['message' => 'Unauthenticated'], 401);
-            }
-            $hospitalId = $staff->hospital_id; // Assuming this field exists
+    //         if ($staff) {
+    //             return response()->json(['message' => 'Authenticated', 'data' => $staff]);
+    //         } else {
+    //             return response()->json(['message' => 'Unauthenticated'], 401);
+    //         }
+    //         $hospitalId = $staff->hospital_id; // Assuming this field exists
     
-            // Retrieve blood requests that belong to the same hospital
-            $bloodRequest = BloodRequest::with('bloodType', 'hospital')
-                ->where('hospital_id', $hospitalId)
-                ->first(); // Use first instead of get to return a single instance
+    //         // Retrieve blood requests that belong to the same hospital
+    //         $bloodRequest = BloodRequest::with('bloodType', 'hospital')
+    //             ->where('hospital_id', $hospitalId)
+    //             ->first(); // Use first instead of get to return a single instance
     
-            if (!$bloodRequest) {
-                return response()->json(['message' => 'No blood request found'], 404);
-            }
+    //         if (!$bloodRequest) {
+    //             return response()->json(['message' => 'No blood request found'], 404);
+    //         }
     
-            return response()->json($bloodRequest);
-        }
+    //         return response()->json($bloodRequest);
+    //     }
 
     function getBloodRequest($id){
         $bloodRequest = BloodRequest::with('bloodType','hospital')->where('id', $id)->get();

@@ -32,7 +32,7 @@ function App() {
   // Effect to check authentication status
   useEffect(() => {
     // Check for token in local storage
-    localStorage.setItem('role', 'Donor');
+    // localStorage.setItem('role', 'Donor');
     const token = localStorage.getItem('token');
     if (token) {
       console.log('user is logged in', ' token :', token)            
@@ -106,9 +106,7 @@ function App() {
             <Route
                 path="/addDonor"
                 element={ <>
-                    <RoleProtectedRoute allowedRoles={['Donor', 'BloodCampStaff']}>
-                        <DonorForm />
-                    </RoleProtectedRoute>   
+=                        <DonorForm />
                     {/* <Navigate to="/login" replace /> */}
                     </>
                 }
@@ -216,7 +214,7 @@ function App() {
             <Route
                 path="/editBloodRequest/:id"
                 element={isLoggedIn ? (
-                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                    <RoleProtectedRoute allowedRoles={['HospitalStaff']}>
                         <UpdateBloodRequest />
                     </RoleProtectedRoute>
                 ) : (
