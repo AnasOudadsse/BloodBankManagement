@@ -48,6 +48,8 @@ export const Header = () => {
           <Heading as="h1" size="lg" letterSpacing={'tighter'}>
             Blood Donation Network
           </Heading>
+          <Flex alignItems={'center'}>
+
           {
 
           isLoggedIn? ( <></> ) : (
@@ -68,6 +70,7 @@ export const Header = () => {
               <a href="/login">login</a>   
             </Button>
           )}
+          </Flex>
 
         </Flex>
       </Container>
