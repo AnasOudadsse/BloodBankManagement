@@ -12,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Donor extends Model
+class Donor extends Authenticatable
 {
     use Notifiable;
     use HasFactory;
@@ -38,6 +38,7 @@ class Donor extends Model
     public function bloodType(){
         return $this->belongsTo(BloodType::class);
     }
+
 
     protected $fillable = ['Cin','Name', 'PhoneNumber', 'Email', 'BirthDate', 'Gender', 'EncryptedPassword', 'Role', 'City', 'Address', 'Image','blood_id'];
 

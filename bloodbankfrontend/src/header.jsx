@@ -48,14 +48,18 @@ export const Header = () => {
           <Heading as="h1" size="lg" letterSpacing={'tighter'}>
             Blood Donation Network
           </Heading>
+          {
 
-          <Flex alignItems={'center'}>
+          isLoggedIn? ( <></> ) : (
+
             <Button variant={'solid'} colorScheme={'red'} size={'sm'} mr={4}>
               <a href="adddonor">Register</a>
-              
-            </Button>          
+            </Button>  
+          )}
+       
           {
             isLoggedIn?    (
+          
               <Button vari  ant={'outline'} size={'sm'} onClick={handleLogout} > 
               logout
             </Button>  
@@ -65,7 +69,6 @@ export const Header = () => {
             </Button>
           )}
 
-          </Flex>
         </Flex>
       </Container>
     </Box>

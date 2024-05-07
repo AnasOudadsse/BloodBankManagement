@@ -44,19 +44,19 @@ return [
             'driver' => 'session',
             'provider' => 'bloodbankadmins',
         ],
-        'Donor' => [
+        'donor' => [
             'driver' => 'session',
             'provider' => 'donors',
         ],
-        'BloodCampStaff' => [
+        'bloodcampstaff' => [
             'driver' => 'session',
             'provider' => 'bloodcampstaffs',
         ],
-        'hospitalstaffs' => [
+        'hospitalstaff' => [
             'driver' => 'session',
             'provider' => 'hospitalstaffs',
         ],    
-        'LabTech' => [
+        'labTech' => [
             'driver' => 'session',
             'provider' => 'labtechs',
         ],
@@ -143,8 +143,32 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
+        'donors' => [
+            'provider' => 'donors',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'bloodcampstaffs' => [
+            'provider' => 'bloodcampstaffs',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'hospitalstaffs' => [
+            'provider' => 'hospitalstaffs',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'labtechs' => [
+            'provider' => 'labtechs',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'bloodbankadmins' => [
+            'provider' => 'bloodbankadmins',
             'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,

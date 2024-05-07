@@ -5,12 +5,15 @@ namespace App\Models;
 use App\Models\BloodAnalysis;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class LabTech extends Model
+class LabTech extends Authenticatable
 {
     use HasFactory;
     use HasApiTokens;
+    use Notifiable;
 
     protected $primaryKey = 'Cin';
     public $incrementing = false;

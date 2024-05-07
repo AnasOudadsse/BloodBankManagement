@@ -25,6 +25,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import RoleProtectedRoute from './RoleProtectiongRoute';
 import UnauthorizedPage from './unauthorized';
+import Profile from './profile';
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -254,6 +255,7 @@ function App() {
           <Route path='login' element={<LoginPage/>} />
           <Route path='/' element={<HomePage/>} />
           <Route path='/unauthorized' element={<UnauthorizedPage/>} />
+          <Route path='/profile' element={<Profile/>} />
         
       </Routes>
     </BrowserRouter>

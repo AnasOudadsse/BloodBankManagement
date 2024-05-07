@@ -110,3 +110,6 @@ route::Post('/addDonor', [DonorController::class, 'storeDonor']);
 route::get('/getBloodType', [DonorController::class, 'getBloodType']);
 
 route::get('getBloodRequests', [BloodRequestController::class,'getBloodRequetsWithBloodAndHospital']);
+
+route::get('getImage/{id}', [DonorController::class,'getImage']);
+

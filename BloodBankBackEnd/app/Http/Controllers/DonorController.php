@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Inertia\Inertia;
 use App\Models\Donor;
 use App\Mail\TestEmail;
 use App\Models\BloodType;
@@ -93,7 +94,26 @@ class DonorController extends Controller
                     $donorName =  $donor->Name;
                     Mail::to($donor->Email)->send(new TestEmail($title, $emailContent, $donorName));
         }
-    
+
+
+
         return 'Test email sent successfully.';
+    }        
+
+    
+    public function getImage($id)
+    {
+        $donor = Donor::where('Cin',$id)->first();
+        Log::info($donor);
+        if ($donor) {
+            return response()->json([
+                'image_url' => url('/storage/' . $donor->Image)
+            ]);
+            Log::info('image_url');
+        } else {
+            return response()->json(['error' => 'Donor not found'], 404);
+            Log::info('image_url');
+
+        }
     }
 }
