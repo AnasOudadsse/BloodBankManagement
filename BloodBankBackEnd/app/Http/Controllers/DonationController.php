@@ -37,6 +37,7 @@ class DonationController extends Controller
                 'QuantityDonated' => 'required|numeric',
                 'DonationDate' => 'required|date',
                 'blood_type_id' => 'required', 
+                'bloodcampstaff_cin' => 'required'
             ]);
     
             // Create the donation record with the validated data

@@ -52,12 +52,12 @@ const DonationListEdit = () => {
 
   const donationfilter = donationsWithDonors.filter(br=>{
     let userr = JSON.parse(user) 
-    console.log(userr)
-    console.log(br.blood_camp_id)
-    return br.blood_camp_id == userr.blood_camp_id
+    console.log('user', userr.Cin)
+    console.log('donation',br.bloodcampstaff_cin)
+    return br.bloodcampstaff_cin == userr.Cin
 })
 
-
+  console.log('donationfilter',donationfilter);
   return (
     <div>
       <input type="text" placeholder="Search by CIN or Name" value={searchTerm} onChange={handleSearch}         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
@@ -80,7 +80,7 @@ const DonationListEdit = () => {
               <td scope="col" class="px-6 py-3">{donation.DonationDate ?? 'N/A'}</td>
               <td scope="col" class="px-6 py-3">
                 {donation.donor ? (
-                  <>                  
+                  <>                    
                   <Link className='px-1' to={`/editDonation/${donation.id}`}> <FontAwesomeIcon icon={faEdit}/> </Link> 
                   <button className='px-1' onClick={ ()=> deleteItem(donation.id)} >  <FontAwesomeIcon icon={faTrashAlt} /> </button>
 

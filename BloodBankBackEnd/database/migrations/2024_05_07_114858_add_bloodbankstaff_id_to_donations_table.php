@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('donations', function (Blueprint $table) {
-            $table->integer('bloodcampstaff_cin');
+            $table->string('bloodcampstaff_cin');
             $table->foreign('bloodcampstaff_cin')->references('Cin')->on('blood_camp_staff')->onDelete('cascade');        });
     }
 
