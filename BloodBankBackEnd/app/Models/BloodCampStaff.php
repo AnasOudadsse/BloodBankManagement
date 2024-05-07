@@ -20,6 +20,12 @@ class BloodCampStaff extends Model
         return $this->belongsTo(BloodCamp::class);
     }
 
+    public function donation()
+{
+    
+    return $this->hasMany(Donation::class);
+}
+
     protected $fillable = ['Cin', 'Name', 'PhoneNumber', 'Email', 'BirthDate', 'Gender', 'EncryptedPassword', 'Role', 'blood_camp_id'];
 
 }

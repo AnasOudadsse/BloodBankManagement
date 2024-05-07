@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\BloodCamp;
-use App\Models\BloodCampStaff;
 use Illuminate\Http\Request;
+use App\Models\BloodCampStaff;
+use Illuminate\Support\Facades\Hash;
+
 
 class BloodCampStaffController extends Controller
 {
@@ -15,7 +17,21 @@ class BloodCampStaffController extends Controller
     }
 
     public function storeBloodCampStaff(Request $request){
-        $BCstaff = BloodCampStaff::create($request->all());
+
+        $BCstaff = new BloodCampStaff([
+            
+            'Cin' => $request->input('Cin'),
+            'Name' => $request->input('Name'),
+            'PhoneNumber' => $request->input('PhoneNumber'),
+            'Email' => $request->input('Email'),
+            'BirthDate' => $request->input('BirthDate'),
+            'Gender' => $request->input('Gender'),
+            'EncryptedPassword' => Hash::make($request->input('EncryptedPassword')),
+            'Role' => $request->input('Role'),
+            'blood_camp_id' => $request->input('blood_camp_id'),
+        ]);
+        $BCstaff->save();
+        
         return response()->json($BCstaff, 201);
     }
 }

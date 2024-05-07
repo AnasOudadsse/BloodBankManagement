@@ -234,9 +234,9 @@ function App() {
             <Route
                 path="/editDonation/:id"
                 element={isLoggedIn ? (
-                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                    // <RoleProtectedRoute allowedRoles={['BloodCampStaff, HospitalStaff']}>
                         <UpdateDonation />
-                    </RoleProtectedRoute>
+                    // </RoleProtectedRoute>
                 ) : (
                     <Navigate to="/login" replace />
                 )}
@@ -244,9 +244,9 @@ function App() {
             <Route
                 path="/DonationListedit"
                 element={isLoggedIn ? (
-                    <RoleProtectedRoute allowedRoles={['Admin']}>
+                    // <RoleProtectedRoute allowedRoles={['Admin']}>
                         <DonationListEdit />
-                    </RoleProtectedRoute>
+                    // </RoleProtectedRoute>
                 ) : (
                     <Navigate to="/login" replace />
                 )}

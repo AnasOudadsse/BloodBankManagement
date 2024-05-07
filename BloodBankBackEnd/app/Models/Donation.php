@@ -32,8 +32,12 @@ class Donation extends Model
         return $this->hasOne(BloodAnalysis::class);
     }
 
+    public function bloodCampStaff()
+{
+    return $this->belongsTo(BloodCampStaff::class);
+}
 
     
-    protected $fillable = ['QuantityDonated', 'DonationDate', 'donor_cin', 'blood_type_id', 'blood_camp_id'];
+    protected $fillable = ['QuantityDonated', 'DonationDate', 'donor_cin', 'blood_type_id', 'blood_camp_id', 'bloodcampstaff_cin'];
 
 }

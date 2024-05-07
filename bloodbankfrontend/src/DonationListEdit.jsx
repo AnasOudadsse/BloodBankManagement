@@ -6,6 +6,7 @@ import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 const DonationListEdit = () => {
   const [donationsWithDonors, setDonationsWithDonors] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const user = localStorage.getItem('user')
 
   console.log(donationsWithDonors)
 
@@ -49,6 +50,13 @@ const DonationListEdit = () => {
     }
   }
 
+  const donationfilter = donationsWithDonors.filter(br=>{
+    let userr = JSON.parse(user) 
+    console.log(userr)
+    console.log(br.blood_camp_id)
+    return br.blood_camp_id == userr.blood_camp_id
+})
+
 
   return (
     <div>
@@ -64,7 +72,7 @@ const DonationListEdit = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredDonationsWithDonors.map(donation => (
+          {donationfilter.map(donation => (
             <tr key={donation.id}>
               <td scope="col" class="px-6 py-3">{donation.id}</td>
               <td scope="col" class="px-6 py-3">{donation.donor?.Cin ?? 'N/A'}</td>

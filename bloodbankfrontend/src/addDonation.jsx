@@ -4,14 +4,17 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 
 export const DonationForm = () => {
-
+    const user = localStorage.getItem('user')
+    const bloodcampstaff = JSON.parse(user)
+    console.log(bloodcampstaff.Cin);
     const [BloodType, setBloodType] = useState([])
     const [donationData, setDonationData] = useState({
         QuantityDonated: '',
         DonationDate: '',
         donor_cin : '',
         blood_type_id : '',
-        blood_camp_id : ''
+        blood_camp_id : '',
+        bloodcampstaff_cin : bloodcampstaff.Cin
 
   });
 
