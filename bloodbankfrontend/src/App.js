@@ -252,6 +252,22 @@ function App() {
                     <Navigate to="/login" replace />
                 )}
             />
+            <Route
+                path="/profile"
+                element={isLoggedIn ? (
+                        <Profile />
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+            <Route
+                path="/resetpassword"
+                element={isLoggedIn ? (
+                        <DonationListEdit />
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
           <Route path='login' element={<LoginPage/>} />
           <Route path='/' element={<HomePage/>} />
           <Route path='/unauthorized' element={<UnauthorizedPage/>} />

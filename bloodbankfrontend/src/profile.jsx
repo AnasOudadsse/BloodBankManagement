@@ -132,7 +132,9 @@ import axios from 'axios';
           </VStack>
   
           <Button colorScheme="red" mt={6} onClick={handleResetPassword}>
-            Reset Password
+            <a href="resetPassword">
+                Reset Password
+            </a>
           </Button>
         </Flex>
       </Container>
