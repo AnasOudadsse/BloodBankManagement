@@ -113,5 +113,5 @@ route::get('getBloodRequests', [BloodRequestController::class,'getBloodRequetsWi
 
 route::get('getImage/{id}', [DonorController::class,'getImage']);
 
-route::post('resetPassword', [AuthController::class,'resetPassword']);
+route::post('resetPassRequest', [AuthController::class,'sendResetLinkEmail']);
 

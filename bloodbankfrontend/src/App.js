@@ -26,6 +26,7 @@ import axios from 'axios';
 import RoleProtectedRoute from './RoleProtectiongRoute';
 import UnauthorizedPage from './unauthorized';
 import Profile from './profile';
+import { ResetPasswordRequest } from './emailPassword';
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -107,7 +108,7 @@ function App() {
             <Route
                 path="/addDonor"
                 element={ <>
-=                        <DonorForm />
+                     <DonorForm />
                     {/* <Navigate to="/login" replace /> */}
                     </>
                 }
@@ -155,7 +156,7 @@ function App() {
             <Route
                 path="/donationList"
                 element={isLoggedIn ? (
-                    <RoleProtectedRoute allowedRoles={['LabTech']}>
+                    <RoleProtectedRoute allowedRoles={['LabTech', 'Admin']}>
                         <DonationListView />
                     </RoleProtectedRoute>
                 ) : (
@@ -165,7 +166,7 @@ function App() {
             <Route
                 path="/addAnalysis/:id"
                 element={isLoggedIn ? (
-                    <RoleProtectedRoute allowedRoles={['LabTech']}>
+                    <RoleProtectedRoute allowedRoles={['LabTech', 'Admin']}>
                         <AnalysisForm />
                     </RoleProtectedRoute>
                 ) : (
@@ -272,7 +273,8 @@ function App() {
           <Route path='/' element={<HomePage/>} />
           <Route path='/unauthorized' element={<UnauthorizedPage/>} />
           <Route path='/profile' element={<Profile/>} />
-        
+          <Route path='/resetPassRequest' element={<ResetPasswordRequest/>} />
+            
       </Routes>
     </BrowserRouter>
   );

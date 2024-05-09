@@ -106,7 +106,6 @@ export function DonorForm() {
   return (
     <>
     <Header/>
-
     <Box p={8} maxWidth="500px" borderWidth={1} borderRadius={8} boxShadow="lg" margin="0 auto" transform="scale(0.9)">
       <VStack spacing={4} as="form" onSubmit={handleSubmit}>
         <Heading size="lg">Donor Registration</Heading>

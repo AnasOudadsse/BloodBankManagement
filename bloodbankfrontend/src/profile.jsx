@@ -21,6 +21,7 @@ import axios from 'axios';
     const userlocal = localStorage.getItem('user')
     const user = JSON.parse(userlocal)
     const [Image, setImage] = useState(null);
+
     console.log(Image)
     console.log(user.Cin);
     const userData = {
@@ -54,9 +55,12 @@ import axios from 'axios';
             });
     }, [user?.Cin]); // Dependency on user.Cin to handle changes
 
-    if (!Image) {
+    if (user.Role == 'Donor'){
+        if (!Image) {
         return <div>Loading Image data...</div>;
     }
+    }
+  
 
   
     const handleResetPassword = () => {
@@ -72,8 +76,9 @@ import axios from 'axios';
           <Heading as="h1" size="lg" mb={6} color="red.600">
             My Profile
           </Heading>
-  
-          <Box
+        {
+          user.Role == 'Donor' ? (
+                                <Box
             width="150px"
             height="150px"
             borderRadius="full"
@@ -83,6 +88,11 @@ import axios from 'axios';
           >
             <img src={Image.image_url} alt="User Avatar" width="100%" />
           </Box>
+          ):(
+            <></>
+          )
+        }
+
   
           <VStack spacing={4} align="stretch" width="full">
             <Box>
@@ -132,7 +142,7 @@ import axios from 'axios';
           </VStack>
   
           <Button colorScheme="red" mt={6} onClick={handleResetPassword}>
-            <a href="resetPassword">
+            <a href="/resetPassRequest">
                 Reset Password
             </a>
           </Button>
