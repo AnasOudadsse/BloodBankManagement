@@ -45,7 +45,7 @@ export const Header = () => {
     <Box bg={bgColor} color={color} px={4} boxShadow="sm">
       <Container maxW="container.xl">
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          <Heading as="h1" size="lg" letterSpacing={'tighter'}>
+          <Heading as="h1" size="md" letterSpacing={'tighter'} color={'white'}>
             Blood Donation Network
           </Heading>
           <Flex alignItems={'center'}>

@@ -1,101 +1,126 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { Link as RouterLink } from 'react-router-dom';
+import {
+  Box,
+  Input,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  IconButton,
+  useToast,
+  Text,
+  Link,
+} from '@chakra-ui/react';
+import { DeleteIcon, EditIcon } from '@chakra-ui/icons';
+import { Header } from './header';
+
 const DonationListEdit = () => {
   const [donationsWithDonors, setDonationsWithDonors] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
-  const user = localStorage.getItem('user')
-
-  console.log(donationsWithDonors)
+  const user = JSON.parse(localStorage.getItem('user'));
+  const toast = useToast();
 
   useEffect(() => {
-    // Fetch donationsWithDonors when the component is mounted
     axios.get('http://127.0.0.1:8000/api/donationList')
       .then(response => {
         setDonationsWithDonors(response.data);
       })
       .catch(error => {
-        console.error('There was an error fetching the donationsWithDonors', error);
+        console.error('There was an error fetching the donations', error);
+        toast({
+          title: 'Error loading donations',
+          description: error.message,
+          status: 'error',
+          duration: 5000,
+          isClosable: true,
+        });
       });
-  }, []);
+  }, [toast]);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  const filteredDonationsWithDonors = donationsWithDonors.filter(donation => {
-    // Using optional chaining to safely access nested properties
+  const filteredDonations = donationsWithDonors.filter(donation => {
     const donorCin = donation.donor?.Cin ?? '';
     const donorName = donation.donor?.Name?.toLowerCase() ?? '';
-    
-    // Using toLowerCase() on searchTerm for case-insensitive comparison
     const searchLower = searchTerm.toLowerCase();
-    
     return donorCin.includes(searchLower) || donorName.includes(searchLower);
   });
 
-  const deleteItem = async (id) =>{
-    const data = {
-        id: id
-    } 
-    try{
-        const response = await axios.post('http://127.0.0.1:8000/api/deleteDonation', data);
-        // setRender(render + 1)
-        window.location.reload()
+  const deleteItem = async (id) => {
+    try {
+      await axios.post('http://127.0.0.1:8000/api/deleteDonation', { id });
+      setDonationsWithDonors(prev => prev.filter(donation => donation.id !== id));
+      toast({
+        title: 'Donation Deleted',
+        description: 'The donation record has been successfully deleted.',
+        status: 'success',
+        duration: 5000,
+        isClosable: true,
+      });
+    } catch (error) {
+      console.log('Failed to delete donation', error.response?.data);
+      toast({
+        title: 'Error Deleting Donation',
+        description: 'Failed to delete donation. Please try again.',
+        status: 'error',
+        duration: 5000,
+        isClosable: true,
+      });
     }
-    catch(err){
-        console.log('Failed to delete request', err.response?.data);
-    }
-  }
+  };
 
-  const donationfilter = donationsWithDonors.filter(br=>{
-    let userr = JSON.parse(user) 
-    console.log('user', userr.Cin)
-    console.log('donation',br.bloodcampstaff_cin)
-    return br.bloodcampstaff_cin == userr.Cin
-})
-
-  console.log('donationfilter',donationfilter);
   return (
-    <div>
-      <input type="text" placeholder="Search by CIN or Name" value={searchTerm} onChange={handleSearch}         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"/>
-      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-          <tr>
-            <th scope="col" class="px-6 py-3">Donation ID</th>
-            <th scope="col" class="px-6 py-3">Donor CIN</th>
-            <th scope="col" class="px-6 py-3">Quantity donated</th>
-            <th scope="col" class="px-6 py-3">Donation date</th>
-            <th scope="col" class="px-6 py-3">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {donationfilter.map(donation => (
-            <tr key={donation.id}>
-              <td scope="col" class="px-6 py-3">{donation.id}</td>
-              <td scope="col" class="px-6 py-3">{donation.donor?.Cin ?? 'N/A'}</td>
-              <td scope="col" class="px-6 py-3">{donation.QuantityDonated?? 'N/A'}</td>
-              <td scope="col" class="px-6 py-3">{donation.DonationDate ?? 'N/A'}</td>
-              <td scope="col" class="px-6 py-3">
-                {donation.donor ? (
-                  <>                    
-                  <Link className='px-1' to={`/editDonation/${donation.id}`}> <FontAwesomeIcon icon={faEdit}/> </Link> 
-                  <button className='px-1' onClick={ ()=> deleteItem(donation.id)} >  <FontAwesomeIcon icon={faTrashAlt} /> </button>
-
-                  </>
-                  
-                ) : (
-                  <span>No donor available</span>
-                )}
-              </td>
-            </tr>
-          ))}
-</tbody>
-
-      </table>
+    <>
+    <Header/>
+    <div className="p-8 bg-gray-100 min-h-screen">
+      <div className="max-w-4xl mx-auto">
+        <input 
+          type="text" 
+          placeholder="Search by CIN or Name" 
+          value={searchTerm} 
+          onChange={handleSearch} 
+          className="mb-4 w-full p-2.5 text-sm text-gray-900 bg-white border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
+        />
+        <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
+          <table className="w-full text-sm text-left text-gray-500">
+            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+              <tr>
+                <th scope="col" className="px-6 py-3">Donation ID</th>
+                <th scope="col" className="px-6 py-3">Donor CIN</th>
+                <th scope="col" className="px-6 py-3">Quantity donated</th>
+                <th scope="col" className="px-6 py-3">Donation date</th>
+                <th scope="col" className="px-6 py-3">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {filteredDonations.map(donation => (
+                <tr key={donation.id} className="bg-white border-b">
+                  <td className="px-6 py-4">{donation.id}</td>
+                  <td className="px-6 py-4">{donation.donor?.Cin ?? 'N/A'}</td>
+                  <td className="px-6 py-4">{donation.QuantityDonated ?? 'N/A'}</td>
+                  <td className="px-6 py-4">{donation.DonationDate ?? 'N/A'}</td>
+                  <td className="px-6 py-4 flex space-x-3">
+                    <Link className="text-blue-500 hover:text-blue-700" to={`/editDonation/${donation.id}`}>
+                      <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/icons/pencil-square.svg" alt="Edit" />
+                    </Link>
+                    <button className="text-red-500 hover:text-red-700" onClick={() => deleteItem(donation.id)}>
+                      <img src="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/icons/trash.svg" alt="Delete" />
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
+    </>
   );
 };
 
