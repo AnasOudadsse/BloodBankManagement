@@ -27,6 +27,7 @@ import RoleProtectedRoute from './RoleProtectiongRoute';
 import UnauthorizedPage from './unauthorized';
 import Profile from './profile';
 import { ResetPasswordRequest } from './emailPassword';
+import { ResetPassword } from './PasswordReset';
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -274,6 +275,7 @@ function App() {
           <Route path='/unauthorized' element={<UnauthorizedPage/>} />
           <Route path='/profile' element={<Profile/>} />
           <Route path='/resetPassRequest' element={<ResetPasswordRequest/>} />
+          <Route path='/resetpassword/:token' element={<ResetPassword/>} />
             
       </Routes>
     </BrowserRouter>

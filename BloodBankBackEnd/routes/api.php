@@ -33,7 +33,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware(['auth:sanctum'])->group(function () {
+// Route::middleware(['auth:sanctum'])->group(function () {
 
 route::post('/addHospital', [HospitalController::class, 'storeHospital']);
 
@@ -65,7 +65,7 @@ route::get('getDonations', [DonationController::class , 'getDonations']);
 
 Route::get('/addAnalysis/{id}', [DonationController::class , 'getDonations']);
 
-route::post('addAnalysis', [BloodAnalysisController::class ,'store']);
+// route::post('addAnalysis', [BloodAnalysisController::class ,'store']);
 
 route::post('addNotification', [DonorController::class, 'send']);
 
@@ -83,20 +83,22 @@ route::put('updateBloodRequest', [BloodRequestController::class,'updateBloodRequ
 
 route::middleware(['auth:sanctum', 'role:Admin'])->put('updateBloodRequestStatus', [BloodRequestController::class,'updateBloodRequestStatus']);
 
-// route::put('updateBloodRequestStatus', [InventoryController::class,'updateInventoryFromDeliveredRequests']);
+route::put('updateBloodRequestStatus', [InventoryController::class,'updateInventoryFromDeliveredRequests']);
 
 route::post('deleteRequest', [BloodRequestController::class,'deleteRequest']);
 
 route::post('deleteDonation', [DonationController::class,'deleteDonation']);
 
-route::post('addAnalysis', [InventoryController::class, 'verifyDonation']);
+// route::post('addAnalysis', [InventoryController::class, 'verifyDonation']);
 
 route::get('editDonation/{id}', [DonationController::class, 'getDonationsWithDonors']);
 
 route::put('updateDonation', [DonationController::class, 'updateDonation']);
-});
+// });
 
 Route::post('/login', [AuthController::class, 'login']);
+
+Route::post('/passwordreset', [AuthController::class, 'resetPassword']);
     
 
 Route::get('/isLogged', function (Request $request) {

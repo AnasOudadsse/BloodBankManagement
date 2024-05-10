@@ -76,23 +76,6 @@ class AuthController extends Controller
         return response()->json(['message' => 'Logged out successfully'], 200);
     }
 
-    // public function resetPassword(Request $request)
-    // {
-    //     $request->validate([
-    //         'current_password' => 'required',
-    //         'new_password' => 'required',
-    //     ]);
-
-    //     $user = Auth::user();
-    //     if (!Hash::check($request->current_password, $user->password)) {
-    //         return response()->json(['message' => 'Current password does not match'], 401);
-    //     }
-
-    //     $user->password = Hash::make($request->new_password);
-    //     $user->save();
-
-    //     return response()->json(['message' => 'Password changed successfully']);
-    // }
 
     public function sendResetLinkEmail(Request $request)
     {
@@ -138,7 +121,7 @@ class AuthController extends Controller
         );
     
         // Send the email with the reset link
-        $resetLink = url('/password/reset/' . $token);
+        $resetLink = 'http://localhost:3000/resetpassword/' . $token;
         try{
             Mail::send('mail.reset', ['link' => $resetLink], function ($message) use ($user) {
             $message->to($user->Email);
@@ -152,4 +135,46 @@ class AuthController extends Controller
     
         return response()->json(['message' => 'Reset link sent to your email address.']);
     }
+
+    public function resetPassword(Request $request) {
+        $request->validate([
+            'token' => 'required',
+            'password' => 'required',
+        ]);
+    
+        $tokenData = DB::table('password_reset_tokens')->where('token', $request->token)->first();
+        if (!$tokenData) {
+            return response()->json(['message' => 'Invalid or expired token'], 400);
+        }
+        $models = [
+            ['model' => Donor::class, 'role' => 'Donor'],
+            ['model' => BloodBankAdmin::class, 'role' => 'Admin'],
+            ['model' => HospitalStaff::class, 'role' => 'HospitalStaff'],
+            ['model' => BloodCampStaff::class, 'role' => 'BloodCampStaff'],
+            ['model' => LabTech::class, 'role' => 'LabTech'],
+            // ['model' => Super::class, 'role' => 'SuperAdmin'],
+        ];
+        foreach ($models as $item) {
+            $model = $item['model'];
+            $user = $model::where('Email', $tokenData->email)->first();
+            if ($user) {
+                // Break if user found                
+                Log::info('user found');
+
+                break;
+            }}
+    
+        if (!$user) {
+            return response()->json(['message' => "We can't find a user with that token."], 404);
+        }
+        $user->EncryptedPassword = Hash::make($request->password);
+        $user->save();
+    
+        // Delete the token or invalidate it
+        DB::table('password_reset_tokens')->where('token', $request->token)->delete();
+    
+        return response()->json(['message' => 'Password has been successfully reset']);
     }
+    
+    }
+    
