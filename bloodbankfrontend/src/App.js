@@ -20,7 +20,7 @@ import {ListedBloodRequestsAdmin} from './ListBloodRequestAdmin'
 import DonationListEdit from './DonationListEdit';
 import { UpdateDonation } from './updateDonation';
 import LoginPage from './Login';
-import HomePage from './HomePage';
+import {HomePage} from './HomePage';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import RoleProtectedRoute from './RoleProtectiongRoute';
@@ -157,7 +157,7 @@ function App() {
             <Route
                 path="/donationList"
                 element={isLoggedIn ? (
-                    <RoleProtectedRoute allowedRoles={['LabTech', 'Admin']}>
+                    <RoleProtectedRoute allowedRoles={['LabTech']}>
                         <DonationListView />
                     </RoleProtectedRoute>
                 ) : (
@@ -167,7 +167,7 @@ function App() {
             <Route
                 path="/addAnalysis/:id"
                 element={isLoggedIn ? (
-                    <RoleProtectedRoute allowedRoles={['LabTech', 'Admin']}>
+                    <RoleProtectedRoute allowedRoles={['LabTech']}>
                         <AnalysisForm />
                     </RoleProtectedRoute>
                 ) : (

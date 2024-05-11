@@ -1,25 +1,34 @@
-import {
-    Box,
-    Container,
-    Flex,
-    Text,
-    Heading,
-    Button,
-    SimpleGrid,
-    Image,
-    VStack,
-    Divider,
-    Stack,
-    Icon,
-    Input,
-    useColorModeValue,
-    useBreakpointValue,
-    IconButton
-  } from '@chakra-ui/react';
-  import { FaPhone, FaFacebookF, FaTwitter, FaInstagram } from 'react-icons/fa';
-  import Slider from 'react-slick';
-  import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { Box, Flex, IconButton, Image, Text, useColorModeValue, VStack, SimpleGrid, Heading, Divider, Button, Link } from '@chakra-ui/react';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import Slider from 'react-slick';
+import { Header } from './header';
+import Footer from './footer';
 
+export function HomePage() {
+  const bgColor = useColorModeValue('gray.50', 'gray.800');
+  const bgFooter = useColorModeValue('gray.200', 'gray.700');
+  const textColor = useColorModeValue('white', 'gray.200');
+
+  const photos = [
+    { src: '/nguy-n-hi-p-2rNHliX6XHk-unsplash.jpg' },
+    { src: '/donors.jpg' },
+  ];
+
+  const SlickArrowLeft = ({ onClick }) => (
+    <IconButton
+      onClick={onClick}
+      icon={<FaArrowLeft />}
+      aria-label="Previous slide"
+      variant="ghost"
+      position="absolute"
+      left="32px"
+      top="50%"
+      transform="translateY(-50%)"
+      zIndex="2"
+      color='red'
+      fontSize="24px"
+    />
+  );
   const steps = [
     {
       number: '01.',
@@ -38,66 +47,75 @@ import {
     },
   ];
 
-  const photos = [
-    // Replace with your own image URLs
-    { src: '/nguy-n-hi-p-2rNHliX6XHk-unsplash.jpg' },
-    { src: '/Blood donation guidelines .png' },
-    { src: '/Blood-Donor-min-1-scaled.jpg' },
-  ];
-  export default function HomePage() {
-    const bgColor = useColorModeValue('gray.50', 'gray.800');
-    const color = useColorModeValue('gray.600', 'whiteAlpha.900');
-    const bgFooter = useColorModeValue('gray.200', 'gray.700');
-  
-    const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
-      <IconButton
-        {...props}
-        aria-label="prev"
-        variant="ghost"
-        position="absolute"
-        left={0}
-        top="50%"
-        transform="translate(0%, -50%)"
-        zIndex={2}
-        icon={<FaArrowLeft />}
-      />
-    );
+  const SlickArrowRight = ({ onClick }) => (
+    <IconButton
+      onClick={onClick}
+      icon={<FaArrowRight />}
+      aria-label="Next slide"
+      variant="ghost"
+      position="absolute"
+      right="32px"
+      top="50%"
+      transform="translateY(-50%)"
+      zIndex="2"
+      color='red'
+      fontSize="24px"
+    />
+  );
 
-    const SlickArrowRight = ({ currentSlide, slideCount, ...props }) => (
-      <IconButton
-        {...props}
-        aria-label="next"
-        variant="ghost"
-        position="absolute"
-        right={0}
-        top="50%"
-        transform="translate(0%, -50%)"
-        zIndex={2}
-        icon={<FaArrowRight />}
-      />
-    );
+  const sliderSettings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    nextArrow: <SlickArrowRight />,
+    prevArrow: <SlickArrowLeft />,
+    adaptiveHeight: true,
+  };
 
-      const sliderSettings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 1,
-        slidesToScroll: 1,
-        nextArrow: <SlickArrowRight />,
-        prevArrow: <SlickArrowLeft />,
-        adaptiveHeight: true,
-      };
-    return (
-      <>
-      <Box position="relative" width="full" height="800" overflow="hidden">
-      <Slider {...sliderSettings}>
-        {photos.map((photo, idx) => (
-          <Box key={idx} height="full" width="full">
-            <Image src={photo.src} alt={`Slide ${idx}`} boxSize="fit-content" objectFit="cover" />
-          </Box>
-        ))}
-      </Slider>
-    </Box>
+  return (
+    <>
+      <Header />
+      <Box position="relative" width="full">
+        <Slider {...sliderSettings}>
+          {photos.map((photo, idx) => (
+            <Box key={idx} position="relative"  width="full" >
+              
+              <Image src={photo.src} alt={`Slide ${idx}`} fit="cover" />
+              <Flex
+                position="absolute"
+                top="0"
+                left="0"
+                right="0"
+                bottom="0"
+                justifyContent="center"
+                alignItems="center"
+                p="32px"
+                bgGradient="linear(to left, rgba(255,255,255,0), rgba(200,200,200,0.8))"
+                >
+                <Text fontSize={40} fontWeight={700} color="#D2122E" textAlign="center" position='absolute'  bottom={370}>Donate Blood Save A Life!</Text>
+                <Text fontSize={50} fontWeight={700} color="black" textAlign="center" position='absolute' bottom={200}>Donate Blood And <br/> Inspire Others!</Text>
+                  <Link href="/adddonor" >                
+                    <Button
+                      bg="#D2122E" 
+                      color="white"
+                      fontSize="md"
+                      fontWeight="bold"
+                      p="4" 
+                      _hover={{ bg: "red.700" }}
+                      position='absolute'
+                      left={580}
+                      bottom={110}
+                    >
+                      Become A Donor
+                    </Button>
+                  </Link>
+              </Flex>
+            </Box>
+          ))}
+        </Slider>
+        </Box>
   
         <Box py={16} ml={20} mr={20} >
       <SimpleGrid columns={{ base: 1, md: 3 }} spacing={10}>
@@ -114,53 +132,11 @@ import {
           </VStack>
         ))}
       </SimpleGrid>
-    </Box>
-  
+      </Box>
+        
+      
+      <Footer />
+    </>
+  );
+};
 
-  
-        {/* Footer */}
-        <Box bg={bgFooter} color="white" p={10}>
-          <Container maxW="container.xl">
-            <SimpleGrid columns={{ base: 1, md: 4 }} spacing={10}>
-              <Box>
-                <Heading size="md" mb={4}>
-                  About Us
-                </Heading>
-                <Text fontSize="sm">
-                  {/* Company Info */}
-                </Text>
-              </Box>
-              <Box>
-                <Heading size="md" mb={4}>
-                  Contact Us
-                </Heading>
-                {/* Contact Details */}
-              </Box>
-              <Box>
-                <Heading size="md" mb={4}>
-                  Stay Connected
-                </Heading>
-                <Stack direction="row" spacing={2}>
-                  <Icon as={FaFacebookF} />
-                  <Icon as={FaTwitter} />
-                  <Icon as={FaInstagram} />
-                  {/* More Social Icons */}
-                </Stack>
-              </Box>
-              <Box>
-                <Heading size="md" mb={4}>
-                  Subscribe
-                </Heading>
-                <Input placeholder="Enter your email" />
-                <Button mt={2} colorScheme="red">
-                  Subscribe
-                </Button>
-              </Box>
-            </SimpleGrid>
-          </Container>
-        </Box>
-      </>
-
-    );
-  }
-  
