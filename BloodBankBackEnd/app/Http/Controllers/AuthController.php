@@ -77,6 +77,7 @@ class AuthController extends Controller
     }
 
 
+    
     public function sendResetLinkEmail(Request $request)
     {
         // Validate the request

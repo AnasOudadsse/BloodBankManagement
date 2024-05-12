@@ -1,4 +1,4 @@
-import { Box, Flex, Button, Container, Heading, useColorModeValue, Link } from '@chakra-ui/react';
+import { Box, Flex, Button, Container, Heading, useColorModeValue, Link, Text } from '@chakra-ui/react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
@@ -29,7 +29,7 @@ export const Header = () => {
     let roleLinks = links[role] || links.Donor; // Changed from links.guest assuming default to 'Donor' or any appropriate default
     return (
       roleLinks.map((link, index) => (
-        <Link key={index} href={link.href} px={3} py={2} rounded="md" color="black" _hover={{ bg: 'red.500' }}>
+        <Link key={index} href={link.href} px={3} py={2} rounded="md" color="white" _hover={{ bg: 'red.500' }}>
           {link.text}
         </Link>
       ))
@@ -43,24 +43,25 @@ export const Header = () => {
             localStorage.removeItem('token');
 
             // Redirect to the login page
-            navigate('/login');
+            navigate('/HomePage');
         })
         .catch((error) => {
-            console.error('Error during logout:', error);
+            console.error('Error during logout:', error.data);
         });
   };
 
   return (
-    <Box bg={'white'} color={color} px={4} boxShadow="sm">
+    <Box bg={'#AB0003'} color={color} px={4} boxShadow="sm">
       <Container maxW="container.xl">
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+            <Text color='white' fontWeight={500} fontSize={25} >OurBlood</Text>
             <img style={{width:48}} src="/lgo.png" alt="Logo" />
           <Flex grow={1} justifyContent="center">
             {renderLinks()}
           </Flex>
           <Flex alignItems={'center'}>
             {isLoggedIn ? (
-              <Button variant={'outline'} size={'sm'} onClick={handleLogout} bgColor={bgColor}>
+              <Button variant={'outline'} size={'sm'} onClick={handleLogout} bgColor={'white'}>
                 Logout
               </Button>
             ) : (
@@ -68,7 +69,7 @@ export const Header = () => {
                 <Button variant={'solid'} colorScheme={'red'} size={'sm'} mr={4} as="a" href="/adddonor">
                   Register
                 </Button>
-                <Button variant={'outline'} size={'sm'} as="a" href="/login">
+                <Button variant={'outline'} size={'sm'} as="a" href="/login" bg={'white'}>
                   Login
                 </Button>
               </>

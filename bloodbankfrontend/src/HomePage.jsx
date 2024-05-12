@@ -3,6 +3,7 @@ import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import Slider from 'react-slick';
 import { Header } from './header';
 import Footer from './footer';
+import { FAQ } from './FAQ';
 
 export function HomePage() {
   const bgColor = useColorModeValue('gray.50', 'gray.800');
@@ -133,8 +134,9 @@ export function HomePage() {
         ))}
       </SimpleGrid>
       </Box>
-        
-      
+      <Box position="relative" left={81} width={1200}>
+          <FAQ/>
+      </Box>
       <Footer />
     </>
   );
