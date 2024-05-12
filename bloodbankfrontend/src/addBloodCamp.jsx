@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { Box, FormControl, FormLabel, Input, Button, VStack, Heading, Text, useToast } from '@chakra-ui/react';
+import Footer from "./footer";
+import { Header } from "./header";
 
 export function BloodCampForm() {
     const [BloodCampData, setBloodCampData] = useState({
@@ -36,8 +38,6 @@ export function BloodCampForm() {
                     StartTime: '',
                     EndTime: ''
                 });
-            } else {
-                throw new Error('Non-200 response');
             }
         } catch (err) {
             toast({
@@ -53,7 +53,8 @@ export function BloodCampForm() {
 
     return (
       <>
-        <Box maxW="500px" mx="auto" p={5} mt={5} borderWidth="1px" borderRadius="lg">
+      <Header/>
+        <Box maxW="500px" mx="auto" p={5} mt={20} mb={20} borderWidth="1px" borderRadius="lg">
             <VStack spacing={4}>
                 <Heading as="h1" size="xl">Register Blood Camp</Heading>
                 <Text fontSize="md">Fill out the form below to add a new blood donation camp.</Text>
@@ -100,6 +101,7 @@ export function BloodCampForm() {
                 </form>
             </VStack>
         </Box>
+        <Footer/>
         </>
     );
 }

@@ -12,6 +12,6 @@ class BloodCampController extends Controller
         // dd($request->all());
         $bloodCamp = BloodCamp::create($request->all());
 
-        return response()->json($bloodCamp, 201);
+        return response()->json($bloodCamp, 200);
     }
 }
