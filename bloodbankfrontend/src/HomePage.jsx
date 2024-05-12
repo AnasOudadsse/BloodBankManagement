@@ -93,7 +93,7 @@ export function HomePage() {
                 justifyContent="center"
                 alignItems="center"
                 p="32px"
-                bgGradient="linear(to left, rgba(255,255,255,0), rgba(200,200,200,0.8))"
+                bgGradient="linear(to left, rgba(255,255,255,0), rgba(150,150,150,1))"
                 >
                 <Text fontFamily={'Chivo'} fontSize={40} fontWeight={700} color="#e4181e" textAlign="center" position='absolute'  bottom={370}>Donate Blood Save A Life!</Text>
                 <Text fontFamily={'Chivo'} fontSize={50} fontWeight={700} color="black" textAlign="center" position='absolute' bottom={200}>Donate Blood And <br/> Inspire Others!</Text>

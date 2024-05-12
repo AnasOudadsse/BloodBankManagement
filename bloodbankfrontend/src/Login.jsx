@@ -11,7 +11,7 @@ import { Header } from './header';
 export const BloodDonationLogin = () => {
 
     const [showPassword, setShowPassword] = useState(true);
-    const [credentials, setCredentials] = useState({ Email: '', EncryptedPassword: '', Role: 'Donor' });
+    const [credentials, setCredentials] = useState({ Email: '', EncryptedPassword: '', Role: 'Guest' });
     const [Error, setError] = useState('');
     const navigate = useNavigate();
     const formCardSize = useBreakpointValue({ base: '90%', md: '420px' });
