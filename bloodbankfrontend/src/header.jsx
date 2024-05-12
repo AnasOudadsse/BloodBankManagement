@@ -18,7 +18,7 @@ export const Header = () => {
   }, []);
 
   const links = {
-    Donor: [{ href: '/login', text: 'Login' }, { href: '/register', text: 'Register' }],
+    Donor: [{ href: '/', text: '' }, { href: '/register', text: '' }],
     HospitalStaff: [{ href: '/addBloodRequest', text: 'Add Blood Request' }, { href: '/register', text: 'Register' }, { href: '/bloodRequestList', text: 'Blood Requests History' }],
     Admin: [{ href: '/addHospital', text: 'Add Hospital' }, { href: '/addBloodCamp', text: 'Add BloodCamp' },{ href: '/addHospitalStaff', text: 'Add Hospital Staff' }, { href: '/addBloodCampStaff', text: 'Add BloodCamp Staff' },{ href: '/profile', text: 'Profile' }, { href: '/addLabTech', text: 'Add Lab Tech' },{ href: '/Dashboard', text: 'Dashboard' },{ href: '/addNotif', text: 'Alert Notification' },{ href: '/bloodRequestListstatus', text: 'Blood Requests' }],
     LabTech: [{ href: '/donationList', text: 'Donation List' }, { href: '/register', text: 'Register' }],
@@ -51,11 +51,11 @@ export const Header = () => {
   };
 
   return (
-    <Box bg={'#AB0003'} color={color} px={4} boxShadow="sm">
+    <Box bg={"#e4181e"} color={color} px={4} boxShadow="sm">
       <Container maxW="container.xl">
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
+            <img style={{width:48, marginRight: 15}} src="/lgo.png" alt="Logo" />
             <Text color='white' fontWeight={500} fontSize={25} >OurBlood</Text>
-            <img style={{width:48}} src="/lgo.png" alt="Logo" />
           <Flex grow={1} justifyContent="center">
             {renderLinks()}
           </Flex>
@@ -66,7 +66,7 @@ export const Header = () => {
               </Button>
             ) : (
               <>
-                <Button variant={'solid'} colorScheme={'red'} size={'sm'} mr={4} as="a" href="/adddonor">
+                <Button variant={'solid'} colorScheme={'#D2122E'} size={'sm'} mr={4} as="a" href="/adddonor">
                   Register
                 </Button>
                 <Button variant={'outline'} size={'sm'} as="a" href="/login" bg={'white'}>

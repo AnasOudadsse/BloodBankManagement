@@ -11,7 +11,7 @@ import {
   
   export function FAQ() {
     return (
-      <Box width='full' overflow='-moz-hidden-unscrollable' mb={70}>
+      <Box mb={10}>
         <Heading mb={4}>Frequently Asked Questions</Heading>
         <Accordion  allowMultiple>
           <AccordionItem>
