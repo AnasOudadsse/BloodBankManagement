@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Donor;
 use App\Models\Donation;
+use App\Models\BloodCamp;
 use App\Models\Inventory;
 use App\Models\BloodRequest;
 use Illuminate\Http\Request;
@@ -26,7 +28,15 @@ class Dashboard extends Controller
         $Ominus = Inventory::where('blood_type_id', 6)->get('quantity_available');
         $ABplus = Inventory::where('blood_type_id', 7)->get('quantity_available');
         $ABminus = Inventory::where('blood_type_id', 8)->get('quantity_available');
+        $donations = Donation::with('donor')->orderBy('created_at', 'desc')->take(5)->get();
+        
+        $now = Carbon::now();
 
+        $activeBloodCamps = BloodCamp::where('StartTime', '<=', $now)
+                                          ->where('EndTime', '>=', $now)
+                                          ->orderBy('created_at', 'desc')
+                                          ->take(5)
+                                          ->get();
 
         return response()->json([
         
@@ -42,6 +52,8 @@ class Dashboard extends Controller
         'OPositive' => $Oplus[0]->quantity_available,
         'ONegative' => $Ominus[0]->quantity_available,
         'ABPositive' => $ABplus[0]->quantity_available,
-        'ABNegative' => $ABminus[0]->quantity_available
+        'ABNegative' => $ABminus[0]->quantity_available,
+        'recentDonations' => $donations,
+        'activeBloodCamps' => $activeBloodCamps
     ]);
     }}
