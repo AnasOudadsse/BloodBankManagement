@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Footer from './footer';
 import { Header } from './header';
-
+import {Text } from '@chakra-ui/react';
 const DonationListView = () => {
   const [donationsWithDonors, setDonationsWithDonors] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -14,7 +14,7 @@ const DonationListView = () => {
         setDonationsWithDonors(response.data);
       })
       .catch(error => {
-        console.error('There was an error fetching the donationsWithDonors', error);
+        console.error('There was an error fetching the donations', error);
       });
   }, []);
 
@@ -32,8 +32,13 @@ const DonationListView = () => {
   return (
     <>
     <Header/>
-    <div className="p-6 bg-gray-100 min-h-screen " >
-      <div className="max-w-4xl mx-auto mt-10">
+
+    <div className="p-6 bg-gray-100 min-h-screen">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-2xl font-bold text-gray-800 mb-2">Donation Management</h1>
+        <p className="mb-4 text-gray-600">
+          Browse and manage all recorded donations below. Use the search bar to quickly find donations by donor's CIN or name. You can add reports for each donation where necessary.
+        </p>
         <input
           type="text"
           placeholder="Search by CIN or Name"
@@ -43,7 +48,7 @@ const DonationListView = () => {
         />
         <div className="overflow-x-auto relative shadow-md sm:rounded-lg">
           <table className="w-full text-sm text-left text-gray-500">
-            <thead className="text-xs text-gray-700 uppercase bg-gray-50">
+            <thead className="text-xs uppercase bg-gray-50">
               <tr>
                 <th scope="col" className="px-6 py-3">Donation ID</th>
                 <th scope="col" className="px-6 py-3">Donor CIN</th>
@@ -75,7 +80,6 @@ const DonationListView = () => {
     </div>
     <Footer/>
     </>
-
   );
 };
 

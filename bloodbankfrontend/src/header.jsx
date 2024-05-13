@@ -97,8 +97,8 @@ export const Header = () => {
     <Box bg={"#e4181e"} color={color} px={4} boxShadow="sm">
       <Container maxW="container.xl">
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-            <img style={{width:48, marginRight: 15}} src="/lgo.png" alt="Logo" />
-            <Text color='white' fontWeight={500} fontSize={25} >OurBlood</Text>
+            <img style={{width:45, marginRight: 10}} src="/lgo.png" alt="Logo" />
+            <Text color='white' fontWeight={500} fontSize={25} >NationBlood</Text>
           <Flex grow={1} justifyContent="center">
             {renderLinks()}
           </Flex>

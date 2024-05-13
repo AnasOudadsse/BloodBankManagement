@@ -1,177 +1,158 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import {
+  Box,
+  Button,
+  FormControl,
+  FormLabel,
+  Select,
+  Input,
+  Table,
+  Thead,
+  Tbody,
+  Tr,
+  Th,
+  Td,
+  VStack,
+  Text,
+  useToast
+} from '@chakra-ui/react';
+import Footer from "./footer";
+import { Header } from "./header";
 
 export function UpdateDonation() {
     let { id } = useParams();
-    const [BloodType, setBloodType] = useState([])
-    const [Donation, setDonation] = useState(null)
-    const [BloodCamps, setBloodCamps] = useState([])
-
-    const Donor = [Donation?.donor]
-
+    const [BloodType, setBloodType] = useState([]);
+    const [Donation, setDonation] = useState(null);
+    const [BloodCamps, setBloodCamps] = useState([]);
 
     let navigate = useNavigate();
-
-    useEffect(() => {
-        console.log('Donation',Donation)
-    }, [Donation]);
+    const toast = useToast();
 
     useEffect(() => {
         const fetchDonation = async () => {
             try {
                 const response = await axios.get(`http://127.0.0.1:8000/api/editDonation/${id}`);
-                setDonation(response.data[0]); 
-                console.log('donor', Donor)
-
-            } catch (err) {
-                console.error('Failed to fetch the donation:', err.response?.data || err.message);
+                setDonation(response.data[0]);
+            } catch (error) {
+                console.error('Failed to fetch the donation:', error.response?.data || error.message);
+                toast({
+                    title: "Error",
+                    description: "Failed to fetch donation details.",
+                    status: "error",
+                    duration: 5000,
+                    isClosable: true,
+                });
             }
         };
         fetchDonation();
     }, [id]);
-  
-  
-    useEffect( () =>
-      {
-          const fetchBloodType = async ()=>
-          {
-              try {
-                  const response = await axios.get('http://127.0.0.1:8000/api/getBloodType');
-                  console.log('bloodtype',response.data)
-                  setBloodType(response.data);
-              }catch (error) {
-                  console.error('Failed to fetch BloodType', error);
-              }
-          }
-          fetchBloodType();
-      },[]
-      )
 
-      useEffect( () =>
-      {
-          const fetchBloodCamps = async ()=>
-          {
-              try {
-                  const response = await axios.get('http://127.0.0.1:8000/api/getBloodCamps');
-                  setBloodCamps(response.data);
-                  console.log(response.data)
-              }catch (error) {
-                  console.error('Failed to fetch BloodCamps', error);
-              }
-          }
-          fetchBloodCamps();
-      },[]
-      )
+    useEffect(() => {
+        axios.get('http://127.0.0.1:8000/api/getBloodType').then(response => {
+            setBloodType(response.data);
+        }).catch(error => {
+            console.error('Failed to fetch BloodType', error);
+        });
 
+        axios.get('http://127.0.0.1:8000/api/getBloodCamps').then(response => {
+            setBloodCamps(response.data);
+        }).catch(error => {
+            console.error('Failed to fetch BloodCamps', error);
+        });
+    }, []);
 
     const handleInputChange = (field, value) => {
-
-            setDonation(prevRequest => ({
-                ...prevRequest,
-                [field]: value
-            }));
-        
+        setDonation(prev => ({ ...prev, [field]: value }));
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            const payload = {        
-                DonationDate: Donation.DonationDate,
-                QuantityDonated: Donation.QuantityDonated,
-                blood_camp_id: Donation.blood_camp_id,
-                blood_type_id: Donation.blood_type_id,
-                donor_cin: Donation.donor_cin,
-                id: Donation.id
-            };
-            console.log('payload',payload)
-
-            const response = await axios.put(`http://127.0.0.1:8000/api/updateDonation`, payload);
+            const response = await axios.put(`http://127.0.0.1:8000/api/updateDonation`, Donation);
             if (response.status === 200) {
-                navigate('/donationList')
-                alert('Blood request updated successfully');
-            } else {                
-                console.log('payload',payload)
-                console.error('Failed to update blood request:', response.data);
-
+                navigate('/donationList');
+                toast({
+                    title: "Success",
+                    description: "Donation updated successfully!",
+                    status: "success",
+                    duration: 5000,
+                    isClosable: true,
+                });
             }
-        } catch (err) {
-            console.error('Failed to update the donnation', err.response?.data || err.message);
+        } catch (error) {
+            console.error('Failed to update the donation', error.response?.data || error.message);
+            toast({
+                title: "Error",
+                description: "Failed to update the donation.",
+                status: "error",
+                duration: 5000,
+                isClosable: true,
+            });
         }
     };
 
-    if (!Donation) return <div>Loading...</div>;
+    if (!Donation) return <Box>Loading...</Box>;
 
     return (
-        <div>
-            <h2>Edit Donation</h2>
-            <form onSubmit={handleSubmit}>
-                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">Donation ID</th>
-                            <th scope="col" class="px-6 py-3">Donor CIN</th>
-                            <th scope="col" className="w-32 px-6 py-3">Blood Type</th>
-                            <th scope="col" class="px-6 py-3">Quantity donated</th>
-                            <th scope="col" class="px-6 py-3">Donation date</th>
-                            <th scope="col" className="w-32 px-6 py-3">Blood camp</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td className="px-6 py-3">{Donation.id}</td>
-                            <td className="px-6 py-3">
-                                <select name="blood_type_id" onChange={(e) => handleInputChange('donor_cin', e.target.value)}>
-                                    
-                                    <option value="">Select the donor's cin</option>
-                                    {
-                                    Donor.map(e =>
-                                    (
-                                        <option value={e.Cin}>{e.Name} | {e.Cin}</option>
-                                    ))
-                                }
-                            </select>
-                            </td>
-                            <td className="px-6 py-3">
+        <>
+        <Header/>
+        <Box p={5} transform={'scale(0.97)'} height={516}  mt={10}>
+            <VStack spacing={4}>
+                <Text fontSize="2xl" fontWeight="bold">Edit Donation Details</Text>
+                <Text fontSize="md">Update the fields to modify the donation record.</Text>
+                <Box as="form" onSubmit={handleSubmit} width="100%">
+                    <Table variant="simple">
+                        <Thead>
+                            <Tr>
+                                <Th>Donation ID</Th>
+                                <Th>Donor CIN</Th>
+                                <Th>Blood Type</Th>
+                                <Th>Quantity donated</Th>
+                                <Th>Donation date</Th>
+                                <Th>Blood camp</Th>
+                            </Tr>
+                        </Thead>
+                        <Tbody>
+                            <Tr>
+                                <Td>{Donation.id}</Td>
+                                <Td>
+                                    <Select onChange={e => handleInputChange('donor_cin', e.target.value)} placeholder="Select Donor's CIN">
+                                        {BloodCamps.map((camp) => (
+                                            <option key={camp.id} value={camp.id}>{camp.Name}</option>
+                                        ))}
+                                    </Select>
+                                </Td>
+                                <Td>
+                                    <Select onChange={e => handleInputChange('blood_type_id', e.target.value)} placeholder="Select Blood Type">
+                                        {BloodType.map(type => (
+                                            <option key={type.id} value={type.id}>{type.BloodType}</option>
+                                        ))}
+                                    </Select>
+                                </Td>
+                                <Td>
+                                    <Input type="number" value={Donation.QuantityDonated} onChange={e => handleInputChange('QuantityDonated', e.target.value)} />
+                                </Td>
+                                <Td>
+                                    <Input type="date" value={Donation.DonationDate} onChange={e => handleInputChange('DonationDate', e.target.value)} />
+                                </Td>
+                                <Td>
+                                    <Select onChange={e => handleInputChange('blood_camp_id', e.target.value)} placeholder="Select Blood Camp">
+                                        {BloodCamps.map((camp) => (
+                                            <option key={camp.id} value={camp.id}>{camp.Name}</option>
+                                        ))}
+                                    </Select>
+                                </Td>
+                            </Tr>
+                        </Tbody>
+                    </Table>
+                    <Button mt={4} colorScheme="red" type="submit">Save Changes</Button>
+                </Box>
+            </VStack>
+        </Box>  
+        <Footer/>
+        </>
 
-                                <select name="blood_type_id" onChange={ (e) => handleInputChange('blood_type_id', e.target.value)}>
-                                    
-                                        <option value="">Select the blood type</option>
-                                        {
-                                        BloodType.map(e =>
-                                        (
-                                            <option value={e.id}>{e.BloodType}</option>
-                                        ))
-                                    }
-                                </select>
-                            </td>
-                            <td className="px-6 py-3">
-                                <input type="number" value={Donation.QuantityDonated} onChange={(e) => handleInputChange('QuantityDonated', e.target.value)} />
-                            </td>
-
-                            <td className="px-6 py-3">
-                                <input type="date" value={Donation.DonationDate} onChange={(e) => handleInputChange('DonationDate', e.target.value)} />
-                            </td>
-                            
-                            <td className="px-6 py-3">
-                            <select name="blood_camp_id" onChange={ (e) => handleInputChange('blood_camp_id', e.target.value)}>
-                                    
-                                    <option value="">Select the blood camp</option>
-                                    {
-                                    BloodCamps.map(e =>
-                                    (
-                                        <option value={e.id}>{e.Name}</option>
-                                    ))
-                                }
-                            </select>  </td>
-                        </tr>
-                    </tbody>
-                </table>
-                <button type="submit" className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                    Save Changes
-                </button>
-            </form>
-        </div>
     );
 }
