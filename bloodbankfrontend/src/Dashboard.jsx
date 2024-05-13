@@ -11,7 +11,7 @@ import { Header } from './header';
 import Footer from './footer';
 const Dashboard = () => {
   // Simple chart data
-  const chartData = Object.entries(bloodStock).map(([type, units]) => ({ type, units }));
+
 
   
   const [stats, setStats] = useState({
@@ -21,6 +21,19 @@ const Dashboard = () => {
     PendingRequests: 0,
     QuantityAvailable:0
 });
+
+ const BloodStock = {
+  APositive: stats.APositive,
+  ANegative: stats.ANegative,
+  BPositive: stats.BPositive,
+  BNegative: stats.BNegative,
+  OPositive: stats.OPositive,
+  ONegative: stats.ONegative,
+  ABPositive: stats.ABPositive,
+  ABNegative: stats.ABNegative,
+ }
+
+ const chartData = Object.entries(BloodStock).map(([type, units]) => ({ type, units }));
 
   useEffect(() => {
     // Simulate fetching data
@@ -95,7 +108,7 @@ const Dashboard = () => {
         {/* Blood Stock Levels */}
         <div className="col-span-1 lg:col-span-2 bg-white shadow rounded-lg p-4">
           <h2 className="font-semibold text-xl mb-4">Blood Stock Levels</h2>
-          <LineChart width={730} height={250} data={chartData}
+          <LineChart width={730} height={250} data={chartData} 
             margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
             <CartesianGrid strokeDasharray="3 3" />
             <XAxis dataKey="type" />
