@@ -8,6 +8,7 @@ use App\Models\Inventory;
 use App\Models\BloodRequest;
 use Illuminate\Http\Request;
 
+
 class InventoryController extends Controller
 {
 
