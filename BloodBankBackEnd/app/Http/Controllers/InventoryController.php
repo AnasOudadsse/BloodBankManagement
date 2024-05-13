@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use Log;
+use IntlChar;
 use App\Models\Donation;
 use App\Models\Inventory;
 use App\Models\BloodRequest;
 use Illuminate\Http\Request;
-
 
 class InventoryController extends Controller
 {
@@ -55,6 +55,8 @@ public function verifyDonation(Request $request) {
                 Log::info("Updated inventory for blood type {$bloodType->id}: Decrement by {$request->quantity}");
             }
         }
+    
 }
+
 
 }

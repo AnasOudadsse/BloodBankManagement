@@ -2,6 +2,7 @@
 
 use App\Models\Inventory;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Dashboard;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DonorController;
@@ -117,3 +118,4 @@ route::get('getImage/{id}', [DonorController::class,'getImage']);
 
 route::post('resetPassRequest', [AuthController::class,'sendResetLinkEmail']);
 
+route::get('dashboard', [Dashboard::class, 'dashboard']);
