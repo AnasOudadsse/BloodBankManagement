@@ -4,6 +4,10 @@ import axios from 'axios';
 import { useState, useEffect } from 'react';
 import { MdAddCircleOutline, MdPersonAdd, MdDashboard, MdNotificationsActive } from 'react-icons/md';
 import { FaHospital, FaUserMd } from 'react-icons/fa';
+import { CgProfile } from "react-icons/cg";
+import { RxDashboard } from "react-icons/rx";
+import { MdBloodtype } from "react-icons/md";
+import { MdBiotech } from "react-icons/md";
 
 export const Header = () => {
   const bgColor = useColorModeValue('red.500');
@@ -20,62 +24,76 @@ export const Header = () => {
   }, []);
 
   const links = {
-    Donor: [{ href: '/Profile', text: '' }, { href: '/Donation History', text: '' }],
+    Donor: [{ href: '/Donation History', text: 'Donation History' }],
     HospitalStaff: [{ href: '/addBloodRequest', text: 'Add Blood Request' }, { href: '/register', text: 'Register' }, { href: '/bloodRequestList', text: 'Blood Requests History' }],
-    Admin: [{ href: '/addHospital', text: 'Add Hospital' }, { href: '/addBloodCamp', text: 'Add BloodCamp' },{ href: '/addHospitalStaff', text: 'Add Hospital Staff' }, { href: '/addBloodCampStaff', text: 'Add BloodCamp Staff' },{ href: '/profile', text: 'Profile' }, { href: '/addLabTech', text: 'Add Lab Tech' },{ href: '/Dashboard', text: 'Dashboard' },{ href: '/addNotif', text: 'Alert Notification' },{ href: '/bloodRequestListstatus', text: 'Blood Requests' }],
     LabTech: [{ href: '/donationList', text: 'Donation List' }, { href: '/register', text: 'Register' }],
-    BloodCampStaff: [{ href: '/profile', text: 'Profile' }, { href: '/adddonation', text: 'Add Donation' }, { href: '/adddonor', text: 'Register Donor' }, { href: '/DonationListedit', text: 'Donation List' }],
+    BloodCampStaff: [{ href: '/adddonation', text: 'Add Donation' }, { href: '/adddonor', text: 'Register Donor' }, { href: '/DonationListedit', text: 'Donation List' }],
   };
   const adminLinks = [
     { href: '/addHospital', text: 'Add Hospital', icon: <FaHospital /> },
     { href: '/addBloodCamp', text: 'Add BloodCamp', icon: <MdAddCircleOutline /> },
     { href: '/addHospitalStaff', text: 'Add Hospital Staff', icon: <FaUserMd /> },
     { href: '/addBloodCampStaff', text: 'Add BloodCamp Staff', icon: <MdPersonAdd /> },
-    { href: '/profile', text: 'Profile', icon: <MdPersonAdd /> },
-    { href: '/addLabTech', text: 'Add Lab Tech', icon: <MdPersonAdd /> },
-    { href: '/Dashboard', text: 'Dashboard', icon: <MdDashboard /> },
+    { href: '/addLabTech', text: 'Add Lab Tech', icon: <MdBiotech />  },
+    { href: '/Dashboard', text: 'Dashboard', icon: <RxDashboard />  },
     { href: '/addNotif', text: 'Alert Notification', icon: <MdNotificationsActive /> },
-    { href: '/bloodRequestListstatus', text: 'Blood Requests', icon: <MdDashboard /> },
+    { href: '/bloodRequestListstatus', text: 'Blood Requests', icon: <MdBloodtype />
+
+  },
   ];
 
   const renderLinks = () => {
-    let roleLinks = links[role] || links.Donor; // Changed from links.guest assuming default to 'Donor' or any appropriate default
-    return (
-      // roleLinks.map((link, index) => (
-      //   <Link key={index} href={link.href} px={3} py={2} rounded="md" color="white" _hover={{ bg: 'red.500' }}>
-      //     {link.text}
-      //   </Link>
-    //   ))
-  //   <Stack direction="row" spacing={4}>
-  //   {adminLinks.map((link, index) => (
-  //     <Tooltip key={index} label={link.text} fontSize="md" placement="bottom" hasArrow>
-  //       <IconButton
-  //         as="a"
-  //         href={link.href}
-  //         aria-label={link.text}
-  //         icon={link.icon}
-  //         variant="ghost"
-  //         colorScheme="white"
-  //         color='white'
-  //         size="lg"
-  //       />
-  //     </Tooltip>
-  //   ))}
-  // </Stack>
-    // );
-    <Menu>
-      <MenuButton as={Button} colorScheme="blue">
-        ehe
-      </MenuButton>
-      <MenuList>
-        {adminLinks.map((item, index) => (
-          <MenuItem key={index} as="a" href={item.href}>
-            {item.text}
-          </MenuItem>
-        ))}
-      </MenuList>
-    </Menu>  )
+    let roleLinks = links[role]; // Changed from links.guest assuming default to 'Donor' or any appropriate default
+
+    {
+
+      if (roleLinks) {    
+        return (
+        roleLinks?.map((link, index) => (
+          <Link key={index} href={link.href} px={3} py={2} rounded="md" color="white" _hover={{ bg: 'red.500' }}>
+            {link.text}
+          </Link>
+        )))}
+
+        else{
+          return(
+            <Stack direction="row" spacing={4}>
+              {adminLinks.map((link, index) => (
+                <Tooltip key={index} label={link.text} fontSize="md" placement="bottom" hasArrow>
+                  <IconButton
+                    as="a"
+                    href={link.href}
+                    aria-label={link.text}
+                    icon={link.icon}
+                    variant="ghost"
+                    colorScheme="white"
+                    color='white'
+                    size="lg"
+                  />
+                </Tooltip>
+              ))}
+            </Stack>
+          )
+
+        }
+ 
+    }
+
+
+
   };
+    // <Menu>
+    //   <MenuButton as={Button} colorScheme="blue">
+    //     ehe
+    //   </MenuButton>
+    //   <MenuList>
+    //     {adminLinks.map((item, index) => (
+    //       <MenuItem key={index} as="a" href={item.href}>
+    //         {item.text}
+    //       </MenuItem>
+    //     ))}
+    //   </MenuList>
+    // </Menu>  )
 
   const handleLogout = () => {
     axios.post('http://localhost:8000/api/logout')
@@ -104,9 +122,14 @@ export const Header = () => {
           </Flex>
           <Flex alignItems={'center'}>
             {isLoggedIn ? (
+              <>
+              <Link mr={6}  href='/profile' transform={'scale(1.6)'} px={3} py={2} color={'white'}  _hover={{ color: 'black' }}>
+              <CgProfile />
+            </Link>
               <Button variant={'outline'} size={'sm'} onClick={handleLogout} bgColor={'white'}>
                 Logout
               </Button>
+              </>
             ) : (
               <>
                 <Button variant={'solid'} colorScheme={'#D2122E'} size={'sm'} mr={4} as="a" href="/adddonor">
