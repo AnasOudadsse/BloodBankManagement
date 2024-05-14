@@ -86,5 +86,10 @@ class DonationController extends Controller
 
             return response()->json(['data' => $donation], 200);        }
 
+        function getDonationHistory(Request $request){
+            $donor = Donor::where('Cin', $request->Cin)->first();
+            $donations = Donation::where('donor_cin', $donor->Cin)->get();
+            return response()->json($donations);
+        }
         
 }

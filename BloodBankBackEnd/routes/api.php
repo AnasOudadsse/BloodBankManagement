@@ -119,3 +119,6 @@ route::get('getImage/{id}', [DonorController::class,'getImage']);
 route::post('resetPassRequest', [AuthController::class,'sendResetLinkEmail']);
 
 route::get('dashboard', [Dashboard::class, 'dashboard']);
+
+route::Post('DonationHistory', [DonationController::class, 'getDonationHistory']);
+

@@ -24,7 +24,7 @@ export const Header = () => {
   }, []);
 
   const links = {
-    Donor: [{ href: '/Donation History', text: 'Donation History' }],
+    Donor: [{ href: '/DonationHistory', text: 'Donation History' }],
     HospitalStaff: [{ href: '/addBloodRequest', text: 'Add Blood Request' }, { href: '/register', text: 'Register' }, { href: '/bloodRequestList', text: 'Blood Requests History' }],
     LabTech: [{ href: '/donationList', text: 'Donation List' }, { href: '/register', text: 'Register' }],
     BloodCampStaff: [{ href: '/adddonation', text: 'Add Donation' }, { href: '/adddonor', text: 'Register Donor' }, { href: '/DonationListedit', text: 'Donation List' }],
@@ -55,7 +55,7 @@ export const Header = () => {
           </Link>
         )))}
 
-        else{
+        else if (role == 'Admin'){
           return(
             <Stack direction="row" spacing={4}>
               {adminLinks.map((link, index) => (

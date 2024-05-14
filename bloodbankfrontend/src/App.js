@@ -28,6 +28,8 @@ import UnauthorizedPage from './unauthorized';
 import Profile from './profile';
 import { ResetPasswordRequest } from './emailPassword';
 import { ResetPassword } from './PasswordReset';
+import DonationHistory from './DonationHistory';
+
 function App() {
 
   const [isLoggedIn, setIsLoggedIn] = useState(true);
@@ -71,6 +73,16 @@ function App() {
                 element={isLoggedIn ? (
                     <RoleProtectedRoute allowedRoles={['Admin']}>
                         <HospitalForm />
+                    </RoleProtectedRoute>
+                ) : (
+                    <Navigate to="/login" replace />
+                )}
+            />
+              <Route
+                path="/donationHistory"
+                element={isLoggedIn ? (
+                    <RoleProtectedRoute allowedRoles={['Donor']}>
+                        <DonationHistory/>
                     </RoleProtectedRoute>
                 ) : (
                     <Navigate to="/login" replace />
