@@ -164,7 +164,7 @@ class AuthController extends Controller
 
                 break;
             }}
-    
+            
         if (!$user) {
             return response()->json(['message' => "We can't find a user with that token."], 404);
         }
