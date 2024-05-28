@@ -54,13 +54,6 @@ export const BloodDonationLogin = () => {
                     isClosable: true,
                     position: "top-right" 
                   });
-
-                // Navigate based on user role
-                if (data.role === 'Donor') {
-                    navigate('/dashboard');
-                } else {
-                    navigate('/addDonor');
-                }
             }
         } catch (err) {
             setError(err.response?.data?.message || 'An error occurred');

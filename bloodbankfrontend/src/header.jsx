@@ -25,8 +25,8 @@ export const Header = () => {
 
   const links = {
     Donor: [{ href: '/DonationHistory', text: 'Donation History' }],
-    HospitalStaff: [{ href: '/addBloodRequest', text: 'Add Blood Request' }, { href: '/register', text: 'Register' }, { href: '/bloodRequestList', text: 'Blood Requests History' }],
-    LabTech: [{ href: '/donationList', text: 'Donation List' }, { href: '/register', text: 'Register' }],
+    HospitalStaff: [{ href: '/addBloodRequest', text: 'Add Blood Request' }, { href: '/bloodRequestList', text: 'Blood Requests History' }],
+    LabTech: [{ href: '/donationList', text: 'Donation List' }],
     BloodCampStaff: [{ href: '/adddonation', text: 'Add Donation' }, { href: '/adddonor', text: 'Register Donor' }, { href: '/DonationListedit', text: 'Donation List' }],
   };
   const adminLinks = [

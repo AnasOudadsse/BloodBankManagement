@@ -106,7 +106,7 @@ export function HomePage() {
                       p="4" 
                       _hover={{ bg: "red.700" }}
                       position='absolute'
-                      left={580}
+                      left={650}
                       bottom={110}
                     >
                       Become A Donor

@@ -72,7 +72,7 @@ export function UpdateDonation() {
         try {
             const response = await axios.put(`http://127.0.0.1:8000/api/updateDonation`, Donation);
             if (response.status === 200) {
-                navigate('/donationList');
+                navigate('/donationListedit');
                 toast({
                     title: "Success",
                     description: "Donation updated successfully!",

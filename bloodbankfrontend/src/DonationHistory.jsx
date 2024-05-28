@@ -104,7 +104,7 @@ const DonationHistory = () => {
   return (
     <>
       <Header />
-      <Box p={5} mb={10}>
+      <Box p={5} mb={80}>
         <Heading as="h1" size="xl" mb={6}>
           Donation History
         </Heading>

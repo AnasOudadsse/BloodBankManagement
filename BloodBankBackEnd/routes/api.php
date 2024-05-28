@@ -82,7 +82,7 @@ route::get('editBloodRequest/{id}', [BloodRequestController::class,'getBloodRequ
 
 route::put('updateBloodRequest', [BloodRequestController::class,'updateBloodRequest']);
 
-route::middleware(['auth:sanctum', 'role:Admin'])->put('updateBloodRequestStatus', [BloodRequestController::class,'updateBloodRequestStatus']);
+route::put('updateBloodRequestStatus', [BloodRequestController::class,'updateBloodRequestStatus']);
 
 route::put('updateBloodRequestStatus', [InventoryController::class,'updateInventoryFromDeliveredRequests']);
 
