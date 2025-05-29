@@ -1,52 +1,84 @@
-import { motion } from "framer-motion";
-import { Heart, Users, CheckCircle } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+"use client"
+
+import { motion } from "framer-motion"
+import { Activity, TrendingUp, Shield } from "lucide-react"
 
 export function WhyDonateSection() {
   return (
-    <section className="py-24 bg-white relative overflow-hidden">
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZWYyZjIiIGZpbGwtb3BhY2l0eT0iMC40Ij48cGF0aCBkPSJNMzYgMzRjMC0yLjIgMS44LTQgNC00czQgMS44IDQgNC0xLjggNC00IDQtNC0xLjgtNC00eiIvPjwvZz48L2c+PC9zdmc+')] opacity-30"></div>
+    <section className="!py-24 !bg-white !relative !overflow-hidden">
+      {/* Professional background pattern */}
+      <div className="!absolute !inset-0 !bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] !bg-[size:2rem_2rem] !opacity-40" />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <Badge className="mb-3 bg-red-100 text-red-700 hover:bg-red-200 border-none">
-              Why Donate Blood?
-            </Badge>
-            <h2 className="text-5xl font-bold  mb-6 bg-clip-text text-transparent bg-gradient-to-r from-red-700 to-red-900">
-              The Importance of Blood Donation
-            </h2>
-            <p className="text-xl text-gray-600">
-              Blood donation is a simple way to save lives. Every donation can
-              help up to three people in need. Donating blood is safe, easy, and
-              can make a huge difference.
-            </p>
-          </motion.div>
-        </div>
+      <div className="!container !mx-auto !px-6 lg:!px-8 !relative">
+        {/* Professional header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="!mb-16"
+        >
+          <div className="!flex !items-center !gap-3 !mb-6">
+            <div className="!w-1 !h-8 !bg-red-600" />
+            <span className="!text-sm !font-semibold !text-slate-600 !uppercase !tracking-wider">
+              Strategic Benefits
+            </span>
+          </div>
+          <h2 className="!text-4xl lg:!text-5xl !font-bold !text-slate-900 !mb-4 !tracking-tight !max-w-4xl">
+            Why Strategic Blood Donation Programs Matter
+          </h2>
+          <p className="!text-lg !text-slate-600 !max-w-2xl">
+            Evidence-based benefits of participating in systematic blood donation initiatives for healthcare
+            infrastructure and community resilience.
+          </p>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {/* Professional benefits grid */}
+        <div className="!grid !grid-cols-1 lg:!grid-cols-3 !gap-8 !max-w-7xl !mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+            className="!group !relative"
           >
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center mb-6 shadow-md transform -rotate-6">
-              <Heart className="h-8 w-8 text-white" />
+            {/* Professional card design */}
+            <div className="!relative !bg-white !border !border-slate-200 hover:!border-slate-300 !transition-all !duration-300 !overflow-hidden">
+              {/* Header section */}
+              <div className="!p-6 !border-b !border-slate-100">
+                <div className="!flex !items-center !justify-between !mb-4">
+                  <div className="!flex !items-center !gap-3">
+                    <div className="!w-8 !h-8 !bg-red-600 !flex !items-center !justify-center">
+                      <Activity className="!h-5 !w-5 !text-white" strokeWidth={2} />
+                    </div>
+                    <span className="!text-xs !font-semibold !text-slate-500 !uppercase !tracking-wider">
+                      Healthcare Impact
+                    </span>
+                  </div>
+                  <div className="!flex !items-center !gap-1 !text-xs !font-semibold !text-green-600">
+                    <TrendingUp className="!h-3 !w-3" />
+                    Critical
+                  </div>
+                </div>
+
+                <h3 className="!text-xl !font-bold !text-slate-900 !mb-3">Patient Care Enhancement</h3>
+                <p className="!text-sm !text-slate-600 !leading-relaxed">
+                  Systematic donation programs ensure consistent blood supply for emergency procedures, surgical
+                  operations, and ongoing medical treatments requiring transfusions.
+                </p>
+              </div>
+
+              {/* Data section */}
+              <div className="!p-6 !bg-slate-50/50">
+                <div className="!flex !items-center !justify-between">
+                  <div className="!text-xs !text-slate-500">Impact Level: High</div>
+                  <div className="!text-xs !font-semibold !text-slate-700">3 Lives/Donation</div>
+                </div>
+              </div>
+
+              {/* Hover effect */}
+              <div className="!absolute !inset-0 !bg-gradient-to-r !from-red-500/5 !to-transparent !opacity-0 group-hover:!opacity-100 !transition-opacity !duration-300 !pointer-events-none" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-3">
-              Help Patients in Need
-            </h3>
-            <p className="text-gray-600">
-              Your donation can help patients undergoing surgery, cancer
-              treatment, and other medical procedures.
-            </p>
           </motion.div>
 
           <motion.div
@@ -54,18 +86,45 @@ export function WhyDonateSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
             viewport={{ once: true }}
-            className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+            className="!group !relative"
           >
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center mb-6 shadow-md transform rotate-3">
-              <Users className="h-8 w-8 text-white" />
+            {/* Professional card design */}
+            <div className="!relative !bg-white !border !border-slate-200 hover:!border-slate-300 !transition-all !duration-300 !overflow-hidden">
+              {/* Header section */}
+              <div className="!p-6 !border-b !border-slate-100">
+                <div className="!flex !items-center !justify-between !mb-4">
+                  <div className="!flex !items-center !gap-3">
+                    <div className="!w-8 !h-8 !bg-red-600 !flex !items-center !justify-center">
+                      <TrendingUp className="!h-5 !w-5 !text-white" strokeWidth={2} />
+                    </div>
+                    <span className="!text-xs !font-semibold !text-slate-500 !uppercase !tracking-wider">
+                      Community Resilience
+                    </span>
+                  </div>
+                  <div className="!flex !items-center !gap-1 !text-xs !font-semibold !text-blue-600">
+                    <Shield className="!h-3 !w-3" />
+                    Strategic
+                  </div>
+                </div>
+
+                <h3 className="!text-xl !font-bold !text-slate-900 !mb-3">Infrastructure Strengthening</h3>
+                <p className="!text-sm !text-slate-600 !leading-relaxed">
+                  Regular donation participation builds robust healthcare infrastructure, ensuring emergency
+                  preparedness and sustainable medical resource management for communities.
+                </p>
+              </div>
+
+              {/* Data section */}
+              <div className="!p-6 !bg-slate-50/50">
+                <div className="!flex !items-center !justify-between">
+                  <div className="!text-xs !text-slate-500">Network Coverage: 500+ Centers</div>
+                  <div className="!text-xs !font-semibold !text-slate-700">24/7 Availability</div>
+                </div>
+              </div>
+
+              {/* Hover effect */}
+              <div className="!absolute !inset-0 !bg-gradient-to-r !from-red-500/5 !to-transparent !opacity-0 group-hover:!opacity-100 !transition-opacity !duration-300 !pointer-events-none" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-3">
-              Support Your Community
-            </h3>
-            <p className="text-gray-600">
-              Blood donation is a simple way to make a positive impact in your
-              local community.
-            </p>
           </motion.div>
 
           <motion.div
@@ -73,19 +132,74 @@ export function WhyDonateSection() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.4 }}
             viewport={{ once: true }}
-            className="bg-white rounded-3xl shadow-xl p-8 border border-gray-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-1"
+            className="!group !relative"
           >
-            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center mb-6 shadow-md transform -rotate-3">
-              <CheckCircle className="h-8 w-8 text-white" />
+            {/* Professional card design */}
+            <div className="!relative !bg-white !border !border-slate-200 hover:!border-slate-300 !transition-all !duration-300 !overflow-hidden">
+              {/* Header section */}
+              <div className="!p-6 !border-b !border-slate-100">
+                <div className="!flex !items-center !justify-between !mb-4">
+                  <div className="!flex !items-center !gap-3">
+                    <div className="!w-8 !h-8 !bg-red-600 !flex !items-center !justify-center">
+                      <Shield className="!h-5 !w-5 !text-white" strokeWidth={2} />
+                    </div>
+                    <span className="!text-xs !font-semibold !text-slate-500 !uppercase !tracking-wider">
+                      Corporate Responsibility
+                    </span>
+                  </div>
+                  <div className="!flex !items-center !gap-1 !text-xs !font-semibold !text-purple-600">
+                    <Activity className="!h-3 !w-3" />
+                    Enterprise
+                  </div>
+                </div>
+
+                <h3 className="!text-xl !font-bold !text-slate-900 !mb-3">Organizational Impact</h3>
+                <p className="!text-sm !text-slate-600 !leading-relaxed">
+                  Corporate blood donation programs demonstrate social responsibility, enhance employee engagement, and
+                  contribute to measurable community health outcomes and organizational reputation.
+                </p>
+              </div>
+
+              {/* Data section */}
+              <div className="!p-6 !bg-slate-50/50">
+                <div className="!flex !items-center !justify-between">
+                  <div className="!text-xs !text-slate-500">CSR Compliance: 100%</div>
+                  <div className="!text-xs !font-semibold !text-slate-700">ROI: Positive</div>
+                </div>
+              </div>
+
+              {/* Hover effect */}
+              <div className="!absolute !inset-0 !bg-gradient-to-r !from-red-500/5 !to-transparent !opacity-0 group-hover:!opacity-100 !transition-opacity !duration-300 !pointer-events-none" />
             </div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-3">Be a Hero</h3>
-            <p className="text-gray-600">
-              By donating blood, you can become a hero to those in need and make
-              a lasting difference.
-            </p>
           </motion.div>
         </div>
+
+        {/* Professional CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          viewport={{ once: true }}
+          className="!mt-16 !border-t !border-slate-200 !pt-12"
+        >
+          <div className="!flex !flex-col md:!flex-row md:!items-center !justify-between !gap-6">
+            <div>
+              <h3 className="!text-xl !font-bold !text-slate-900 !mb-2">Join Strategic Donation Network</h3>
+              <p className="!text-slate-600">
+                Participate in evidence-based donation programs with measurable community impact.
+              </p>
+            </div>
+            <div className="!flex !flex-col sm:!flex-row !gap-4">
+              <button className="!px-6 !py-3 !bg-red-600 hover:!bg-red-700 !text-white !font-semibold !transition-colors !duration-200">
+                Schedule Assessment
+              </button>
+              <button className="!px-6 !py-3 !border !border-slate-300 hover:!border-slate-400 !text-slate-700 !font-semibold !transition-colors !duration-200">
+                Download Program Guide
+              </button>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
-  );
+  )
 }

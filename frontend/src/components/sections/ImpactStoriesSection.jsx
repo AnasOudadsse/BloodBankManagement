@@ -1,36 +1,38 @@
-import { motion } from "framer-motion";
-import { Badge } from "@/components/ui/badge";
-import { ImpactStoryCard } from "@/components/impact-story-card";
+"use client"
+
+import { motion } from "framer-motion"
+import { ImpactStoryCard } from "@/components/impact-story-card"
 
 export function ImpactStoriesSection() {
   return (
-    <section className="py-24 bg-gray-50 relative overflow-hidden">
-      {/* Decorative elements */}
-      <div className="absolute top-0 left-0 w-64 h-64 rounded-full bg-red-100 -translate-x-1/2 -translate-y-1/2 opacity-70"></div>
-      <div className="absolute bottom-0 right-0 w-96 h-96 rounded-full bg-red-100 translate-x-1/3 translate-y-1/3 opacity-70"></div>
+    <section className="py-24 bg-white relative overflow-hidden">
+      {/* Professional background pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] bg-[size:2rem_2rem] opacity-40" />
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-3xl mx-auto text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            <Badge className="mb-3 bg-red-100 text-red-700 hover:bg-red-200 border-none">
-              Impact Stories
-            </Badge>
-            <h2 className="text-5xl font-bold  mb-6 bg-clip-text text-transparent bg-gradient-to-r from-red-700 to-red-900">
-              Lives Changed Through Donation
-            </h2>
-            <p className="text-xl text-gray-600">
-              Real stories from people whose lives were saved thanks to generous
-              blood donors like you.
-            </p>
-          </motion.div>
-        </div>
+      <div className="container mx-auto px-6 lg:px-8 relative">
+        {/* Professional header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="mb-16"
+        >
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-1 h-8 bg-red-600" />
+            <span className="text-sm font-semibold text-slate-600 uppercase tracking-wider">Patient Testimonials</span>
+          </div>
+          <h2 className="text-4xl lg:text-5xl font-bold text-slate-900 mb-4 tracking-tight max-w-4xl">
+            Lives Changed Through Strategic Donation Programs
+          </h2>
+          <p className="text-lg text-slate-600 max-w-2xl">
+            Documented case studies of patients whose treatment was made possible through our blood donation
+            initiatives.
+          </p>
+        </motion.div>
 
-        <div className="space-y-16">
+        {/* Professional case studies grid */}
+        <div className="space-y-12">
           <ImpactStoryCard
             name="Sarah Johnson"
             age="28"
@@ -49,7 +51,33 @@ export function ImpactStoriesSection() {
             story="During my leukemia treatment, I received over 30 blood and platelet transfusions. Each donation gave me strength to continue fighting. Today I'm in remission and volunteer at blood drives to help others receive the same gift of life that was given to me."
           />
         </div>
+
+        {/* Professional CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="mt-16 border-t border-slate-200 pt-12"
+        >
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div>
+              <h3 className="text-xl font-bold text-slate-900 mb-2">Become Part of Our Impact Network</h3>
+              <p className="text-slate-600">
+                Your donation directly contributes to patient recovery and survival rates.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white font-semibold transition-colors duration-200">
+                Schedule Appointment
+              </button>
+              <button className="px-6 py-3 border border-slate-300 hover:border-slate-400 text-slate-700 font-semibold transition-colors duration-200">
+                View Impact Report
+              </button>
+            </div>
+          </div>
+        </motion.div>
       </div>
     </section>
-  );
+  )
 }
