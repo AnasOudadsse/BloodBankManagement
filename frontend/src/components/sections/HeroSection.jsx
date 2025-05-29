@@ -1,3 +1,5 @@
+"use client";
+
 import { useState, useEffect, useRef } from "react";
 import {
   motion,
@@ -5,40 +7,49 @@ import {
   useTransform,
   AnimatePresence,
 } from "framer-motion";
-import { Clock, ArrowRight, MapPin, ArrowDown } from "lucide-react";
+import {
+  ArrowRight,
+  MapPin,
+  ArrowDown,
+  Calendar,
+  Users,
+  Activity,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
 const heroSlides = [
   {
-    title: "Your donation saves lives",
-    subtitle: "Every drop counts in the journey to save lives",
+    id: "01",
+    title: "Strategic Blood Donation Programs",
+    subtitle:
+      "Data-driven approach to saving lives through systematic donation management",
     image: "/giving-lifeblood.png",
-    gradient: "from-red-200/90 via-red-300/80 to-red-400/70",
-    badgeBg: "bg-red-600/90",
-    badgeHover: "hover:bg-red-700/90",
-    primaryBtn: "!bg-red-600 !text-white !hover:bg-red-700",
-    secondaryBtn: "!border-white !text-white !bg-white/10 hover:!bg-white/20",
+    metric: "3 Lives Saved",
+    metricDesc: "Per donation",
+    urgency: "Critical Need",
+    urgencyDesc: "O- and AB+ blood types",
   },
   {
-    title: "Be someone's hero today",
-    subtitle: "One donation can save up to three lives",
+    id: "02",
+    title: "Professional Healthcare Partnership",
+    subtitle:
+      "Connecting donors with medical facilities through verified networks",
     image: "/community-blood-drive.jpg",
-    gradient: "from-red-200/90 via-red-300/80 to-red-400/70",
-    badgeBg: "bg-white/20",
-    badgeHover: "hover:bg-white/30",
-    primaryBtn: "!bg-white !text-red-700 !hover:bg-red-50",
-    secondaryBtn: "!border-white !text-white !bg-white/10 hover:!bg-white/20",
+    metric: "47,500+ Donors",
+    metricDesc: "Active network",
+    urgency: "24/7 Operations",
+    urgencyDesc: "Emergency response ready",
   },
   {
-    title: "Join our community of lifesavers",
-    subtitle: "Together we can make a difference",
+    id: "03",
+    title: "Corporate Social Responsibility",
+    subtitle:
+      "Enterprise-level blood donation programs for organizational impact",
     image: "/blood-donation-drive.png",
-    gradient: "from-red-200/90 via-red-300/80 to-red-400/70",
-    badgeBg: "bg-red-600/90",
-    badgeHover: "hover:bg-red-700/90",
-    primaryBtn: "!bg-red-600 !text-white !hover:bg-red-700",
-    secondaryBtn: "!border-white !text-white !bg-white/10 hover:!bg-white/20",
+    metric: "2 Second Interval",
+    metricDesc: "Blood needed every",
+    urgency: "Nationwide Coverage",
+    urgencyDesc: "500+ partner locations",
   },
 ];
 
@@ -52,16 +63,14 @@ export function HeroSection() {
   });
 
   const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
-  const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
-  const heroY = useTransform(scrollYProgress, [0, 0.5], [0, 100]);
+  const heroY = useTransform(scrollYProgress, [0, 0.5], [0, 50]);
 
   useEffect(() => {
     setMounted(true);
 
-    // Auto-rotate hero slides
     const interval = setInterval(() => {
       setActiveSlide((prev) => (prev + 1) % 3);
-    }, 5000);
+    }, 6000);
 
     return () => clearInterval(interval);
   }, []);
@@ -69,199 +78,210 @@ export function HeroSection() {
   if (!mounted) return null;
 
   return (
-    <section ref={heroRef} className="relative h-screen overflow-hidden">
-      {/* Background Slides */}
+    <section
+      ref={heroRef}
+      className="!relative !h-screen !overflow-hidden !bg-slate-900"
+    >
+      {/* Professional Background */}
       <AnimatePresence mode="wait">
         <motion.div
           key={activeSlide}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className="absolute inset-0 z-0"
+          transition={{ duration: 1 }}
+          className="!absolute !inset-0 !z-0"
         >
-          <div className="absolute inset-0 bg-black/40 z-10" />
+          <div className="!absolute !inset-0 !bg-slate-900/60 !z-10" />
           <img
             src={heroSlides[activeSlide].image || "/placeholder.svg"}
-            alt="Blood donation hero"
-            className="w-full h-full object-cover"
+            alt="Professional blood donation program"
+            className="!w-full !h-full !object-cover"
           />
-          <div
-            className={`absolute inset-0 bg-gradient-to-r ${heroSlides[activeSlide].gradient} opacity-60 z-[5]`}
-          />
+          <div className="!absolute !inset-0 !bg-gradient-to-r !from-slate-900/90 !via-slate-900/70 !to-slate-900/50 !z-[5]" />
         </motion.div>
       </AnimatePresence>
 
-      {/* Creative Blood Drop Animation */}
-      <div className="absolute inset-0 z-[15] pointer-events-none overflow-hidden">
-        <motion.div
-          animate={{
-            y: [0, -1000],
-            opacity: [0, 1, 0],
-            scale: [0.5, 1],
-          }}
-          transition={{
-            duration: 15,
-            repeat: Number.POSITIVE_INFINITY,
-            repeatType: "loop",
-            ease: "linear",
-            times: [0, 0.5, 1],
-          }}
-          className="absolute left-[10%] top-full"
-        >
-          <div className="w-16 h-24 rounded-t-full bg-red-500/20 rotate-12" />
-        </motion.div>
-        <motion.div
-          animate={{
-            y: [0, -1200],
-            opacity: [0, 1, 0],
-            scale: [0.3, 0.8],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Number.POSITIVE_INFINITY,
-            repeatType: "loop",
-            ease: "linear",
-            delay: 5,
-            times: [0, 0.5, 1],
-          }}
-          className="absolute left-[25%] top-full"
-        >
-          <div className="w-12 h-20 rounded-t-full bg-red-500/20 -rotate-6" />
-        </motion.div>
-        <motion.div
-          animate={{
-            y: [0, -1100],
-            opacity: [0, 1, 0],
-            scale: [0.4, 0.9],
-          }}
-          transition={{
-            duration: 18,
-            repeat: Number.POSITIVE_INFINITY,
-            repeatType: "loop",
-            ease: "linear",
-            delay: 2,
-            times: [0, 0.5, 1],
-          }}
-          className="absolute left-[70%] top-full"
-        >
-          <div className="w-14 h-22 rounded-t-full bg-red-500/20 rotate-3" />
-        </motion.div>
-        <motion.div
-          animate={{
-            y: [0, -900],
-            opacity: [0, 1, 0],
-            scale: [0.6, 1.1],
-          }}
-          transition={{
-            duration: 12,
-            repeat: Number.POSITIVE_INFINITY,
-            repeatType: "loop",
-            ease: "linear",
-            delay: 7,
-            times: [0, 0.5, 1],
-          }}
-          className="absolute left-[85%] top-full"
-        >
-          <div className="w-10 h-16 rounded-t-full bg-red-500/20 -rotate-9" />
-        </motion.div>
+      {/* Minimal geometric elements */}
+      <div className="!absolute !inset-0 !z-[15] !pointer-events-none">
+        <div className="!absolute !top-20 !right-20 !w-1 !h-32 !bg-red-600/20" />
+        <div className="!absolute !top-40 !right-40 !w-1 !h-24 !bg-red-600/15" />
+        <div className="!absolute !bottom-40 !left-20 !w-1 !h-28 !bg-red-600/10" />
       </div>
 
       <motion.div
-        style={{ opacity: heroOpacity, scale: heroScale, y: heroY }}
-        className="relative z-20 container mx-auto h-full flex flex-col justify-center px-4 sm:px-6 lg:px-8"
+        style={{ opacity: heroOpacity, y: heroY }}
+        className="!relative !z-20 !container !mx-auto !h-full !flex !items-center !px-6 lg:!px-8"
       >
-        <div className="max-w-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <Badge
-              className={`mb-6 ${heroSlides[activeSlide].badgeBg} ${heroSlides[activeSlide].badgeHover} backdrop-blur-sm border-none text-white`}
-            >
-              <Clock className="mr-1 h-3 w-3" /> Urgent need for O- and AB+
-              blood types
-            </Badge>
-          </motion.div>
-
-          <AnimatePresence mode="wait">
+        <div className="!grid !grid-cols-1 lg:!grid-cols-12 !gap-8 !w-full !max-w-7xl !mx-auto">
+          {/* Main content */}
+          <div className="lg:!col-span-8">
             <motion.div
-              key={activeSlide}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.8 }}
+              transition={{ duration: 0.6 }}
+              className="!mb-6"
             >
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
-                {heroSlides[activeSlide].title
-                  .split(" ")
-                  .map((word, i, arr) => (
-                    <span key={i}>
-                      {i === arr.length - 1 ? (
-                        <span className="text-red-200">{word}</span>
-                      ) : (
-                        <span>{word} </span>
-                      )}
-                    </span>
-                  ))}
-              </h1>
-
-              <p className="text-xl text-white/90 mb-8 max-w-2xl drop-shadow-md">
-                {heroSlides[activeSlide].subtitle}
-              </p>
+              <div className="!flex !items-center !gap-4 !mb-6">
+                <div className="!w-1 !h-8 !bg-red-600" />
+                <div className="!flex !items-center !gap-3">
+                  <span className="!text-xs !font-semibold !text-slate-300 !uppercase !tracking-wider">
+                    Healthcare Initiative
+                  </span>
+                  <div className="!w-8 !h-8 !bg-slate-800 !border !border-slate-700 !flex !items-center !justify-center !text-xs !font-bold !text-slate-300">
+                    {heroSlides[activeSlide].id}
+                  </div>
+                </div>
+              </div>
             </motion.div>
-          </AnimatePresence>
 
-          <div className="flex my-5 flex-wrap gap-4">
-            <Button
-              size="lg"
-              className="!bg-white !text-red-700 !whitespace-nowrap !rounded-full !px-8 !transition-all hover:!scale-105 hover:!shadow-xl hover:!shadow-red-500/20 group"
-            >
-              <span className="flex items-center gap-2">
-                Become a donor
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </span>
-            </Button>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeSlide}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -30 }}
+                transition={{ duration: 0.8 }}
+              >
+                <h1 className="!text-4xl lg:!text-6xl !font-bold !text-white !mb-6 !leading-tight">
+                  {heroSlides[activeSlide].title}
+                </h1>
 
-            <Button
-              size="lg"
-              variant="outline"
-              className="!border-white !text-white !bg-white/10 hover:!bg-white/20 !rounded-full !px-8 backdrop-blur-sm"
-            >
-              <span className="flex items-center gap-2">
-                Find donation centers
-                <MapPin className="h-4 w-4" />
-              </span>
-            </Button>
+                <p className="!text-xl !text-slate-300 !mb-8 !max-w-2xl !leading-relaxed">
+                  {heroSlides[activeSlide].subtitle}
+                </p>
+              </motion.div>
+            </AnimatePresence>
+
+            <div className="!flex !flex-col sm:!flex-row !gap-4 !mb-12">
+              <Button
+                size="lg"
+                className="!bg-red-600 hover:!bg-red-700 !text-white !font-semibold !px-8 !py-4 !transition-all !duration-200 !group"
+              >
+                <span className="!flex !items-center !gap-2">
+                  Schedule Appointment
+                  <ArrowRight className="!h-4 !w-4 !transition-transform group-hover:!translate-x-1" />
+                </span>
+              </Button>
+
+              <Button
+                size="lg"
+                variant="outline"
+                className="!border-slate-400 !text-slate-300 hover:!bg-slate-800 hover:!border-slate-300 !px-8 !py-4 !transition-all !duration-200"
+              >
+                <span className="!flex !items-center !gap-2">
+                  Find Locations
+                  <MapPin className="!h-4 !w-4" />
+                </span>
+              </Button>
+            </div>
+
+            {/* Professional slide indicators */}
+            <div className="!flex !gap-4">
+              {[0, 1, 2].map((index) => (
+                <button
+                  key={index}
+                  onClick={() => setActiveSlide(index)}
+                  className={`!flex !items-center !gap-3 !px-4 !py-2 !border !transition-all !duration-200 ${
+                    activeSlide === index
+                      ? "!border-red-600 !bg-red-600/10"
+                      : "!border-slate-600 hover:!border-slate-500"
+                  }`}
+                >
+                  <div
+                    className={`!w-2 !h-2 ${
+                      activeSlide === index ? "!bg-red-600" : "!bg-slate-600"
+                    }`}
+                  />
+                  <span
+                    className={`!text-xs !font-semibold ${
+                      activeSlide === index
+                        ? "!text-red-400"
+                        : "!text-slate-400"
+                    }`}
+                  >
+                    0{index + 1}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
 
-          {/* Slide indicators */}
-          <div className="flex gap-3 mt-12">
-            {[0, 1, 2].map((index) => (
-              <button
-                key={index}
-                onClick={() => setActiveSlide(index)}
-                className={`w-12 h-1.5 rounded-full transition-all ${
-                  activeSlide === index ? "bg-white" : "bg-white/30"
-                }`}
-                aria-label={`Go to slide ${index + 1}`}
-              />
-            ))}
+          {/* Professional metrics sidebar */}
+          <div className="lg:!col-span-4">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeSlide}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.8 }}
+                className="!space-y-6"
+              >
+                {/* Key metric */}
+                <div className="!bg-white/5 !backdrop-blur-sm !border !border-white/10 !p-6">
+                  <div className="!flex !items-center !gap-3 !mb-4">
+                    <Activity className="!h-5 !w-5 !text-red-400" />
+                    <span className="!text-xs !font-semibold !text-slate-400 !uppercase !tracking-wider">
+                      Key Metric
+                    </span>
+                  </div>
+                  <h3 className="!text-2xl !font-bold !text-white !mb-1">
+                    {heroSlides[activeSlide].metric}
+                  </h3>
+                  <p className="!text-sm !text-slate-400">
+                    {heroSlides[activeSlide].metricDesc}
+                  </p>
+                </div>
+
+                {/* Urgency indicator */}
+                <div className="!bg-white/5 !backdrop-blur-sm !border !border-white/10 !p-6">
+                  <div className="!flex !items-center !gap-3 !mb-4">
+                    <Users className="!h-5 !w-5 !text-red-400" />
+                    <span className="!text-xs !font-semibold !text-slate-400 !uppercase !tracking-wider">
+                      Current Status
+                    </span>
+                  </div>
+                  <h3 className="!text-lg !font-semibold !text-white !mb-1">
+                    {heroSlides[activeSlide].urgency}
+                  </h3>
+                  <p className="!text-sm !text-slate-400">
+                    {heroSlides[activeSlide].urgencyDesc}
+                  </p>
+                </div>
+
+                {/* Quick action */}
+                <div className="!bg-red-600/10 !border !border-red-600/20 !p-6">
+                  <div className="!flex !items-center !gap-3 !mb-4">
+                    <Calendar className="!h-5 !w-5 !text-red-400" />
+                    <span className="!text-xs !font-semibold !text-red-400 !uppercase !tracking-wider">
+                      Quick Access
+                    </span>
+                  </div>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    className="!w-full !border-red-600/30 !text-red-400 hover:!bg-red-600/20 hover:!border-red-600/50"
+                  >
+                    Emergency Donation
+                  </Button>
+                </div>
+              </motion.div>
+            </AnimatePresence>
           </div>
         </div>
       </motion.div>
 
       <motion.div
-        initial={{ opacity: 0, y: 50 }}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.5, duration: 0.8 }}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 z-20"
+        transition={{ delay: 1, duration: 0.6 }}
+        className="!absolute !bottom-8 !left-1/2 !transform -!translate-x-1/2 !z-20"
       >
         <Button
           variant="ghost"
           size="icon"
-          className="rounded-full bg-white/10 backdrop-blur-sm text-white hover:bg-white/20 hover:text-white animate-bounce"
+          className="!bg-white/5 !backdrop-blur-sm !text-slate-400 hover:!bg-white/10 hover:!text-white !border !border-white/10"
           onClick={() =>
             window.scrollTo({
               top: window.innerHeight,
@@ -269,7 +289,7 @@ export function HeroSection() {
             })
           }
         >
-          <ArrowDown className="h-5 w-5" />
+          <ArrowDown className="!h-4 !w-4" />
         </Button>
       </motion.div>
     </section>
