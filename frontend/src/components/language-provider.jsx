@@ -1,0 +1,242 @@
+"use client"
+
+import { createContext, useContext, useState, useEffect } from "react"
+import Cookies from "js-cookie"
+
+const translations = {
+  en: {
+    "hero.title": "Save Lives with Your Donation",
+    "hero.subtitle": "Every drop counts. Join thousands of donors making a difference in our community.",
+    "hero.cta": "Donate Now",
+    "stats.title": "Current Blood Stock Levels",
+    "stats.subtitle": "Help us maintain adequate supplies for those in need",
+    "process.title": "Donation Process",
+    "process.subtitle": "Simple steps to make a life-saving impact",
+    "process.step1.title": "Register",
+    "process.step1.description": "Create an account or sign in to schedule your donation",
+    "process.step2.title": "Donate",
+    "process.step2.description": "Visit one of our centers and complete your donation",
+    "process.step3.title": "Save Lives",
+    "process.step3.description": "Your donation helps patients in critical need",
+    "testimonials.title": "Donor Stories",
+    "testimonials.subtitle": "Hear from people who are making a difference",
+    "auth.login": "Login",
+    "auth.register": "Register",
+    "auth.email": "Email",
+    "auth.password": "Password",
+    "auth.forgotPassword": "Forgot Password?",
+    "auth.biometric": "Use Biometric Login",
+    "auth.submit": "Submit",
+    "auth.name": "Full Name",
+    "auth.confirmPassword": "Confirm Password",
+    "header.home": "Home",
+    "header.about": "About",
+    "header.donate": "Donate",
+    "header.contact": "Contact",
+    "header.login": "Login",
+    "header.profile": "Profile",
+    "footer.partners": "Hospital Partners",
+    "footer.emergency": "Emergency Contacts",
+    "footer.rights": "All Rights Reserved",
+    "footer.privacy": "Privacy Policy",
+    "footer.terms": "Terms of Service",
+    "about.title": "About Blood Nation",
+    "about.mission.title": "Our Mission",
+    "about.mission.description": "To ensure that everyone has access to safe blood when they need it most.",
+    "about.vision.title": "Our Vision",
+    "about.vision.description": "A world where no one dies due to lack of blood supply.",
+    "about.history.title": "Our History",
+    "about.history.description":
+      "Founded in 2010, Blood Nation has been at the forefront of blood donation advocacy and services.",
+    "about.impact.title": "Our Impact",
+    "about.impact.description": "Over 500,000 lives saved through our donor network across the country.",
+    "about.team.title": "Our Team",
+    "about.team.description": "Dedicated professionals committed to making blood donation accessible and efficient.",
+    "contact.title": "Contact Us",
+    "contact.subtitle": "We're here to help with any questions or concerns",
+    "contact.form.name": "Your Name",
+    "contact.form.email": "Your Email",
+    "contact.form.subject": "Subject",
+    "contact.form.message": "Message",
+    "contact.form.submit": "Send Message",
+    "contact.info.title": "Contact Information",
+    "contact.info.address": "123 Blood Nation Ave, Medical District, NY 10001",
+    "contact.info.phone": "+1 (800) 123-4567",
+    "contact.info.email": "contact@bloodnation.org",
+    "contact.hours.title": "Operating Hours",
+    "contact.hours.weekdays": "Monday - Friday: 8:00 AM - 8:00 PM",
+    "contact.hours.weekends": "Saturday - Sunday: 10:00 AM - 6:00 PM",
+    "contact.emergency.title": "Emergency Contact",
+    "contact.emergency.description": "For urgent blood needs, please call our 24/7 hotline",
+    "contact.emergency.phone": "+1 (800) 999-8888",
+  },
+  fr: {
+    "hero.title": "Sauvez des Vies avec Votre Don",
+    "hero.subtitle":
+      "Chaque goutte compte. Rejoignez des milliers de donneurs qui font une différence dans notre communauté.",
+    "hero.cta": "Donner Maintenant",
+    "stats.title": "Niveaux Actuels des Stocks de Sang",
+    "stats.subtitle": "Aidez-nous à maintenir des approvisionnements adéquats pour ceux qui en ont besoin",
+    "process.title": "Processus de Don",
+    "process.subtitle": "Des étapes simples pour avoir un impact salvateur",
+    "process.step1.title": "S'inscrire",
+    "process.step1.description": "Créez un compte ou connectez-vous pour planifier votre don",
+    "process.step2.title": "Donner",
+    "process.step2.description": "Visitez l'un de nos centres et complétez votre don",
+    "process.step3.title": "Sauver des Vies",
+    "process.step3.description": "Votre don aide les patients en besoin critique",
+    "testimonials.title": "Témoignages de Donneurs",
+    "testimonials.subtitle": "Écoutez les personnes qui font une différence",
+    "auth.login": "Connexion",
+    "auth.register": "S'inscrire",
+    "auth.email": "Email",
+    "auth.password": "Mot de passe",
+    "auth.forgotPassword": "Mot de passe oublié?",
+    "auth.biometric": "Utiliser la Connexion Biométrique",
+    "auth.submit": "Soumettre",
+    "auth.name": "Nom Complet",
+    "auth.confirmPassword": "Confirmer le Mot de passe",
+    "header.home": "Accueil",
+    "header.about": "À Propos",
+    "header.donate": "Donner",
+    "header.contact": "Contact",
+    "header.login": "Connexion",
+    "header.profile": "Profil",
+    "footer.partners": "Partenaires Hospitaliers",
+    "footer.emergency": "Contacts d'Urgence",
+    "footer.rights": "Tous Droits Réservés",
+    "footer.privacy": "Politique de Confidentialité",
+    "footer.terms": "Conditions d'Utilisation",
+    "about.title": "À Propos de Blood Nation",
+    "about.mission.title": "Notre Mission",
+    "about.mission.description": "Assurer que chacun ait accès à du sang sûr quand il en a le plus besoin.",
+    "about.vision.title": "Notre Vision",
+    "about.vision.description": "Un monde où personne ne meurt par manque d'approvisionnement en sang.",
+    "about.history.title": "Notre Histoire",
+    "about.history.description":
+      "Fondée en 2010, Blood Nation a été à l'avant-garde de la défense et des services de don de sang.",
+    "about.impact.title": "Notre Impact",
+    "about.impact.description": "Plus de 500 000 vies sauvées grâce à notre réseau de donneurs à travers le pays.",
+    "about.team.title": "Notre Équipe",
+    "about.team.description": "Des professionnels dévoués engagés à rendre le don de sang accessible et efficace.",
+    "contact.title": "Contactez-Nous",
+    "contact.subtitle": "Nous sommes là pour vous aider avec toutes vos questions ou préoccupations",
+    "contact.form.name": "Votre Nom",
+    "contact.form.email": "Votre Email",
+    "contact.form.subject": "Sujet",
+    "contact.form.message": "Message",
+    "contact.form.submit": "Envoyer le Message",
+    "contact.info.title": "Informations de Contact",
+    "contact.info.address": "123 Avenue Blood Nation, Quartier Médical, NY 10001",
+    "contact.info.phone": "+1 (800) 123-4567",
+    "contact.info.email": "contact@bloodnation.org",
+    "contact.hours.title": "Heures d'Ouverture",
+    "contact.hours.weekdays": "Lundi - Vendredi: 8h00 - 20h00",
+    "contact.hours.weekends": "Samedi - Dimanche: 10h00 - 18h00",
+    "contact.emergency.title": "Contact d'Urgence",
+    "contact.emergency.description": "Pour les besoins urgents en sang, veuillez appeler notre ligne d'assistance 24/7",
+    "contact.emergency.phone": "+1 (800) 999-8888",
+  },
+  ar: {
+    "hero.title": "أنقذ حياة بتبرعك",
+    "hero.subtitle": "كل قطرة مهمة. انضم إلى آلاف المتبرعين الذين يحدثون فرقًا في مجتمعنا.",
+    "hero.cta": "تبرع الآن",
+    "stats.title": "مستويات مخزون الدم الحالية",
+    "stats.subtitle": "ساعدنا في الحفاظ على إمدادات كافية للمحتاجين",
+    "process.title": "عملية التبرع",
+    "process.subtitle": "خطوات بسيطة لإحداث تأثير منقذ للحياة",
+    "process.step1.title": "التسجيل",
+    "process.step1.description": "أنشئ حسابًا أو سجل الدخول لجدولة تبرعك",
+    "process.step2.title": "التبرع",
+    "process.step2.description": "قم بزيارة أحد مراكزنا وأكمل تبرعك",
+    "process.step3.title": "إنقاذ الأرواح",
+    "process.step3.description": "تبرعك يساعد المرضى في حاجة حرجة",
+    "testimonials.title": "قصص المتبرعين",
+    "testimonials.subtitle": "اسمع من الأشخاص الذين يحدثون فرقًا",
+    "auth.login": "تسجيل الدخول",
+    "auth.register": "التسجيل",
+    "auth.email": "البريد الإلكتروني",
+    "auth.password": "كلمة المرور",
+    "auth.forgotPassword": "نسيت كلمة المرور؟",
+    "auth.biometric": "استخدم تسجيل الدخول البيومتري",
+    "auth.submit": "إرسال",
+    "auth.name": "الاسم الكامل",
+    "auth.confirmPassword": "تأكيد كلمة المرور",
+    "header.home": "الرئيسية",
+    "header.about": "حول",
+    "header.donate": "تبرع",
+    "header.contact": "اتصل بنا",
+    "header.login": "تسجيل الدخول",
+    "header.profile": "الملف الشخصي",
+    "footer.partners": "شركاء المستشفيات",
+    "footer.emergency": "جهات اتصال للطوارئ",
+    "footer.rights": "جميع الحقوق محفوظة",
+    "footer.privacy": "سياسة الخصوصية",
+    "footer.terms": "شروط الخدمة",
+    "about.title": "حول بلود نيشن",
+    "about.mission.title": "مهمتنا",
+    "about.mission.description": "ضمان حصول الجميع على دم آمن عندما يحتاجون إليه.",
+    "about.vision.title": "رؤيتنا",
+    "about.vision.description": "عالم لا يموت فيه أحد بسبب نقص إمدادات الدم.",
+    "about.history.title": "تاريخنا",
+    "about.history.description": "تأسست بلود نيشن في عام 2010، وكانت في طليعة الدعوة وخدمات التبرع بالدم.",
+    "about.impact.title": "تأثيرنا",
+    "about.impact.description": "أكثر من 500,000 حياة تم إنقاذها من خلال شبكة المتبرعين لدينا في جميع أنحاء البلاد.",
+    "about.team.title": "فريقنا",
+    "about.team.description": "محترفون متفانون ملتزمون بجعل التبرع بالدم سهلاً وفعالاً.",
+    "contact.title": "اتصل بنا",
+    "contact.subtitle": "نحن هنا للمساعدة في أي أسئلة أو استفسارات",
+    "contact.form.name": "اسمك",
+    "contact.form.email": "بريدك الإلكتروني",
+    "contact.form.subject": "الموضوع",
+    "contact.form.message": "الرسالة",
+    "contact.form.submit": "إرسال الرسالة",
+    "contact.info.title": "معلومات الاتصال",
+    "contact.info.address": "123 شارع بلود نيشن، الحي الطبي، نيويورك 10001",
+    "contact.info.phone": "+1 (800) 123-4567",
+    "contact.info.email": "contact@bloodnation.org",
+    "contact.hours.title": "ساعات العمل",
+    "contact.hours.weekdays": "الاثنين - الجمعة: 8:00 صباحًا - 8:00 مساءً",
+    "contact.hours.weekends": "السبت - الأحد: 10:00 صباحًا - 6:00 مساءً",
+    "contact.emergency.title": "اتصال الطوارئ",
+    "contact.emergency.description": "للاحتياجات العاجلة للدم، يرجى الاتصال بخط المساعدة على مدار 24 ساعة",
+    "contact.emergency.phone": "+1 (800) 999-8888",
+  },
+}
+
+const LanguageContext = createContext({
+  language: "en",
+  setLanguage: () => {},
+  t: (key) => key,
+})
+
+export function LanguageProvider({ children, defaultLanguage = "en" }) {
+  const [language, setLanguageState] = useState(() => {
+    if (typeof window !== "undefined") {
+      return Cookies.get("language") || defaultLanguage
+    }
+    return defaultLanguage
+  })
+  const setLanguage = (lang) => {
+    setLanguageState(lang)
+    Cookies.set("language", lang, { expires: 365, path: "/" })
+    // Update HTML dir attribute for RTL support
+    if (typeof document !== "undefined") {
+      document.documentElement.dir = lang === "ar" ? "rtl" : "ltr"
+      document.documentElement.lang = lang
+    }
+  }
+
+  const t = (key) => {
+    return translations[language]?.[key] || key
+  }
+
+  useEffect(() => {
+    // Set initial direction on client
+    document.documentElement.dir = language === "ar" ? "rtl" : "ltr"
+  }, [language])
+
+  return <LanguageContext.Provider value={{ language, setLanguage, t }}>{children}</LanguageContext.Provider>
+}
+
+export const useLanguage = () => useContext(LanguageContext)
