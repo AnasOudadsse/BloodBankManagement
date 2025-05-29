@@ -1,7 +1,12 @@
-"use client"
+"use client";
 
-import { useState, useEffect, useRef } from "react"
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion"
+import { useState, useEffect, useRef } from "react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  AnimatePresence,
+} from "framer-motion";
 import {
   Heart,
   Calendar,
@@ -24,48 +29,53 @@ import {
   Globe,
   Gift,
   TrendingUp,
-} from "lucide-react"
+} from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
-import { Header } from "@/components/header"
-import { Footer } from "@/components/footer"
-import { TestimonialCard } from "@/components/testimonial-card"
-import { DonationStepCard } from "@/components/donation-step-card"
-import { BloodTypeCard } from "@/components/blood-type-card"
-import { CounterAnimation } from "@/components/counter-animation"
-import { MythFactCard } from "@/components/myth-fact-card"
-import { ImpactStoryCard } from "@/components/impact-story-card"
-import { BloodCompatibilityChart } from "@/components/blood-compatibility-chart"
-import { NewsletterForm } from "@/components/newsletter-form"
-import { HealthBenefitCard } from "@/components/health-benefit-card"
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
+import { TestimonialCard } from "@/components/testimonial-card";
+import { DonationStepCard } from "@/components/donation-step-card";
+import { BloodTypeCard } from "@/components/blood-type-card";
+import { CounterAnimation } from "@/components/counter-animation";
+import { MythFactCard } from "@/components/myth-fact-card";
+import { ImpactStoryCard } from "@/components/impact-story-card";
+import { BloodCompatibilityChart } from "@/components/blood-compatibility-chart";
+import { NewsletterForm } from "@/components/newsletter-form";
+import { HealthBenefitCard } from "@/components/health-benefit-card";
 
-export  function HomePage() {
-  const [mounted, setMounted] = useState(false)
-  const [activeSlide, setActiveSlide] = useState(0)
-  const heroRef = useRef(null)
+export function HomePage() {
+  const [mounted, setMounted] = useState(false);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const heroRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
-  })
+  });
 
-  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
-  const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9])
-  const heroY = useTransform(scrollYProgress, [0, 0.5], [0, 100])
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const heroScale = useTransform(scrollYProgress, [0, 0.5], [1, 0.9]);
+  const heroY = useTransform(scrollYProgress, [0, 0.5], [0, 100]);
 
   useEffect(() => {
-    setMounted(true)
+    setMounted(true);
 
     // Auto-rotate hero slides
     const interval = setInterval(() => {
-      setActiveSlide((prev) => (prev + 1) % 3)
-    }, 5000)
+      setActiveSlide((prev) => (prev + 1) % 3);
+    }, 5000);
 
-    return () => clearInterval(interval)
-  }, [])
+    return () => clearInterval(interval);
+  }, []);
 
-  if (!mounted) return null
+  if (!mounted) return null;
 
   const heroSlides = [
     {
@@ -73,20 +83,32 @@ export  function HomePage() {
       subtitle: "Every drop counts in the journey to save lives",
       image: "/giving-lifeblood.png",
       gradient: "from-red-200/90 via-red-300/80 to-red-400/70",
+      badgeBg: "bg-red-800/90",
+      badgeHover: "hover:bg-red-700/90",
+      primaryBtn: "!bg-red-600 !text-white !hover:bg-red-700",
+      secondaryBtn: "!border-white !text-white !bg-white/10 hover:!bg-white/20",
     },
     {
       title: "Be someone's hero today",
       subtitle: "One donation can save up to three lives",
       image: "/community-blood-drive.jpg",
       gradient: "from-red-200/90 via-red-300/80 to-red-400/70",
+      badgeBg: "bg-white/20",
+      badgeHover: "hover:bg-white/30",
+      primaryBtn: "!bg-white !text-red-700 !hover:bg-red-50",
+      secondaryBtn: "!border-white !text-white !bg-white/10 hover:!bg-white/20",
     },
     {
       title: "Join our community of lifesavers",
       subtitle: "Together we can make a difference",
       image: "/blood-donation-drive.png",
       gradient: "from-red-200/90 via-red-300/80 to-red-400/70",
+      badgeBg: "bg-red-600/90",
+      badgeHover: "hover:bg-red-700/90",
+      primaryBtn: "!bg-red-600 !text-white !hover:bg-red-700",
+      secondaryBtn: "!border-white !text-white !bg-white/10 hover:!bg-white/20",
     },
-  ]
+  ];
 
   return (
     <div className="min-h-screen bg-white">
@@ -101,7 +123,7 @@ export  function HomePage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
+            transition={{ duration: 0.5 }}
             className="absolute inset-0 z-0"
           >
             <div className="absolute inset-0 bg-black/40 z-10" />
@@ -110,7 +132,9 @@ export  function HomePage() {
               alt="Blood donation hero"
               className="w-full h-full object-cover"
             />
-            <div className={`absolute inset-0 bg-gradient-to-r ${heroSlides[activeSlide].gradient} opacity-70 z-[5]`} />
+            <div
+              className={`absolute inset-0 bg-gradient-to-r ${heroSlides[activeSlide].gradient} opacity-60 z-[5]`}
+            />
           </motion.div>
         </AnimatePresence>
 
@@ -194,9 +218,16 @@ export  function HomePage() {
           className="relative z-20 container mx-auto h-full flex flex-col justify-center px-4 sm:px-6 lg:px-8"
         >
           <div className="max-w-3xl">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
-              <Badge className="mb-6 bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm border-none">
-                <Clock className="mr-1 h-3 w-3" /> Urgent need for O- and AB+ blood types
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <Badge
+                className={`mb-6 ${heroSlides[activeSlide].badgeBg} ${heroSlides[activeSlide].badgeHover} backdrop-blur-sm border-none text-white`}
+              >
+                <Clock className="mr-1 h-3 w-3" /> Urgent need for O- and AB+
+                blood types
               </Badge>
             </motion.div>
 
@@ -208,22 +239,30 @@ export  function HomePage() {
                 exit={{ opacity: 0, y: -20 }}
                 transition={{ duration: 0.8 }}
               >
-                <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-                  {heroSlides[activeSlide].title.split(" ").map((word, i, arr) => (
-                    <span key={i}>
-                      {i === arr.length - 1 ? <span className="text-red-200">{word}</span> : <span>{word} </span>}
-                    </span>
-                  ))}
+                <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight drop-shadow-lg">
+                  {heroSlides[activeSlide].title
+                    .split(" ")
+                    .map((word, i, arr) => (
+                      <span key={i}>
+                        {i === arr.length - 1 ? (
+                          <span className="text-red-200">{word}</span>
+                        ) : (
+                          <span>{word} </span>
+                        )}
+                      </span>
+                    ))}
                 </h1>
 
-                <p className="text-xl text-white/90 mb-8 max-w-2xl">{heroSlides[activeSlide].subtitle}</p>
+                <p className="text-xl text-white/90 mb-8 max-w-2xl drop-shadow-md">
+                  {heroSlides[activeSlide].subtitle}
+                </p>
               </motion.div>
             </AnimatePresence>
 
-            <div className="flex flex-wrap gap-4">
+            <div className="flex my-5 flex-wrap gap-4">
               <Button
                 size="lg"
-                className="bg-white text-red-700 hover:bg-red-50 border-none rounded-full px-8 transition-all duration-300 hover:shadow-lg hover:px-10"
+                className="!bg-white !text-red-700 !hover:bg-red-50 !border-none !rounded-full !px-8 !transition-all !duration-300 hover:!shadow-lg hover:!px-10"
               >
                 Become a donor
                 <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -232,7 +271,7 @@ export  function HomePage() {
               <Button
                 size="lg"
                 variant="outline"
-                className="border-white text-white hover:bg-white/20 rounded-full px-8"
+                className="!border-white !text-white !bg-white/10 hover:!bg-white/20 !rounded-full !px-8 backdrop-blur-sm"
               >
                 Find donation centers
                 <MapPin className="ml-2 h-4 w-4" />
@@ -278,22 +317,35 @@ export  function HomePage() {
       </section>
 
       {/* Urgent Appeal Banner */}
-      <section className="bg-gradient-to-r from-red-600 to-red-700 text-white py-4">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex items-center gap-3">
-              <AlertCircle className="h-6 w-6 text-red-200" />
-              <p className="font-medium">
-                <span className="font-bold">Urgent Appeal:</span> Critical shortage of O-negative and B-positive blood
-                types
-              </p>
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-red-800 via-red-700 to-gray-100 opacity-90"></div>
+        <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIgMS44LTQgNC00czQgMS44IDQgNC0xLjggNC00IDQtNC0xLjgtNC00eiIvPjwvZz48L2c+PC9zdmc+')] opacity-10"></div>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6 py-6">
+            <div className="flex items-center gap-4">
+              <div className="w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center">
+                <AlertCircle className="h-6 w-6 text-white animate-pulse" />
+              </div>
+              <div>
+                <p className="text-white/90 font-medium">
+                  <span className="font-bold text-white">Urgent Appeal:</span>{" "}
+                  Critical shortage of O-negative and B-positive blood types
+                </p>
+                <p className="text-white/70 text-sm mt-1">
+                  Your donation can save up to 3 lives
+                </p>
+              </div>
             </div>
-            <Button
-              size="sm"
-              className="bg-white text-red-700 hover:bg-red-50 whitespace-nowrap rounded-full px-6 transition-all hover:shadow-md"
-            >
-              Donate Now
-            </Button>
+            <div className="flex items-center gap-4">
+              <Button
+                size="lg"
+                className="bg-white !text-red-700 !whitespace-nowrap !rounded-full !px-8 !transition-all  hover:!scale-105"
+              >
+                Donate Now
+                <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+
+            </div>
           </div>
         </div>
       </section>
@@ -315,7 +367,9 @@ export  function HomePage() {
               <h3 className="text-5xl font-bold text-gray-900 mb-3 bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-red-800">
                 <CounterAnimation end={3} />
               </h3>
-              <p className="text-gray-700 font-medium">Lives saved with each donation</p>
+              <p className="text-gray-700 font-medium">
+                Lives saved with each donation
+              </p>
             </motion.div>
 
             <motion.div
@@ -331,7 +385,9 @@ export  function HomePage() {
               <h3 className="text-5xl font-bold text-gray-900 mb-3 bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-red-800">
                 <CounterAnimation end={10000} suffix="+" />
               </h3>
-              <p className="text-gray-700 font-medium">Active donors nationwide</p>
+              <p className="text-gray-700 font-medium">
+                Active donors nationwide
+              </p>
             </motion.div>
 
             <motion.div
@@ -347,7 +403,9 @@ export  function HomePage() {
               <h3 className="text-5xl font-bold text-gray-900 mb-3 bg-clip-text text-transparent bg-gradient-to-r from-red-600 to-red-800">
                 <CounterAnimation end={2} suffix="s" />
               </h3>
-              <p className="text-gray-700 font-medium">Someone needs blood every 2 seconds</p>
+              <p className="text-gray-700 font-medium">
+                Someone needs blood every 2 seconds
+              </p>
             </motion.div>
           </div>
         </div>
@@ -367,12 +425,15 @@ export  function HomePage() {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <Badge className="mb-3 bg-red-100 text-red-700 hover:bg-red-200 border-none">Impact Stories</Badge>
+              <Badge className="mb-3 bg-red-100 text-red-700 hover:bg-red-200 border-none">
+                Impact Stories
+              </Badge>
               <h2 className="text-5xl font-bold text-gray-900 mb-6 bg-clip-text text-transparent bg-gradient-to-r from-red-700 to-red-900">
                 Lives Changed Through Donation
               </h2>
               <p className="text-xl text-gray-600">
-                Real stories from people whose lives were saved thanks to generous blood donors like you.
+                Real stories from people whose lives were saved thanks to
+                generous blood donors like you.
               </p>
             </motion.div>
           </div>
@@ -411,13 +472,16 @@ export  function HomePage() {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <Badge className="mb-3 bg-red-100 text-red-700 hover:bg-red-200 border-none">Why Donate Blood?</Badge>
+              <Badge className="mb-3 bg-red-100 text-red-700 hover:bg-red-200 border-none">
+                Why Donate Blood?
+              </Badge>
               <h2 className="text-5xl font-bold text-gray-900 mb-6 bg-clip-text text-transparent bg-gradient-to-r from-red-700 to-red-900">
                 The Importance of Blood Donation
               </h2>
               <p className="text-xl text-gray-600">
-                Blood donation is a simple way to save lives. Every donation can help up to three people in need.
-                Donating blood is safe, easy, and can make a huge difference.
+                Blood donation is a simple way to save lives. Every donation can
+                help up to three people in need. Donating blood is safe, easy,
+                and can make a huge difference.
               </p>
             </motion.div>
           </div>
@@ -433,9 +497,12 @@ export  function HomePage() {
               <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center mb-6 shadow-md transform -rotate-6">
                 <Heart className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Help Patients in Need</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                Help Patients in Need
+              </h3>
               <p className="text-gray-600">
-                Your donation can help patients undergoing surgery, cancer treatment, and other medical procedures.
+                Your donation can help patients undergoing surgery, cancer
+                treatment, and other medical procedures.
               </p>
             </motion.div>
 
@@ -449,9 +516,12 @@ export  function HomePage() {
               <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center mb-6 shadow-md transform rotate-3">
                 <Users className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Support Your Community</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                Support Your Community
+              </h3>
               <p className="text-gray-600">
-                Blood donation is a simple way to make a positive impact in your local community.
+                Blood donation is a simple way to make a positive impact in your
+                local community.
               </p>
             </motion.div>
 
@@ -465,9 +535,12 @@ export  function HomePage() {
               <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center mb-6 shadow-md transform -rotate-3">
                 <CheckCircle className="h-8 w-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-3">Be a Hero</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">
+                Be a Hero
+              </h3>
               <p className="text-gray-600">
-                By donating blood, you can become a hero to those in need and make a lasting difference.
+                By donating blood, you can become a hero to those in need and
+                make a lasting difference.
               </p>
             </motion.div>
           </div>
@@ -488,12 +561,15 @@ export  function HomePage() {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <Badge className="mb-3 bg-red-200 text-red-700 hover:bg-red-300 border-none">Health Benefits</Badge>
+              <Badge className="mb-3 bg-red-200 text-red-700 hover:bg-red-300 border-none">
+                Health Benefits
+              </Badge>
               <h2 className="text-5xl font-bold text-gray-900 mb-6 bg-clip-text text-transparent bg-gradient-to-r from-red-700 to-red-900">
                 Benefits of Donating Blood
               </h2>
               <p className="text-xl text-gray-700">
-                Beyond saving lives, donating blood offers several health benefits for donors themselves.
+                Beyond saving lives, donating blood offers several health
+                benefits for donors themselves.
               </p>
             </motion.div>
           </div>
@@ -536,13 +612,15 @@ export  function HomePage() {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <Badge className="mb-3 bg-red-100 text-red-700 hover:bg-red-200 border-none">Blood Types</Badge>
+              <Badge className="mb-3 bg-red-100 text-red-700 hover:bg-red-200 border-none">
+                Blood Types
+              </Badge>
               <h2 className="text-5xl font-bold text-gray-900 mb-6 bg-clip-text text-transparent bg-gradient-to-r from-red-700 to-red-900">
                 Understanding Blood Types
               </h2>
               <p className="text-xl text-gray-600">
-                Different blood types are needed for different patients. Learn about the various blood types and their
-                compatibility.
+                Different blood types are needed for different patients. Learn
+                about the various blood types and their compatibility.
               </p>
             </motion.div>
           </div>
@@ -559,7 +637,9 @@ export  function HomePage() {
           </div>
 
           <div className="mt-16 bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl p-8 shadow-lg border border-gray-100">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">Blood Type Compatibility Chart</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
+              Blood Type Compatibility Chart
+            </h3>
             <BloodCompatibilityChart />
 
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -569,8 +649,9 @@ export  function HomePage() {
                   Universal Donors
                 </h4>
                 <p className="text-gray-600 mb-4">
-                  O-negative blood type is known as the universal donor because it can be given to anyone regardless of
-                  their blood type. This makes it extremely valuable in emergency situations.
+                  O-negative blood type is known as the universal donor because
+                  it can be given to anyone regardless of their blood type. This
+                  makes it extremely valuable in emergency situations.
                 </p>
                 <div className="flex items-center gap-2">
                   <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
@@ -578,14 +659,30 @@ export  function HomePage() {
                   </div>
                   <ArrowRight className="h-4 w-4 text-gray-400" />
                   <div className="flex gap-1">
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">A+</div>
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">A-</div>
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">B+</div>
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">B-</div>
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">AB+</div>
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">AB-</div>
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">O+</div>
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">O-</div>
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">
+                      A+
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">
+                      A-
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">
+                      B+
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">
+                      B-
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">
+                      AB+
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">
+                      AB-
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">
+                      O+
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">
+                      O-
+                    </div>
                   </div>
                 </div>
               </div>
@@ -596,17 +693,31 @@ export  function HomePage() {
                   Universal Recipients
                 </h4>
                 <p className="text-gray-600 mb-4">
-                  AB-positive blood type is known as the universal recipient because people with this blood type can
-                  receive blood from any donor type. However, they can only donate to other AB+ individuals.
+                  AB-positive blood type is known as the universal recipient
+                  because people with this blood type can receive blood from any
+                  donor type. However, they can only donate to other AB+
+                  individuals.
                 </p>
                 <div className="flex items-center gap-2">
                   <div className="flex gap-1">
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">A+</div>
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">A-</div>
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">B+</div>
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">B-</div>
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">O+</div>
-                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">O-</div>
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">
+                      A+
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">
+                      A-
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">
+                      B+
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">
+                      B-
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">
+                      O+
+                    </div>
+                    <div className="w-8 h-8 rounded-full bg-gray-100 flex items-center justify-center text-xs">
+                      O-
+                    </div>
                   </div>
                   <ArrowRight className="h-4 w-4 text-gray-400" />
                   <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center">
@@ -637,8 +748,9 @@ export  function HomePage() {
                   What to Expect When Donating Blood
                 </h2>
                 <p className="text-xl text-gray-600 mb-10">
-                  The blood donation process is safe, simple, and takes less than an hour. Our experienced staff will
-                  guide you through each step to ensure a comfortable experience.
+                  The blood donation process is safe, simple, and takes less
+                  than an hour. Our experienced staff will guide you through
+                  each step to ensure a comfortable experience.
                 </p>
               </motion.div>
 
@@ -721,11 +833,15 @@ export  function HomePage() {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <Badge className="mb-3 bg-red-100 text-red-700 hover:bg-red-200 border-none">Myths & Facts</Badge>
+              <Badge className="mb-3 bg-red-100 text-red-700 hover:bg-red-200 border-none">
+                Myths & Facts
+              </Badge>
               <h2 className="text-5xl font-bold text-gray-900 mb-6 bg-clip-text text-transparent bg-gradient-to-r from-red-700 to-red-900">
                 Common Blood Donation Myths
               </h2>
-              <p className="text-xl text-gray-600">Let's address some common misconceptions about blood donation.</p>
+              <p className="text-xl text-gray-600">
+                Let's address some common misconceptions about blood donation.
+              </p>
             </motion.div>
           </div>
 
@@ -767,12 +883,15 @@ export  function HomePage() {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <Badge className="mb-3 bg-red-200 text-red-700 hover:bg-red-300 border-none">Donor Testimonials</Badge>
+              <Badge className="mb-3 bg-red-200 text-red-700 hover:bg-red-300 border-none">
+                Donor Testimonials
+              </Badge>
               <h2 className="text-5xl font-bold text-gray-900 mb-6 bg-clip-text text-transparent bg-gradient-to-r from-red-700 to-red-900">
                 Hear from Our Donors
               </h2>
               <p className="text-xl text-gray-700">
-                Our donors share their experiences and the impact their donations have made.
+                Our donors share their experiences and the impact their
+                donations have made.
               </p>
             </motion.div>
           </div>
@@ -812,57 +931,78 @@ export  function HomePage() {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <Badge className="mb-3 bg-red-100 text-red-700 hover:bg-red-200 border-none">FAQ</Badge>
+              <Badge className="mb-3 bg-red-100 text-red-700 hover:bg-red-200 border-none">
+                FAQ
+              </Badge>
               <h2 className="text-5xl font-bold text-gray-900 mb-6 bg-clip-text text-transparent bg-gradient-to-r from-red-700 to-red-900">
                 Frequently Asked Questions
               </h2>
-              <p className="text-xl text-gray-600">Find answers to common questions about blood donation.</p>
+              <p className="text-xl text-gray-600">
+                Find answers to common questions about blood donation.
+              </p>
             </motion.div>
           </div>
 
           <div className="max-w-3xl mx-auto bg-gradient-to-br from-gray-50 to-gray-100 rounded-3xl p-8 shadow-lg border border-gray-100">
             <Accordion type="single" collapsible className="w-full">
-              <AccordionItem value="item-1" className="border-b border-gray-200">
+              <AccordionItem
+                value="item-1"
+                className="border-b border-gray-200"
+              >
                 <AccordionTrigger className="hover:text-red-600 py-6 text-lg font-medium">
                   Who can donate blood?
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600 pb-6">
-                  Most people who are healthy and at least 17 years old (16 with parental consent in some states) and
-                  weigh at least 110 pounds can donate blood. However, eligibility requirements may vary depending on
-                  the donation center and specific health conditions.
+                  Most people who are healthy and at least 17 years old (16 with
+                  parental consent in some states) and weigh at least 110 pounds
+                  can donate blood. However, eligibility requirements may vary
+                  depending on the donation center and specific health
+                  conditions.
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-2" className="border-b border-gray-200">
+              <AccordionItem
+                value="item-2"
+                className="border-b border-gray-200"
+              >
                 <AccordionTrigger className="hover:text-red-600 py-6 text-lg font-medium">
                   How often can I donate blood?
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600 pb-6">
-                  You can donate whole blood every 56 days (about 8 weeks). If you're donating platelets, you can donate
-                  every 7 days, up to 24 times a year. For plasma, you can donate every 28 days, and for double red
-                  cells, every 112 days.
+                  You can donate whole blood every 56 days (about 8 weeks). If
+                  you're donating platelets, you can donate every 7 days, up to
+                  24 times a year. For plasma, you can donate every 28 days, and
+                  for double red cells, every 112 days.
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-3" className="border-b border-gray-200">
+              <AccordionItem
+                value="item-3"
+                className="border-b border-gray-200"
+              >
                 <AccordionTrigger className="hover:text-red-600 py-6 text-lg font-medium">
                   Is donating blood safe?
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600 pb-6">
-                  Yes, donating blood is very safe. All equipment used during the donation process is sterile and used
-                  only once. The actual donation process typically takes about 8-10 minutes, and the entire visit
-                  usually takes less than an hour.
+                  Yes, donating blood is very safe. All equipment used during
+                  the donation process is sterile and used only once. The actual
+                  donation process typically takes about 8-10 minutes, and the
+                  entire visit usually takes less than an hour.
                 </AccordionContent>
               </AccordionItem>
 
-              <AccordionItem value="item-4" className="border-b border-gray-200">
+              <AccordionItem
+                value="item-4"
+                className="border-b border-gray-200"
+              >
                 <AccordionTrigger className="hover:text-red-600 py-6 text-lg font-medium">
                   How should I prepare for blood donation?
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600 pb-6">
-                  Get a good night's sleep, eat a healthy meal, and drink plenty of fluids before donating. Wear
-                  comfortable clothing with sleeves that can be rolled up. Bring your ID and a list of medications
-                  you're taking.
+                  Get a good night's sleep, eat a healthy meal, and drink plenty
+                  of fluids before donating. Wear comfortable clothing with
+                  sleeves that can be rolled up. Bring your ID and a list of
+                  medications you're taking.
                 </AccordionContent>
               </AccordionItem>
 
@@ -871,9 +1011,11 @@ export  function HomePage() {
                   What happens to my blood after donation?
                 </AccordionTrigger>
                 <AccordionContent className="text-gray-600 pb-6">
-                  After donation, your blood is processed and tested for infectious diseases. It's then separated into
-                  components (red cells, platelets, and plasma) that can be used for different medical needs. These
-                  components are distributed to hospitals for patients who need them.
+                  After donation, your blood is processed and tested for
+                  infectious diseases. It's then separated into components (red
+                  cells, platelets, and plasma) that can be used for different
+                  medical needs. These components are distributed to hospitals
+                  for patients who need them.
                 </AccordionContent>
               </AccordionItem>
             </Accordion>
@@ -902,21 +1044,28 @@ export  function HomePage() {
                 >
                   <h2 className="text-4xl font-bold mb-4">Stay Updated</h2>
                   <p className="text-white/90 mb-6">
-                    Subscribe to our newsletter to receive updates on blood drives, donation opportunities, and stories
-                    about lives saved through blood donation.
+                    Subscribe to our newsletter to receive updates on blood
+                    drives, donation opportunities, and stories about lives
+                    saved through blood donation.
                   </p>
                   <div className="flex flex-col gap-4">
                     <div className="flex items-center gap-2">
                       <Award className="h-5 w-5 text-red-200" />
-                      <p className="text-sm text-white/90">Join over 10,000 subscribers</p>
+                      <p className="text-sm text-white/90">
+                        Join over 10,000 subscribers
+                      </p>
                     </div>
                     <div className="flex items-center gap-2">
                       <Gift className="h-5 w-5 text-red-200" />
-                      <p className="text-sm text-white/90">Exclusive donor rewards and recognition</p>
+                      <p className="text-sm text-white/90">
+                        Exclusive donor rewards and recognition
+                      </p>
                     </div>
                     <div className="flex items-center gap-2">
                       <TrendingUp className="h-5 w-5 text-red-200" />
-                      <p className="text-sm text-white/90">Stay informed about blood supply needs</p>
+                      <p className="text-sm text-white/90">
+                        Stay informed about blood supply needs
+                      </p>
                     </div>
                   </div>
                 </motion.div>
@@ -948,13 +1097,15 @@ export  function HomePage() {
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
             >
-              <Badge className="mb-3 bg-red-100 text-red-700 hover:bg-red-200 border-none">Take Action</Badge>
+              <Badge className="mb-3 bg-red-100 text-red-700 hover:bg-red-200 border-none">
+                Take Action
+              </Badge>
               <h2 className="text-5xl font-bold text-gray-900 mb-6 bg-clip-text text-transparent bg-gradient-to-r from-red-700 to-red-900">
                 Ready to Make a Difference?
               </h2>
               <p className="text-xl text-gray-600 mb-10">
-                Your donation can save up to three lives. Schedule an appointment today or find a donation center near
-                you.
+                Your donation can save up to three lives. Schedule an
+                appointment today or find a donation center near you.
               </p>
             </motion.div>
 
@@ -994,7 +1145,9 @@ export  function HomePage() {
                 </div>
                 <div>
                   <p className="font-bold text-gray-900">Online Scheduling</p>
-                  <p className="text-red-600 font-medium">bloodlife.org/schedule</p>
+                  <p className="text-red-600 font-medium">
+                    bloodlife.org/schedule
+                  </p>
                 </div>
               </div>
 
@@ -1014,5 +1167,5 @@ export  function HomePage() {
 
       <Footer />
     </div>
-  )
+  );
 }
