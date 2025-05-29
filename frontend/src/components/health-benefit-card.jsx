@@ -1,33 +1,43 @@
-"use client";
+"use client"
 
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"
 
-export function HealthBenefitCard({ icon, title, description }) {
+export function HealthBenefitCard({ icon, title, description, metric, category }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 30 }}
       whileInView={{ opacity: 1, y: 0 }}
-      whileHover={{ y: -5 }}
-      transition={{ duration: 0.3 }}
+      transition={{ duration: 0.6 }}
       viewport={{ once: true }}
-      className="group relative bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300"
+      className="!group !relative"
     >
-      {/* Gradient border effect */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-500 to-red-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10 blur-sm"></div>
+      {/* Professional card design */}
+      <div className="!relative !bg-white !border !border-slate-200 hover:!border-slate-300 !transition-all !duration-300 !overflow-hidden !h-full">
+        {/* Header section */}
+        <div className="!p-6">
+          <div className="!flex !items-center !justify-between !mb-4">
+            <div className="!w-10 !h-10 !bg-red-600 !flex !items-center !justify-center">{icon}</div>
+            <div className="!text-xs !font-semibold !text-slate-500 !uppercase !tracking-wider">
+              {category || "Health Benefit"}
+            </div>
+          </div>
 
-      {/* Icon container */}
-      <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-red-500 to-red-600 flex items-center justify-center mb-4 transform group-hover:scale-110 transition-transform duration-300">
-        {icon}
+          <h3 className="!text-lg !font-bold !text-slate-900 !mb-3">{title}</h3>
+          <p className="!text-sm !text-slate-600 !leading-relaxed">{description}</p>
+
+          {metric && (
+            <div className="!mt-4 !pt-4 !border-t !border-slate-100">
+              <div className="!flex !items-center !justify-between">
+                <div className="!text-xs !text-slate-500">Key Metric</div>
+                <div className="!text-sm !font-semibold !text-slate-700">{metric}</div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Hover effect */}
+        <div className="!absolute !inset-0 !bg-gradient-to-r !from-red-500/5 !to-transparent !opacity-0 group-hover:!opacity-100 !transition-opacity !duration-300 !pointer-events-none" />
       </div>
-
-      {/* Content */}
-      <h3 className="text-xl font-semibold text-gray-900 mb-2 group-hover:text-red-600 transition-colors duration-300">
-        {title}
-      </h3>
-      <p className="text-gray-600 leading-relaxed">{description}</p>
-
-      {/* Hover effect overlay */}
-      <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-red-500/5 to-red-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
     </motion.div>
-  );
+  )
 }
