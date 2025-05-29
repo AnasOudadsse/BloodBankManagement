@@ -1,7 +1,9 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import {
   Eye,
   EyeOff,
@@ -20,49 +22,69 @@ import {
   Building,
   FileText,
   TrendingUp,
-} from "lucide-react"
+} from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function LoginPage() {
-  const [showPassword, setShowPassword] = useState(false)
-  const [credentials, setCredentials] = useState({ Email: "", EncryptedPassword: "", Role: "Guest" })
-  const [error, setError] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [mounted, setMounted] = useState(false)
-  const [activeTab, setActiveTab] = useState("donor")
+  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [credentials, setCredentials] = useState({
+    Email: "",
+    EncryptedPassword: "",
+    Role: "Guest",
+  });
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  const [activeTab, setActiveTab] = useState("donor");
 
   // Prevent hydration mismatch
   useEffect(() => {
-    setMounted(true)
-  }, [])
+    setMounted(true);
+  }, []);
 
   const handleChange = (e) => {
-    setCredentials({ ...credentials, [e.target.name]: e.target.value })
-    if (error) setError("")
-  }
+    setCredentials({ ...credentials, [e.target.name]: e.target.value });
+    if (error) setError("");
+  };
 
   const handleLogin = async (event) => {
-    event.preventDefault()
-    setError("")
-    setIsLoading(true)
+    event.preventDefault();
+    setError("");
+    setIsLoading(true);
 
     try {
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 2000))
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/login",
+        credentials,
+        {
+          headers: { "Content-Type": "application/json" },
+        }
+      );
 
-      // Simulate success
-      console.log("Login successful")
+      if (response.status === 200) {
+        const data = response.data;
+
+        // Store authentication data
+        localStorage.setItem("token", data.access_token);
+        localStorage.setItem("role", data.role);
+        localStorage.setItem("user", JSON.stringify(data.user));
+
+        // Navigate to dashboard
+        navigate("/dashboard");
+      }
     } catch (err) {
-      setError("Invalid credentials. Please try again.")
+      const errorMessage = err.response?.data?.message || "An error occurred";
+      setError(errorMessage);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
-  if (!mounted) return null
+  if (!mounted) return null;
 
   return (
     <div className="!min-h-screen !w-full !bg-white !text-slate-900 !flex !flex-col">
@@ -85,22 +107,38 @@ export default function LoginPage() {
               <Activity className="!h-6 !w-6 !text-white" strokeWidth={2} />
             </div>
             <div>
-              <span className="!text-xl !font-bold !text-slate-900">BloodLife</span>
-              <div className="!text-xs !text-slate-500 !uppercase !tracking-wider">Healthcare Initiative</div>
+              <span className="!text-xl !font-bold !text-slate-900">
+                BloodLife
+              </span>
+              <div className="!text-xs !text-slate-500 !uppercase !tracking-wider">
+                Healthcare Initiative
+              </div>
             </div>
           </div>
 
           <nav className="!hidden md:!flex !items-center !gap-8">
-            <a href="#" className="!text-sm !text-slate-600 hover:!text-red-600 !transition-colors !duration-200">
+            <a
+              href="#"
+              className="!text-sm !text-slate-600 hover:!text-red-600 !transition-colors !duration-200"
+            >
               Medical Services
             </a>
-            <a href="#" className="!text-sm !text-slate-600 hover:!text-red-600 !transition-colors !duration-200">
+            <a
+              href="#"
+              className="!text-sm !text-slate-600 hover:!text-red-600 !transition-colors !duration-200"
+            >
               Donation Centers
             </a>
-            <a href="#" className="!text-sm !text-slate-600 hover:!text-red-600 !transition-colors !duration-200">
+            <a
+              href="#"
+              className="!text-sm !text-slate-600 hover:!text-red-600 !transition-colors !duration-200"
+            >
               Professional Support
             </a>
-            <a href="#" className="!text-sm !text-slate-600 hover:!text-red-600 !transition-colors !duration-200">
+            <a
+              href="#"
+              className="!text-sm !text-slate-600 hover:!text-red-600 !transition-colors !duration-200"
+            >
               Contact
             </a>
           </nav>
@@ -157,8 +195,10 @@ export default function LoginPage() {
               </h1>
 
               <p className="!text-lg !text-slate-600 !max-w-2xl !leading-relaxed">
-                Join our certified medical network where every donation is professionally managed through evidence-based
-                protocols, ensuring maximum impact for patient care and community health outcomes.
+                Join our certified medical network where every donation is
+                professionally managed through evidence-based protocols,
+                ensuring maximum impact for patient care and community health
+                outcomes.
               </p>
 
               {/* Professional metrics */}
@@ -172,8 +212,12 @@ export default function LoginPage() {
                       Active Network
                     </div>
                   </div>
-                  <div className="!text-xl !font-bold !text-slate-900">47,500+</div>
-                  <div className="!text-xs !text-slate-600">Certified Donors</div>
+                  <div className="!text-xl !font-bold !text-slate-900">
+                    47,500+
+                  </div>
+                  <div className="!text-xs !text-slate-600">
+                    Certified Donors
+                  </div>
                 </div>
 
                 <div className="!bg-white !border !border-slate-200 !p-4">
@@ -185,8 +229,12 @@ export default function LoginPage() {
                       Lives Saved
                     </div>
                   </div>
-                  <div className="!text-xl !font-bold !text-slate-900">142,000+</div>
-                  <div className="!text-xs !text-slate-600">Through Our Network</div>
+                  <div className="!text-xl !font-bold !text-slate-900">
+                    142,000+
+                  </div>
+                  <div className="!text-xs !text-slate-600">
+                    Through Our Network
+                  </div>
                 </div>
 
                 <div className="!bg-white !border !border-slate-200 !p-4">
@@ -198,8 +246,12 @@ export default function LoginPage() {
                       Medical Centers
                     </div>
                   </div>
-                  <div className="!text-xl !font-bold !text-slate-900">500+</div>
-                  <div className="!text-xs !text-slate-600">Partner Facilities</div>
+                  <div className="!text-xl !font-bold !text-slate-900">
+                    500+
+                  </div>
+                  <div className="!text-xs !text-slate-600">
+                    Partner Facilities
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -251,12 +303,20 @@ export default function LoginPage() {
               </h3>
               <div className="!space-y-2">
                 <div className="!flex !justify-between !items-center !text-xs">
-                  <span className="!text-slate-700">Central Medical Facility</span>
-                  <span className="!text-red-600 !font-medium">Tomorrow, 9AM-5PM</span>
+                  <span className="!text-slate-700">
+                    Central Medical Facility
+                  </span>
+                  <span className="!text-red-600 !font-medium">
+                    Tomorrow, 9AM-5PM
+                  </span>
                 </div>
                 <div className="!flex !justify-between !items-center !text-xs">
-                  <span className="!text-slate-700">Downtown Healthcare Center</span>
-                  <span className="!text-red-600 !font-medium">Saturday, 10AM-3PM</span>
+                  <span className="!text-slate-700">
+                    Downtown Healthcare Center
+                  </span>
+                  <span className="!text-red-600 !font-medium">
+                    Saturday, 10AM-3PM
+                  </span>
                 </div>
               </div>
             </div>
@@ -281,19 +341,27 @@ export default function LoginPage() {
                       <Lock className="!h-4 !w-4 !text-white" />
                     </div>
                     <div>
-                      <h2 className="!text-lg !font-bold !text-white">Secure Access Portal</h2>
-                      <div className="!text-xs !text-white/80 !uppercase !tracking-wider">Professional Login</div>
+                      <h2 className="!text-lg !font-bold !text-white">
+                        Secure Access Portal
+                      </h2>
+                      <div className="!text-xs !text-white/80 !uppercase !tracking-wider">
+                        Professional Login
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
               {/* Professional login tabs */}
-              <Tabs defaultValue="donor" className="!mb-6" onValueChange={setActiveTab}>
+              <Tabs
+                defaultValue="donor"
+                className="!mb-6"
+                onValueChange={setActiveTab}
+              >
                 <TabsList className="!grid !grid-cols-2 !bg-slate-100 !border !border-slate-200">
                   <TabsTrigger
                     value="donor"
-                    className="data-[state=active]:!bg-red-600 data-[state=active]:!text-white !text-slate-600 !px-3 "  
+                    className="data-[state=active]:!bg-red-600 data-[state=active]:!text-white !text-slate-600 !px-3 "
                   >
                     Donor Portal
                   </TabsTrigger>
@@ -307,9 +375,12 @@ export default function LoginPage() {
 
                 <TabsContent value="donor" className="!mt-6 !space-y-4">
                   <div>
-                    <h3 className="!text-lg !font-bold !text-slate-900">Donor Authentication</h3>
+                    <h3 className="!text-lg !font-bold !text-slate-900">
+                      Donor Authentication
+                    </h3>
                     <p className="!text-slate-600 !mt-1 !text-sm">
-                      Access your professional donor profile and medical records.
+                      Access your professional donor profile and medical
+                      records.
                     </p>
                   </div>
 
@@ -359,8 +430,14 @@ export default function LoginPage() {
                             onClick={() => setShowPassword(!showPassword)}
                             className="!absolute !right-0 !top-0 !h-full !px-3 !text-slate-400 hover:!text-slate-700 !transition-colors"
                           >
-                            {showPassword ? <EyeOff className="!h-4 !w-4" /> : <Eye className="!h-4 !w-4" />}
-                            <span className="!sr-only">{showPassword ? "Hide password" : "Show password"}</span>
+                            {showPassword ? (
+                              <EyeOff className="!h-4 !w-4" />
+                            ) : (
+                              <Eye className="!h-4 !w-4" />
+                            )}
+                            <span className="!sr-only">
+                              {showPassword ? "Hide password" : "Show password"}
+                            </span>
                           </button>
                         </div>
                       </div>
@@ -374,7 +451,10 @@ export default function LoginPage() {
                           type="checkbox"
                           className="!h-4 !w-4 !rounded !border-slate-300 !text-red-600 focus:!ring-red-500 focus:!ring-offset-0"
                         />
-                        <label htmlFor="remember-me" className="!ml-2 !block !text-sm !text-slate-600">
+                        <label
+                          htmlFor="remember-me"
+                          className="!ml-2 !block !text-sm !text-slate-600"
+                        >
                           Remember credentials
                         </label>
                       </div>
@@ -408,7 +488,11 @@ export default function LoginPage() {
                         {isLoading ? (
                           <motion.div
                             animate={{ rotate: 360 }}
-                            transition={{ duration: 1, repeat: Number.POSITIVE_INFINITY, ease: "linear" }}
+                            transition={{
+                              duration: 1,
+                              repeat: Number.POSITIVE_INFINITY,
+                              ease: "linear",
+                            }}
                             className="!h-5 !w-5 !rounded-full !border-2 !border-current !border-t-transparent"
                           />
                         ) : (
@@ -425,7 +509,9 @@ export default function LoginPage() {
                         <div className="!w-full !border-t !border-slate-200"></div>
                       </div>
                       <div className="!relative !flex !justify-center !text-xs !uppercase">
-                        <span className="!bg-white !px-2 !text-slate-500">Professional Integration</span>
+                        <span className="!bg-white !px-2 !text-slate-500">
+                          Professional Integration
+                        </span>
                       </div>
                     </div>
 
@@ -462,8 +548,12 @@ export default function LoginPage() {
 
                 <TabsContent value="staff" className="!mt-6 !space-y-4">
                   <div>
-                    <h3 className="!text-lg !font-bold !text-slate-900">Medical Staff Portal</h3>
-                    <p className="!text-slate-600 !mt-1 !text-sm">Secure access for certified medical professionals.</p>
+                    <h3 className="!text-lg !font-bold !text-slate-900">
+                      Medical Staff Portal
+                    </h3>
+                    <p className="!text-slate-600 !mt-1 !text-sm">
+                      Secure access for certified medical professionals.
+                    </p>
                   </div>
 
                   <form className="!space-y-5">
@@ -512,7 +602,10 @@ export default function LoginPage() {
                           type="checkbox"
                           className="!h-4 !w-4 !rounded !border-slate-300 !text-red-600 focus:!ring-red-500 focus:!ring-offset-0"
                         />
-                        <label htmlFor="staff-remember" className="!ml-2 !block !text-sm !text-slate-600">
+                        <label
+                          htmlFor="staff-remember"
+                          className="!ml-2 !block !text-sm !text-slate-600"
+                        >
                           Remember session
                         </label>
                       </div>
@@ -538,7 +631,9 @@ export default function LoginPage() {
 
                     <div className="!flex !items-center !justify-center !mt-4 !gap-2">
                       <Shield className="!h-4 !w-4 !text-green-600" />
-                      <span className="!text-xs !text-slate-600">HIPAA Compliant Medical Portal</span>
+                      <span className="!text-xs !text-slate-600">
+                        HIPAA Compliant Medical Portal
+                      </span>
                     </div>
                   </form>
                 </TabsContent>
@@ -549,11 +644,15 @@ export default function LoginPage() {
                 <div className="!flex !items-center !justify-between">
                   <div className="!flex !items-center !gap-2">
                     <Shield className="!h-4 !w-4 !text-green-600" />
-                    <span className="!text-xs !text-slate-600">Secure Authentication</span>
+                    <span className="!text-xs !text-slate-600">
+                      Secure Authentication
+                    </span>
                   </div>
                   <div className="!flex !items-center !gap-2">
                     <Lock className="!h-4 !w-4 !text-green-600" />
-                    <span className="!text-xs !text-slate-600">HIPAA Compliant</span>
+                    <span className="!text-xs !text-slate-600">
+                      HIPAA Compliant
+                    </span>
                   </div>
                 </div>
               </div>
@@ -572,22 +671,33 @@ export default function LoginPage() {
             <div className="!w-6 !h-6 !bg-red-600 !flex !items-center !justify-center">
               <Activity className="!h-4 !w-4 !text-white" strokeWidth={2} />
             </div>
-            <p className="!text-slate-600 !text-sm">© 2024 BloodLife Healthcare Initiative. All rights reserved.</p>
+            <p className="!text-slate-600 !text-sm">
+              © 2024 BloodLife Healthcare Initiative. All rights reserved.
+            </p>
           </div>
 
           <div className="!flex !items-center !gap-6">
-            <a href="#" className="!text-xs !text-slate-600 hover:!text-red-600 !transition-colors">
+            <a
+              href="#"
+              className="!text-xs !text-slate-600 hover:!text-red-600 !transition-colors"
+            >
               Privacy Policy
             </a>
-            <a href="#" className="!text-xs !text-slate-600 hover:!text-red-600 !transition-colors">
+            <a
+              href="#"
+              className="!text-xs !text-slate-600 hover:!text-red-600 !transition-colors"
+            >
               Terms of Service
             </a>
-            <a href="#" className="!text-xs !text-slate-600 hover:!text-red-600 !transition-colors">
+            <a
+              href="#"
+              className="!text-xs !text-slate-600 hover:!text-red-600 !transition-colors"
+            >
               Professional Support
             </a>
           </div>
         </div>
       </footer>
     </div>
-  )
+  );
 }

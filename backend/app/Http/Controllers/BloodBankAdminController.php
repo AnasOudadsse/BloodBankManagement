@@ -44,4 +44,12 @@ class BloodBankAdminController extends Controller
             return  response()->json(['message'=> $validateAdmin['Name']. " has been added as an admin for the blood bank."]);
     }
 
+
+    public function index() {
+        $admins = BloodBankAdmin::all();
+
+        return response()->json(['data' => $admins]);
+       
+    }
+
 }

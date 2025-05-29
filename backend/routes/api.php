@@ -122,3 +122,5 @@ route::get('dashboard', [Dashboard::class, 'dashboard']);
 
 route::Post('DonationHistory', [DonationController::class, 'getDonationHistory']);
 
+route::get('getAdmins', [BloodBankAdminController::class, 'index']);
+
