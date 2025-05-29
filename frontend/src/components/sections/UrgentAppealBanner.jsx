@@ -1,46 +1,103 @@
-import { AlertCircle, ArrowRight } from "lucide-react";
+"use client";
+
+import { AlertTriangle, ArrowRight, Clock, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export function UrgentAppealBanner() {
   return (
-    <section className="relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-r from-red-800 via-red-700 to-gray-100 opacity-90"></div>
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMzYgMzRjMC0yLjIgMS44LTQgNC00czQgMS44IDQgNC0xLjggNC00IDQtNC0xLjgtNC00eiIvPjwvZz48L2c+PC9zdmc+')] opacity-10"></div>
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-6 py-8">
-          <div className="flex items-center gap-6">
-            <div className="relative">
-              <div className="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center rotate-3 transform hover:rotate-6 transition-transform">
-                <AlertCircle className="h-8 w-8 text-white animate-pulse" />
-              </div>
-              <div className="absolute -inset-1 bg-gradient-to-r from-red-500 to-red-600 rounded-2xl blur opacity-30 -z-10"></div>
-            </div>
-            <div className="space-y-2">
-              <div className="flex items-center gap-2">
-                <span className="px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm text-white text-sm font-medium">
-                  Urgent Appeal
-                </span>
-                <div className="h-1 w-1 rounded-full bg-white/50"></div>
-                <span className="text-white/70 text-sm">Blood Shortage</span>
-              </div>
-              <h3 className="text-xl font-bold text-white">
-                Critical shortage of O-negative and B-positive blood types
-              </h3>
-              <p className="text-white/70 text-sm">
-                Your donation can save up to 3 lives
-              </p>
+    <section className="!relative !bg-white !border-y !border-slate-100">
+      {/* Professional background pattern */}
+      <div className="!absolute !inset-0 !bg-[linear-gradient(to_right,#f1f5f9_1px,transparent_1px),linear-gradient(to_bottom,#f1f5f9_1px,transparent_1px)] !bg-[size:2rem_2rem] !opacity-50" />
+
+      <div className="!container !mx-auto !px-6 lg:!px-8 !relative">
+        <div className="!grid !grid-cols-1 lg:!grid-cols-12 !gap-6 !py-8">
+          {/* Alert indicator */}
+          <div className="lg:!col-span-1 !flex lg:!justify-center">
+            <div className="!w-12 !h-12 !bg-red-50 !border !border-red-100 !flex !items-center !justify-center">
+              <AlertTriangle
+                className="!h-6 !w-6 !text-red-500"
+                strokeWidth={2}
+              />
             </div>
           </div>
-          <div className="flex items-center">
-            <Button
-              size="lg"
-              className="bg-white !text-red-700 !whitespace-nowrap !rounded-full !px-8 !transition-all hover:!scale-105 hover:!shadow-xl hover:!shadow-red-500/20 group"
-            >
-              <span className="flex items-center gap-2">
-                Donate Now
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </span>
-            </Button>
+
+          {/* Main content */}
+          <div className="lg:!col-span-7 !space-y-4">
+            <div className="!flex !items-center !gap-4">
+              <div className="!flex !items-center !gap-3">
+                <span className="!text-xs !font-semibold !text-red-600 !uppercase !tracking-wider">
+                  Critical Alert
+                </span>
+                <div className="!w-1 !h-4 !bg-red-200" />
+                <span className="!text-xs !font-semibold !text-slate-500 !uppercase !tracking-wider">
+                  Blood Shortage
+                </span>
+              </div>
+              <div className="!flex !items-center !gap-1 !text-xs !font-semibold !text-amber-600">
+                <TrendingUp className="!h-3 !w-3" />
+                High Priority
+              </div>
+            </div>
+
+            <h3 className="!text-xl lg:!text-2xl !font-bold !text-slate-800 !leading-tight">
+              Critical Shortage: O-Negative and B-Positive Blood Types
+            </h3>
+
+            <div className="!flex !items-center !gap-6 !text-sm !text-slate-600">
+              <div className="!flex !items-center !gap-2">
+                <Clock className="!h-4 !w-4 !text-slate-500" />
+                <span>Immediate need</span>
+              </div>
+              <div className="!w-1 !h-1 !bg-slate-200 !rounded-full" />
+              <span>3 lives saved per donation</span>
+              <div className="!w-1 !h-1 !bg-slate-200 !rounded-full" />
+              <span>24/7 emergency response</span>
+            </div>
+          </div>
+
+          {/* Metrics */}
+          <div className="lg:!col-span-2 !space-y-3">
+            <div className="!bg-slate-50 !border !border-slate-100 !p-4">
+              <div className="!text-xs !font-semibold !text-slate-500 !uppercase !tracking-wider !mb-1">
+                Current Stock
+              </div>
+              <div className="!text-lg !font-bold !text-red-600">18% Below</div>
+              <div className="!text-xs !text-slate-400">Critical threshold</div>
+            </div>
+          </div>
+
+          {/* CTA */}
+          <div className="lg:!col-span-2 !flex !items-center !justify-end">
+            <div className="!space-y-3 !w-full">
+              <Button
+                size="lg"
+                className="!w-full !bg-red-600 hover:!bg-red-700 !text-white !font-semibold !transition-all !duration-200 !group"
+              >
+                <span className="!flex !items-center !gap-2">
+                  Emergency Donation
+                  <ArrowRight className="!h-4 !w-4 !transition-transform group-hover:!translate-x-1" />
+                </span>
+              </Button>
+
+              <Button
+                size="sm"
+                variant="outline"
+                className="!w-full !border-slate-200 !text-slate-600 hover:!bg-slate-50 hover:!border-slate-300 !text-xs"
+              >
+                Schedule Later
+              </Button>
+            </div>
+          </div>
+        </div>
+
+        {/* Progress indicator */}
+        <div className="!border-t !border-slate-100 !pt-4 !pb-2">
+          <div className="!flex !justify-between !items-center !text-xs !mb-2">
+            <span className="!text-slate-500">Blood Bank Capacity</span>
+            <span className="!font-semibold !text-slate-600">18% / 100%</span>
+          </div>
+          <div className="!w-full !bg-slate-100 !h-1">
+            <div className="!h-1 !bg-gradient-to-r !from-red-500 !to-red-400 !w-[18%]" />
           </div>
         </div>
       </div>

@@ -1,18 +1,17 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu,
   X,
-  Heart,
   MapPin,
   Calendar,
   User,
   ChevronDown,
   Search,
   Bell,
+  Activity,
 } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -37,89 +36,105 @@ export function Header() {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`!fixed !top-0 !left-0 !right-0 !z-50 !transition-all !duration-300 ${
         scrolled
-          ? "bg-gradient-to-b from-white to-red-100 shadow-md py-3"
-          : "bg-gradient-to-b from-white to-red-100 shadow-md py-5"
+          ? "!bg-white/95 !backdrop-blur-sm !border-b !border-slate-200 !py-3"
+          : "!bg-white !border-b !border-slate-100 !py-4"
       }`}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2">
-            <div className="relative">
-              <Heart
-                className={`h-8 w-8 text-red-600
-                 transition-colors duration-300`}
-                fill="currentColor"
-              />
-              <span className="absolute -top-1 -right-1 flex h-3 w-3 rounded-full bg-blue-500 ring-1 ring-white"></span>
+      <div className="!container !mx-auto !px-6 lg:!px-8">
+        <div className="!flex !items-center !justify-between">
+          {/* Professional Logo */}
+          <div className="!flex !items-center !gap-4">
+            <div className="!flex !items-center !gap-3">
+              <div className="!w-8 !h-8 !bg-red-600 !flex !items-center !justify-center">
+                <Activity className="!h-5 !w-5 !text-white" strokeWidth={2} />
+              </div>
+              <div>
+                <span className="!text-lg !font-bold !text-slate-900">
+                  BloodLife
+                </span>
+                <div className="!text-xs !text-slate-500 !uppercase !tracking-wider">
+                  Healthcare Initiative
+                </div>
+              </div>
             </div>
-            <span
-              className={`text-xl font-bold text-gray-900" 
-               transition-colors duration-300`}
-            >
-              BloodLife
-            </span>
-          </Link>
+          </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center gap-6">
-            <NavLink href="/" label="Home" scrolled={scrolled} />
-            <NavDropdown label="About" scrolled={scrolled}>
-              <DropdownLink href="/about/mission">Our Mission</DropdownLink>
-              <DropdownLink href="/about/team">Our Team</DropdownLink>
-              <DropdownLink href="/about/impact">Our Impact</DropdownLink>
+          <nav className="!hidden lg:!flex !items-center !gap-8">
+            <NavLink href="/" label="Dashboard" />
+            <NavDropdown label="Programs">
+              <DropdownLink href="/programs/corporate">
+                Corporate Programs
+              </DropdownLink>
+              <DropdownLink href="/programs/emergency">
+                Emergency Response
+              </DropdownLink>
+              <DropdownLink href="/programs/community">
+                Community Outreach
+              </DropdownLink>
             </NavDropdown>
-            <NavLink href="/donate" label="Donate" scrolled={scrolled} />
-            <NavLink href="/events" label="Events" scrolled={scrolled} />
-            <NavLink href="/education" label="Education" scrolled={scrolled} />
-            <NavLink href="/contact" label="Contact" scrolled={scrolled} />
+            <NavLink href="/donate" label="Donation Centers" />
+            <NavLink href="/analytics" label="Analytics" />
+            <NavLink href="/resources" label="Resources" />
+            <NavLink href="/support" label="Support" />
           </nav>
 
-          {/* Desktop Action Buttons */}
-          <div className="hidden md:flex  items-center gap-3">
+          {/* Professional Action Bar */}
+          <div className="!hidden lg:!flex !items-center !gap-3">
+            {/* Status Indicator */}
+            <div className="!flex !items-center !gap-2 !px-3 !py-1 !bg-slate-50 !border !border-slate-200 !text-xs">
+              <div className="!w-2 !h-2 !bg-green-500 !rounded-full" />
+              <span className="!text-slate-600 !font-medium">
+                System Online
+              </span>
+            </div>
+
             <Button
               variant="ghost"
               size="icon"
-              className={`rounded-full ${
-                scrolled
-                  ? "text-gray-700 hover:bg-gray-100"
-                  : "text-white hover:bg-white/20"
-              } transition-colors duration-300`}
+              className="!text-slate-600 hover:!bg-slate-100"
               onClick={() => setSearchOpen(!searchOpen)}
             >
-              <Search className="h-5 w-5" />
-              <span className="sr-only">Search</span>
+              <Search className="!h-4 !w-4" />
+              <span className="!sr-only">Search</span>
             </Button>
 
             <Button
               variant="ghost"
               size="icon"
-              className={`rounded-full ${
-                scrolled
-                  ? "text-gray-700 hover:bg-gray-100"
-                  : "text-white hover:bg-white/20"
-              } transition-colors duration-300`}
+              className="!text-slate-600 hover:!bg-slate-100 !relative"
             >
-              <Bell className="h-5 w-5" />
-              <span className="sr-only">Notifications</span>
+              <Bell className="!h-4 !w-4" />
+              <div className="!absolute -!top-1 -!right-1 !w-2 !h-2 !bg-red-500 !rounded-full" />
+              <span className="!sr-only">Notifications</span>
             </Button>
 
-            <button
-              type="button"
-              className="!px-2 inline-flex items-center justify-center gap-2 h-8 rounded-md text-sm font-medium !bg-white hover:!bg-red-100 hover:!text-red-600 !transition-all !duration-300 !border !border-red-100"
+            <Button
+              variant="outline"
+              size="sm"
+              className="!border-slate-200 !text-slate-700 hover:!bg-slate-50"
             >
-              <MapPin className="mr-2 h-4 w-4" />
-              Find Centers
-            </button>
+              <MapPin className="!mr-2 !h-4 !w-4" />
+              Find Locations
+            </Button>
 
             <Button
               size="sm"
-              className="!px-2 inline-flex items-center justify-center gap-2 h-8 rounded-md text-sm font-medium !bg-red-500 !text-white hover:!bg-red-600 hover:!text-white !transition-all !duration-300 !border !border-red-500"
+              className="!bg-red-600 hover:!bg-red-700 !text-white"
             >
-              <Calendar className="mr-2 h-4 w-4" />
-              Schedule Donation
+              <Calendar className="!mr-2 !h-4 !w-4" />
+              Schedule Appointment
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              className="!text-slate-600 hover:!bg-slate-100"
+            >
+              <User className="!h-4 !w-4" />
+              <span className="!sr-only">Account</span>
             </Button>
           </div>
 
@@ -129,71 +144,71 @@ export function Header() {
               <Button
                 variant="ghost"
                 size="icon"
-                className={`md:hidden ${
-                  scrolled ? "text-gray-700" : "text-white"
-                }`}
+                className="lg:!hidden !text-slate-700"
               >
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Open menu</span>
+                <Menu className="!h-5 !w-5" />
+                <span className="!sr-only">Open menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="w-[300px] sm:w-[400px]">
-              <div className="flex flex-col h-full">
-                <div className="flex items-center justify-between py-4 border-b">
-                  <div className="flex items-center gap-2">
-                    <Heart
-                      className="h-6 w-6 text-red-600"
-                      fill="currentColor"
-                    />
-                    <span className="text-lg font-bold text-gray-900">
-                      BloodLife
-                    </span>
+            <SheetContent side="right" className="!w-[320px] !bg-white">
+              <div className="!flex !flex-col !h-full">
+                <div className="!flex !items-center !justify-between !py-4 !border-b !border-slate-200">
+                  <div className="!flex !items-center !gap-3">
+                    <div className="!w-6 !h-6 !bg-red-600 !flex !items-center !justify-center">
+                      <Activity
+                        className="!h-4 !w-4 !text-white"
+                        strokeWidth={2}
+                      />
+                    </div>
+                    <div>
+                      <span className="!text-base !font-bold !text-slate-900">
+                        BloodLife
+                      </span>
+                      <div className="!text-xs !text-slate-500">
+                        Healthcare Initiative
+                      </div>
+                    </div>
                   </div>
-                  <SheetTrigger asChild>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="text-gray-700"
-                    >
-                      <X className="h-5 w-5" />
-                      <span className="sr-only">Close menu</span>
-                    </Button>
-                  </SheetTrigger>
                 </div>
 
-                <div className="py-4 px-4">
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
+                <div className="!py-4">
+                  <div className="!relative">
+                    <Search className="!absolute !left-3 !top-1/2 -!translate-y-1/2 !h-4 !w-4 !text-slate-400" />
                     <Input
                       placeholder="Search..."
-                      className="pl-10 bg-gray-50 border-gray-200"
+                      className="!pl-10 !bg-slate-50 !border-slate-200"
                     />
                   </div>
                 </div>
 
-                <nav className="flex flex-col py-6 space-y-4 px-4">
-                  <MobileNavLink href="/" label="Home" />
-                  <MobileNavLink href="/about" label="About" />
-                  <MobileNavLink href="/donate" label="Donate" />
-                  <MobileNavLink href="/events" label="Events" />
-                  <MobileNavLink href="/education" label="Education" />
-                  <MobileNavLink href="/contact" label="Contactf" />
+                <nav className="!flex !flex-col !py-4 !space-y-1">
+                  <MobileNavLink href="/" label="Dashboard" />
+                  <MobileNavLink href="/programs" label="Programs" />
+                  <MobileNavLink href="/donate" label="Donation Centers" />
+                  <MobileNavLink href="/analytics" label="Analytics" />
+                  <MobileNavLink href="/resources" label="Resources" />
+                  <MobileNavLink href="/support" label="Support" />
                 </nav>
 
-                <div className="mt-auto space-y-4 py-6 border-t px-4">
-                  <Button className="w-full" variant="outline">
-                    <MapPin className="mr-2 h-4 w-4" />
-                    Find Centers
+                <div className="!mt-auto !space-y-3 !py-6 !border-t !border-slate-200">
+                  <div className="!flex !items-center !gap-2 !px-3 !py-2 !bg-slate-50 !text-xs">
+                    <div className="!w-2 !h-2 !bg-green-500 !rounded-full" />
+                    <span className="!text-slate-600">System Online</span>
+                  </div>
+
+                  <Button className="!w-full" variant="outline">
+                    <MapPin className="!mr-2 !h-4 !w-4" />
+                    Find Locations
                   </Button>
 
-                  <Button className="w-full bg-red-600 hover:bg-red-700 text-white">
-                    <Calendar className="mr-2 h-4 w-4" />
-                    Schedule Donation
+                  <Button className="!w-full !bg-red-600 hover:!bg-red-700 !text-white">
+                    <Calendar className="!mr-2 !h-4 !w-4" />
+                    Schedule Appointment
                   </Button>
 
-                  <Button className="w-full" variant="ghost">
-                    <User className="mr-2 h-4 w-4" />
-                    Sign In
+                  <Button className="!w-full" variant="ghost">
+                    <User className="!mr-2 !h-4 !w-4" />
+                    Account Portal
                   </Button>
                 </div>
               </div>
@@ -202,33 +217,41 @@ export function Header() {
         </div>
       </div>
 
-      {/* Search Overlay */}
+      {/* Professional Search Overlay */}
       <AnimatePresence>
         {searchOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 right-0 bg-white shadow-lg border-t border-gray-200 p-4"
+            className="!absolute !top-full !left-0 !right-0 !bg-white !border-b !border-slate-200 !p-6"
           >
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-              <div className="relative max-w-2xl mx-auto">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-gray-400" />
-                <Input
-                  placeholder="Search for blood drives, donation centers, or information..."
-                  className="pl-10 py-6 text-lg"
-                  autoFocus
-                />
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute right-2 top-1/2 -translate-y-1/2"
-                  onClick={() => setSearchOpen(false)}
-                >
-                  <X className="h-5 w-5" />
-                  <span className="sr-only">Close search</span>
-                </Button>
+            <div className="!container !mx-auto !px-6 lg:!px-8">
+              <div className="!max-w-2xl !mx-auto">
+                <div className="!flex !items-center !gap-3 !mb-4">
+                  <div className="!w-1 !h-6 !bg-red-600" />
+                  <span className="!text-sm !font-semibold !text-slate-600 !uppercase !tracking-wider">
+                    Search Platform
+                  </span>
+                </div>
+                <div className="!relative">
+                  <Search className="!absolute !left-4 !top-1/2 -!translate-y-1/2 !h-5 !w-5 !text-slate-400" />
+                  <Input
+                    placeholder="Search donation centers, programs, or resources..."
+                    className="!pl-12 !py-4 !text-base !border-slate-200 !bg-slate-50"
+                    autoFocus
+                  />
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="!absolute !right-2 !top-1/2 -!translate-y-1/2 !text-slate-400 hover:!text-slate-600"
+                    onClick={() => setSearchOpen(false)}
+                  >
+                    <X className="!h-4 !w-4" />
+                    <span className="!sr-only">Close search</span>
+                  </Button>
+                </div>
               </div>
             </div>
           </motion.div>
@@ -238,51 +261,41 @@ export function Header() {
   );
 }
 
-function NavLink({ href, label, scrolled }) {
+function NavLink({ href, label }) {
   return (
-    <Link
+    <a
       href={href}
-      className={`text-sm font-medium ${
-        scrolled
-          ? "text-gray-700 hover:text-red-600"
-          : "text-white/90 hover:text-white"
-      } transition-colors duration-300`}
+      className="!text-sm !font-medium !text-slate-700 hover:!text-red-600 !transition-colors !duration-200"
     >
       {label}
-    </Link>
+    </a>
   );
 }
 
-function NavDropdown({ label, children, scrolled }) {
+function NavDropdown({ label, children }) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
     <div
-      className="relative"
+      className="!relative"
       onMouseEnter={() => setIsOpen(true)}
       onMouseLeave={() => setIsOpen(false)}
     >
-      <button
-        className={`flex items-center gap-1 text-sm font-medium ${
-          scrolled
-            ? "text-gray-700 hover:text-red-600"
-            : "text-white/90 hover:text-white"
-        } transition-colors duration-300`}
-      >
+      <button className="!flex !items-center !gap-1 !text-sm !font-medium !text-slate-700 hover:!text-red-600 !transition-colors !duration-200">
         {label}
-        <ChevronDown className="h-4 w-4" />
+        <ChevronDown className="!h-3 !w-3" />
       </button>
 
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 10 }}
+            initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            transition={{ duration: 0.2 }}
-            className="absolute top-full left-0 mt-2 w-48 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 overflow-hidden z-50"
+            exit={{ opacity: 0, y: 5 }}
+            transition={{ duration: 0.15 }}
+            className="!absolute !top-full !left-0 !mt-2 !w-56 !bg-white !border !border-slate-200 !shadow-lg !overflow-hidden !z-50"
           >
-            <div className="py-1">{children}</div>
+            <div className="!py-2">{children}</div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -292,22 +305,22 @@ function NavDropdown({ label, children, scrolled }) {
 
 function DropdownLink({ href, children }) {
   return (
-    <Link
+    <a
       href={href}
-      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-red-600"
+      className="!block !px-4 !py-2 !text-sm !text-slate-700 hover:!bg-slate-50 hover:!text-red-600 !transition-colors !duration-200"
     >
       {children}
-    </Link>
+    </a>
   );
 }
 
 function MobileNavLink({ href, label }) {
   return (
-    <Link
+    <a
       href={href}
-      className="flex items-center py-2 text-base font-medium text-gray-900 hover:text-red-600"
+      className="!flex !items-center !py-3 !px-3 !text-base !font-medium !text-slate-700 hover:!text-red-600 hover:!bg-slate-50 !transition-colors !duration-200"
     >
       {label}
-    </Link>
+    </a>
   );
 }
