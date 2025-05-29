@@ -1,34 +1,46 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { Link } from "react-router-dom"
-import { motion, AnimatePresence } from "framer-motion"
-import { Menu, X, Heart, MapPin, Calendar, User, ChevronDown, Search, Bell } from "lucide-react"
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Menu,
+  X,
+  Heart,
+  MapPin,
+  Calendar,
+  User,
+  ChevronDown,
+  Search,
+  Bell,
+} from "lucide-react";
 
-import { Button } from "@/components/ui/button"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Input } from "@/components/ui/input";
 
 export function Header() {
-  const [scrolled, setScrolled] = useState(false)
-  const [searchOpen, setSearchOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      const isScrolled = window.scrollY > 10
+      const isScrolled = window.scrollY > 10;
       if (isScrolled !== scrolled) {
-        setScrolled(isScrolled)
+        setScrolled(isScrolled);
       }
-    }
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [scrolled])
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [scrolled]);
 
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-white shadow-md py-3" : "bg-transparent py-5"
+        scrolled
+          ? "bg-gradient-to-b from-white to-red-100 shadow-md py-3"
+          : "bg-gradient-to-b from-white to-red-100 shadow-md py-5"
       }`}
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -37,13 +49,15 @@ export function Header() {
           <Link href="/" className="flex items-center gap-2">
             <div className="relative">
               <Heart
-                className={`h-8 w-8 ${scrolled ? "text-red-600" : "text-white"} transition-colors duration-300`}
+                className={`h-8 w-8 text-red-600
+                 transition-colors duration-300`}
                 fill="currentColor"
               />
               <span className="absolute -top-1 -right-1 flex h-3 w-3 rounded-full bg-blue-500 ring-1 ring-white"></span>
             </div>
             <span
-              className={`text-xl font-bold ${scrolled ? "text-gray-900" : "text-white"} transition-colors duration-300`}
+              className={`text-xl font-bold text-gray-900" 
+               transition-colors duration-300`}
             >
               BloodLife
             </span>
@@ -64,12 +78,14 @@ export function Header() {
           </nav>
 
           {/* Desktop Action Buttons */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="hidden md:flex  items-center gap-3">
             <Button
               variant="ghost"
               size="icon"
               className={`rounded-full ${
-                scrolled ? "text-gray-700 hover:bg-gray-100" : "text-white hover:bg-white/20"
+                scrolled
+                  ? "text-gray-700 hover:bg-gray-100"
+                  : "text-white hover:bg-white/20"
               } transition-colors duration-300`}
               onClick={() => setSearchOpen(!searchOpen)}
             >
@@ -81,31 +97,26 @@ export function Header() {
               variant="ghost"
               size="icon"
               className={`rounded-full ${
-                scrolled ? "text-gray-700 hover:bg-gray-100" : "text-white hover:bg-white/20"
+                scrolled
+                  ? "text-gray-700 hover:bg-gray-100"
+                  : "text-white hover:bg-white/20"
               } transition-colors duration-300`}
             >
               <Bell className="h-5 w-5" />
               <span className="sr-only">Notifications</span>
             </Button>
 
-            <Button
-              variant="outline"
-              size="sm"
-              className={`${
-                scrolled
-                  ? "border-gray-200 text-gray-700 hover:bg-gray-50"
-                  : "border-white/30 text-white hover:bg-white/20"
-              } transition-colors duration-300`}
+            <button
+              type="button"
+              className="!px-2 inline-flex items-center justify-center gap-2 h-8 rounded-md text-sm font-medium !bg-white hover:!bg-red-100 hover:!text-red-600 !transition-all !duration-300 !border !border-red-100"
             >
               <MapPin className="mr-2 h-4 w-4" />
               Find Centers
-            </Button>
+            </button>
 
             <Button
               size="sm"
-              className={`${
-                scrolled ? "bg-red-600 hover:bg-red-700 text-white" : "bg-white text-red-700 hover:bg-red-50"
-              } transition-colors duration-300`}
+              className="!px-2 inline-flex items-center justify-center gap-2 h-8 rounded-md text-sm font-medium !bg-red-500 !text-white hover:!bg-red-600 hover:!text-white !transition-all !duration-300 !border !border-red-500"
             >
               <Calendar className="mr-2 h-4 w-4" />
               Schedule Donation
@@ -115,7 +126,13 @@ export function Header() {
           {/* Mobile Menu Trigger */}
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className={`md:hidden ${scrolled ? "text-gray-700" : "text-white"}`}>
+              <Button
+                variant="ghost"
+                size="icon"
+                className={`md:hidden ${
+                  scrolled ? "text-gray-700" : "text-white"
+                }`}
+              >
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Open menu</span>
               </Button>
@@ -124,11 +141,20 @@ export function Header() {
               <div className="flex flex-col h-full">
                 <div className="flex items-center justify-between py-4 border-b">
                   <div className="flex items-center gap-2">
-                    <Heart className="h-6 w-6 text-red-600" fill="currentColor" />
-                    <span className="text-lg font-bold text-gray-900">BloodLife</span>
+                    <Heart
+                      className="h-6 w-6 text-red-600"
+                      fill="currentColor"
+                    />
+                    <span className="text-lg font-bold text-gray-900">
+                      BloodLife
+                    </span>
                   </div>
                   <SheetTrigger asChild>
-                    <Button variant="ghost" size="icon" className="text-gray-700">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="text-gray-700"
+                    >
                       <X className="h-5 w-5" />
                       <span className="sr-only">Close menu</span>
                     </Button>
@@ -138,7 +164,10 @@ export function Header() {
                 <div className="py-4 px-4">
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
-                    <Input placeholder="Search..." className="pl-10 bg-gray-50 border-gray-200" />
+                    <Input
+                      placeholder="Search..."
+                      className="pl-10 bg-gray-50 border-gray-200"
+                    />
                   </div>
                 </div>
 
@@ -148,7 +177,7 @@ export function Header() {
                   <MobileNavLink href="/donate" label="Donate" />
                   <MobileNavLink href="/events" label="Events" />
                   <MobileNavLink href="/education" label="Education" />
-                  <MobileNavLink href="/contact" label="Contact" />
+                  <MobileNavLink href="/contact" label="Contactf" />
                 </nav>
 
                 <div className="mt-auto space-y-4 py-6 border-t px-4">
@@ -206,7 +235,7 @@ export function Header() {
         )}
       </AnimatePresence>
     </header>
-  )
+  );
 }
 
 function NavLink({ href, label, scrolled }) {
@@ -214,22 +243,30 @@ function NavLink({ href, label, scrolled }) {
     <Link
       href={href}
       className={`text-sm font-medium ${
-        scrolled ? "text-gray-700 hover:text-red-600" : "text-white/90 hover:text-white"
+        scrolled
+          ? "text-gray-700 hover:text-red-600"
+          : "text-white/90 hover:text-white"
       } transition-colors duration-300`}
     >
       {label}
     </Link>
-  )
+  );
 }
 
 function NavDropdown({ label, children, scrolled }) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="relative" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+    <div
+      className="relative"
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
       <button
         className={`flex items-center gap-1 text-sm font-medium ${
-          scrolled ? "text-gray-700 hover:text-red-600" : "text-white/90 hover:text-white"
+          scrolled
+            ? "text-gray-700 hover:text-red-600"
+            : "text-white/90 hover:text-white"
         } transition-colors duration-300`}
       >
         {label}
@@ -250,21 +287,27 @@ function NavDropdown({ label, children, scrolled }) {
         )}
       </AnimatePresence>
     </div>
-  )
+  );
 }
 
 function DropdownLink({ href, children }) {
   return (
-    <Link href={href} className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-red-600">
+    <Link
+      href={href}
+      className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-red-600"
+    >
       {children}
     </Link>
-  )
+  );
 }
 
 function MobileNavLink({ href, label }) {
   return (
-    <Link href={href} className="flex items-center py-2 text-base font-medium text-gray-900 hover:text-red-600">
+    <Link
+      href={href}
+      className="flex items-center py-2 text-base font-medium text-gray-900 hover:text-red-600"
+    >
       {label}
     </Link>
-  )
+  );
 }
