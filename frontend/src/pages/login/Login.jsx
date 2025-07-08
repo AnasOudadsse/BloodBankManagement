@@ -74,8 +74,15 @@ export default function LoginPage() {
         localStorage.setItem("role", data.role);
         localStorage.setItem("user", JSON.stringify(data.user));
 
-        // Navigate to dashboard
-        navigate("/dashboard");
+        console.log("data" , data);
+        
+        // Redirect based on role
+        if (data.role === "Admin") {
+          navigate("/dashboard");
+        } else {
+          // Navigate to dashboard (or other page) for other roles
+          navigate("/dashboard");
+        }
       }
     } catch (err) {
       const errorMessage = err.response?.data?.message || "An error occurred";
@@ -84,6 +91,9 @@ export default function LoginPage() {
       setIsLoading(false);
     }
   };
+
+  // Only render Header if user is already logged in
+  const isLoggedIn = !!localStorage.getItem("token");
 
   if (!mounted) return null;
 
@@ -101,72 +111,7 @@ export default function LoginPage() {
       </div>
 
       {/* Professional Header */}
-      {/* <header className="!relative !z-10 !bg-white !border-b !border-slate-200 !px-6 !py-4 md:!py-5">
-        <div className="!max-w-7xl !mx-auto !flex !justify-between !items-center">
-          <div className="!flex !items-center !gap-3">
-            <div className="!w-10 !h-10 !bg-red-600 !flex !items-center !justify-center">
-              <Activity className="!h-6 !w-6 !text-white" strokeWidth={2} />
-            </div>
-            <div>
-              <span className="!text-xl !font-bold !text-slate-900">
-                BloodLife
-              </span>
-              <div className="!text-xs !text-slate-500 !uppercase !tracking-wider">
-                Healthcare Initiative
-              </div>
-            </div>
-          </div>
-
-          <nav className="!hidden md:!flex !items-center !gap-8">
-            <a
-              href="#"
-              className="!text-sm !text-slate-600 hover:!text-red-600 !transition-colors !duration-200"
-            >
-              Medical Services
-            </a>
-            <a
-              href="#"
-              className="!text-sm !text-slate-600 hover:!text-red-600 !transition-colors !duration-200"
-            >
-              Donation Centers
-            </a>
-            <a
-              href="#"
-              className="!text-sm !text-slate-600 hover:!text-red-600 !transition-colors !duration-200"
-            >
-              Professional Support
-            </a>
-            <a
-              href="#"
-              className="!text-sm !text-slate-600 hover:!text-red-600 !transition-colors !duration-200"
-            >
-              Contact
-            </a>
-          </nav>
-
-          <div className="!flex !items-center !gap-4">
-            <Button
-              variant="outline"
-              size="icon"
-              className="!border-slate-200 !text-slate-600 hover:!bg-slate-50 hover:!text-red-600"
-            >
-              <MapPin className="!h-4 !w-4" />
-              <span className="!sr-only">Find locations</span>
-            </Button>
-
-            <Button
-              variant="ghost"
-              size="sm"
-              className="!hidden md:!flex !items-center !gap-2 !text-slate-600 hover:!bg-red-50 hover:!text-red-600"
-            >
-              <User className="!h-4 !w-4" />
-              <span>Register</span>
-            </Button>
-          </div>
-        </div>
-      </header> */}
-
-      <Header/>
+      {isLoggedIn && <Header />}
 
       {/* Main content */}
       <main className="!relative !z-10 !flex-1 !flex !flex-col !items-center !justify-center !px-6 !py-8 md:!py-12">
