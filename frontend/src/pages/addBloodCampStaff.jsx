@@ -11,7 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { useToast } from "@/hooks/use-toast"
 import Footer from "./footer/footer"
-import Header from "./header/header"
+import { Header } from "@/components/header";
 
 export function BloodCampStaffForm() {
   const [BloodCamps, setBloodCamps] = useState([])

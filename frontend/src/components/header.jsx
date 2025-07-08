@@ -12,7 +12,14 @@ import {
   Search,
   Bell,
   Activity,
+  ChevronRight,
 } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { CgProfile } from "react-icons/cg";
+import { FaHospital, FaUserMd } from "react-icons/fa";
+import { MdAddCircleOutline, MdPersonAdd, MdNotificationsActive, MdBloodtype, MdBiotech } from "react-icons/md";
+import { RxDashboard } from "react-icons/rx";
+import axios from "axios";
 
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
@@ -21,6 +28,10 @@ import { Input } from "@/components/ui/input";
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const [role, setRole] = useState(localStorage.getItem("role"));
+  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,6 +44,149 @@ export function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [scrolled]);
+
+  useEffect(() => {
+    setIsLoggedIn(!!localStorage.getItem("token"));
+    setRole(localStorage.getItem("role"));
+  }, []);
+
+  // Role-based links logic from old header
+  const links = {
+    Donor: [{ href: "/DonationHistory", text: "Donation History" }],
+    HospitalStaff: [
+      { href: "/addBloodRequest", text: "Add Blood Request" },
+      { href: "/bloodRequestList", text: "Blood Requests History" },
+    ],
+    LabTech: [{ href: "/donationList", text: "Donation List" }],
+    BloodCampStaff: [
+      { href: "/adddonation", text: "Add Donation" },
+      { href: "/adddonor", text: "Register Donor" },
+      { href: "/DonationListedit", text: "Donation List" },
+    ],
+  };
+  const adminLinks = [
+    { href: "/addHospital", text: "Add Hospital", icon: <FaHospital /> },
+    { href: "/addBloodCamp", text: "Add BloodCamp", icon: <MdAddCircleOutline /> },
+    { href: "/addHospitalStaff", text: "Add Hospital Staff", icon: <FaUserMd /> },
+    { href: "/addBloodCampStaff", text: "Add BloodCamp Staff", icon: <MdPersonAdd /> },
+    { href: "/addLabTech", text: "Add Lab Tech", icon: <MdBiotech /> },
+    { href: "/Dashboard", text: "Dashboard", icon: <RxDashboard /> },
+    { href: "/addNotif", text: "Alert Notification", icon: <MdNotificationsActive /> },
+    { href: "/bloodRequestListstatus", text: "Blood Requests", icon: <MdBloodtype /> },
+  ];
+
+  const handleLogout = () => {
+    axios.post("http://localhost:8000/api/logout").then(() => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.setItem("role", "Guest");
+      setIsLoggedIn(false);
+      setRole("Guest");
+      navigate("/login");
+    }).catch((error) => {
+      console.error("Error during logout:", error?.data || error);
+    });
+  };
+
+  // Render role-based links (for logged-in)
+  const renderLinks = () => {
+    let roleLinks = links[role];
+    if (roleLinks) {
+      return roleLinks.map((link, index) => (
+        <Button
+          key={index}
+          variant="ghost"
+          className="!justify-start !text-left !w-full !text-slate-700 hover:!text-red-600"
+          onClick={() => navigate(link.href)}
+        >
+          {link.text}
+        </Button>
+      ));
+    } else if (role === "Admin") {
+      return adminLinks.map((link, index) => (
+        <Button
+          key={index}
+          variant="ghost"
+          className="!justify-start !text-left !w-full !text-slate-700 hover:!text-red-600 !flex !items-center"
+          onClick={() => navigate(link.href)}
+        >
+          <span className="!mr-2">{link.icon}</span>
+          {link.text}
+        </Button>
+      ));
+    }
+    return null;
+  };
+
+  // Sidebar for logged-in users
+  if (isLoggedIn) {
+    if (!sidebarOpen) {
+      // Floating button to reopen sidebar
+      return (
+        <button
+          className="!fixed !bottom-6 !left-6 !z-50 !bg-red-600 !text-white !rounded-full !p-3 !shadow-lg hover:!bg-red-700"
+          onClick={() => setSidebarOpen(true)}
+          aria-label="Open sidebar"
+        >
+          <Menu className="!h-6 !w-6" />
+        </button>
+      );
+    }
+    return (
+      <aside className="!fixed !top-0 !left-0 !h-full !w-64 !bg-white !border-r !border-slate-200 !z-50 !flex !flex-col !shadow-lg">
+        {/* Close button */}
+        <button
+          className="!absolute !top-4 !right-4 !text-slate-400 hover:!text-red-600 !bg-transparent"
+          onClick={() => setSidebarOpen(false)}
+          aria-label="Close sidebar"
+        >
+          <X className="!h-6 !w-6" />
+        </button>
+        {/* Logo and App Name */}
+        <div className="!flex !items-center !gap-3 !px-6 !py-6 !border-b !border-slate-200">
+          <div className="!w-8 !h-8 !bg-red-600 !flex !items-center !justify-center">
+            <Activity className="!h-5 !w-5 !text-white" strokeWidth={2} />
+          </div>
+          <div>
+            <span className="!text-lg !font-bold !text-slate-900">BloodLife</span>
+            <div className="!text-xs !text-slate-500 !uppercase !tracking-wider">Healthcare Initiative</div>
+          </div>
+        </div>
+        {/* Navigation Links */}
+        <nav className="!flex-1 !flex !flex-col !gap-2 !px-4 !py-6">
+          <Button
+            variant="ghost"
+            className="!justify-start !text-left !w-full !text-slate-700 hover:!text-red-600 !mb-2"
+            onClick={() => navigate("/")}
+          >
+            Dashboard
+          </Button>
+          {/* Role-based links */}
+          {renderLinks()}
+        </nav>
+        {/* Profile and Logout */}
+        <div className="!px-4 !py-6 !border-t !border-slate-200 !flex !flex-col !gap-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="!text-slate-600 hover:!bg-slate-100 !self-start"
+            onClick={() => navigate("/profile")}
+          >
+            <CgProfile className="!h-5 !w-5" />
+            <span className="!sr-only">Account</span>
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            className="!border-slate-200 !text-red-600 hover:!bg-red-50 !self-start"
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
+        </div>
+      </aside>
+    );
+  }
 
   return (
     <header
@@ -79,6 +233,8 @@ export function Header() {
             <NavLink href="/analytics" label="Analytics" />
             <NavLink href="/resources" label="Resources" />
             <NavLink href="/support" label="Support" />
+            {/* Add role-based links if logged in */}
+            {isLoggedIn && renderLinks()}
           </nav>
 
           {/* Professional Action Bar */}
@@ -120,22 +276,46 @@ export function Header() {
               Find Locations
             </Button>
 
-            <Button
-              size="sm"
-              className="!bg-red-600 hover:!bg-red-700 !text-white"
-            >
-              <Calendar className="!mr-2 !h-4 !w-4" />
-              Schedule Appointment
-            </Button>
-
-            <Button
-              variant="ghost"
-              size="icon"
-              className="!text-slate-600 hover:!bg-slate-100"
-            >
-              <User className="!h-4 !w-4" />
-              <span className="!sr-only">Account</span>
-            </Button>
+            {/* Auth buttons: show Register/Login if not logged in, else profile/logout */}
+            {!isLoggedIn ? (
+              <>
+                <Button
+                  size="sm"
+                  className="!bg-red-600 !p-3 hover:!bg-red-700 !text-white"
+                  onClick={() => navigate("/login")}
+                >
+                  Login
+                </Button>
+                <Button
+                  size="sm"
+                  variant="outline"
+                  className="!ml-2 !border-slate-200 !text-red-600 hover:!bg-red-50"
+                  onClick={() => navigate("/adddonor")}
+                >
+                  Register
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="!text-slate-600 hover:!bg-slate-100"
+                  onClick={() => navigate("/profile")}
+                >
+                  <CgProfile className="!h-4 !w-4" />
+                  <span className="!sr-only">Account</span>
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="!ml-2 !border-slate-200 !text-red-600 hover:!bg-red-50"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </Button>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Trigger */}

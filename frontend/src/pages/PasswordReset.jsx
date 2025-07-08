@@ -13,7 +13,7 @@ import {
   Heading,
   Container
 } from '@chakra-ui/react';
-import Header from "./header/header";import Footer from './footer/footer';
+import { Header } from "@/components/header";import Footer from './footer/footer';
 
 export const ResetPassword = () => {
     const [password, setPassword] = useState('');

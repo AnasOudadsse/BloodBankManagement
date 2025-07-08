@@ -11,7 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
 import Footer from "./footer/footer"
-import Header from "./header/header"
+import { Header } from "@/components/header"
 
 const DonationListView = () => {
   const [donationsWithDonors, setDonationsWithDonors] = useState([])

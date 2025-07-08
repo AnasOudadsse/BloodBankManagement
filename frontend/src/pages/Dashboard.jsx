@@ -7,7 +7,7 @@ import { motion } from "framer-motion"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Droplets, Heart, Users, Clock, Moon, Sun, TrendingUp, Calendar, MapPin } from "lucide-react"
-import Header from "./header/header"
+import { Header } from "@/components/header"
 import Footer from "./footer/footer"
 import { useToast } from "@/hooks/use-toast"
 

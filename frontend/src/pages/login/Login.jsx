@@ -27,6 +27,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Header } from "@/components/header";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -100,7 +101,7 @@ export default function LoginPage() {
       </div>
 
       {/* Professional Header */}
-      <header className="!relative !z-10 !bg-white !border-b !border-slate-200 !px-6 !py-4 md:!py-5">
+      {/* <header className="!relative !z-10 !bg-white !border-b !border-slate-200 !px-6 !py-4 md:!py-5">
         <div className="!max-w-7xl !mx-auto !flex !justify-between !items-center">
           <div className="!flex !items-center !gap-3">
             <div className="!w-10 !h-10 !bg-red-600 !flex !items-center !justify-center">
@@ -163,7 +164,9 @@ export default function LoginPage() {
             </Button>
           </div>
         </div>
-      </header>
+      </header> */}
+
+      <Header/>
 
       {/* Main content */}
       <main className="!relative !z-10 !flex-1 !flex !flex-col !items-center !justify-center !px-6 !py-8 md:!py-12">

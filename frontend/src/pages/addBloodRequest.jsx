@@ -12,7 +12,7 @@ import {
   Text,
   useToast
 } from '@chakra-ui/react';
-import Header from "./header/header";import Footer from './footer/footer';
+import { Header } from "@/components/header";;import Footer from './footer/footer';
 
 export const BloodRequestForm = () => {
     const [BloodType, setBloodType] = useState([]);

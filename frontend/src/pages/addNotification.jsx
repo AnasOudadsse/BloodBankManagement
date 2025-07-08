@@ -12,7 +12,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useToast } from "@/hooks/use-toast"
 import Cities from "./../MoroccanCities.json" // Your city data
-import Header from "./header/header"
+import { Header } from "@/components/header";
 import Footer from "./footer/footer"
 
 export function SendNotificationForm() {

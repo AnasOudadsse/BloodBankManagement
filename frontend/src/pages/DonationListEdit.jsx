@@ -3,7 +3,7 @@ import axios from "axios";
 import { Link as RouterLink } from "react-router-dom";
 import { useToast, Text, Link, Grid } from "@chakra-ui/react";
 import { Pencil, Trash2 } from "lucide-react";
-import Header from "./header/header";
+import { Header } from "@/components/header";
 import Footer from "./footer/footer";
 
 const DonationListEdit = () => {

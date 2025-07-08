@@ -19,7 +19,7 @@ import {
   useToast
 } from '@chakra-ui/react';
 import Footer from "./footer/footer";
-import Header from "./header/header";
+import { Header } from "@/components/header";
 
 export function UpdateDonation() {
     let { id } = useParams();

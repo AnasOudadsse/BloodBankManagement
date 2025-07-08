@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import Header from "./header/header";
+import { Header } from "@/components/header";
 import Footer from "./footer/footer";
 
 export function UpdateBloodRequestStatus() {

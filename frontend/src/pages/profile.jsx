@@ -11,7 +11,7 @@ import {
     Icon
   } from '@chakra-ui/react';
 import { FaTint, FaUser, FaPhone, FaEnvelope, FaMapMarkerAlt, FaBirthdayCake, FaVenusMars, FaIdCard } from 'react-icons/fa';
-import Header from "./header/header";import Footer from './footer/footer';
+import { Header } from "@/components/header";import Footer from './footer/footer';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
