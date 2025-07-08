@@ -1,6 +1,6 @@
 "use client"
 
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@chakra-ui/react"
 
 export function Toaster() {
   const { toasts, dismiss } = useToast()

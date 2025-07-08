@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@chakra-ui/react"
 import { Header } from "@/components/header";
 import Footer from "./footer/footer"
 
@@ -33,7 +33,7 @@ export function DonorForm() {
     blood_id: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { toast } = useToast()
+  const toast = useToast()
 
   useEffect(() => {
     const fetchBloodType = async () => {
@@ -82,16 +82,13 @@ export function DonorForm() {
         },
       })
       toast({
-        title: "Registration successful",
-        description: "You have been registered as a donor.",
-        duration: 9000,
+        title: "Donor added successfully!",
+        status: "success",
       })
     } catch (error) {
       toast({
-        title: "Registration failed",
-        description: "Failed to register as a donor.",
-        variant: "destructive",
-        duration: 9000,
+        title: "Failed to add donor.",
+        status: "error",
       })
     } finally {
       setIsSubmitting(false)

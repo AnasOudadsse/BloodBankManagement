@@ -11,7 +11,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@chakra-ui/react"
 import { Header } from "@/components/header";
 import Footer from "./footer/footer"
 
@@ -29,7 +29,7 @@ export const DonationForm = () => {
     bloodcampstaff_cin: bloodcampstaff.Cin,
   })
 
-  const { toast } = useToast()
+  const toast = useToast()
 
   // Load options for donors
   const loadDonorOptions = async (inputValue) => {
@@ -103,16 +103,15 @@ export const DonationForm = () => {
       const response = await axios.post("http://localhost:8000/api/addDonation", donationData)
       console.log(response.data)
       toast({
-        title: "Success",
-        description: "Donation recorded successfully",
+        title: "Donation added successfully!",
+        status: "success",
         duration: 3000,
       })
     } catch (error) {
       console.error("Failed to record donation", error.response?.data || error.message)
       toast({
-        title: "Error",
-        description: "Failed to record donation",
-        variant: "destructive",
+        title: "Failed to add donation.",
+        status: "error",
         duration: 3000,
       })
     } finally {

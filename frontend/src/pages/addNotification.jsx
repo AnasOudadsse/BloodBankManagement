@@ -10,7 +10,7 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@chakra-ui/react"
 import Cities from "./../MoroccanCities.json" // Your city data
 import { Header } from "@/components/header";
 import Footer from "./footer/footer"
@@ -28,7 +28,7 @@ export function SendNotificationForm() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   console.log(notificationData)
-  const { toast } = useToast()
+  const toast = useToast()
 
   useEffect(() => {
     const fetchBloodTypes = async () => {

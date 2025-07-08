@@ -8,7 +8,7 @@ import { Calendar, Clock, MapPin, Tent, Plus, CheckCircle, AlertCircle } from "l
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@chakra-ui/react"
 import { Header } from "@/components/header";
 import Footer from "./footer/footer"
 
@@ -21,7 +21,7 @@ export function BloodCampForm() {
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { toast } = useToast()
+  const toast = useToast()
 
   const handleChange = (e) => {
     setBloodCampData({ ...BloodCampData, [e.target.name]: e.target.value })
@@ -35,8 +35,8 @@ export function BloodCampForm() {
       const response = await axios.post("http://127.0.0.1:8000/api/addBloodCamp", BloodCampData)
       if (response.status === 200) {
         toast({
-          title: "Success",
-          description: "Blood camp added successfully!",
+          title: "Blood camp added successfully!",
+          status: "success",
           duration: 5000,
         })
         // Clear form
@@ -49,9 +49,9 @@ export function BloodCampForm() {
       }
     } catch (err) {
       toast({
-        title: "Error",
+        title: "Failed to add blood camp.",
+        status: "error",
         description: "There was an error submitting the form: " + err.message,
-        variant: "destructive",
         duration: 5000,
       })
     } finally {

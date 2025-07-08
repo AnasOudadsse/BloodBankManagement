@@ -8,9 +8,10 @@ import { Building2, MapPin, Phone, Plus, CheckCircle, AlertCircle } from "lucide
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { useToast } from "@/hooks/use-toast"
+// import { useToast } from "@chakra-ui/react"
 import Footer from "./footer/footer"
 import { Header } from "@/components/header";
+import { useToast } from "@chakra-ui/react"
 
 function HospitalForm() {
   const [HospitalData, setHospitalData] = useState({
@@ -19,7 +20,7 @@ function HospitalForm() {
     PhoneNumber: "",
   })
 
-  const { toast } = useToast()
+  const toast = useToast()
 
   const handleChange = (e) => {
     setHospitalData({ ...HospitalData, [e.target.name]: e.target.value })
@@ -30,17 +31,14 @@ function HospitalForm() {
     try {
       const response = await axios.post("http://127.0.0.1:8000/api/addHospital", HospitalData)
       toast({
-        title: "Success",
-        description: "Hospital added successfully!",
-        duration: 9000,
+        title: "Hospital added successfully!",
+        status: "success",
       })
       setHospitalData({ Name: "", Address: "", PhoneNumber: "" }) // Clear form
     } catch (error) {
       toast({
-        title: "Error",
-        description: "There was an error submitting the form!",
-        variant: "destructive",
-        duration: 9000,
+        title: "Failed to add hospital.",
+        status: "error",
       })
     }
   }

@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@chakra-ui/react"
 
 export function AdminForm() {
   const [AdminData, setAdminData] = useState({
@@ -26,7 +26,7 @@ export function AdminForm() {
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { toast } = useToast()
+  const toast = useToast()
 
   const handleChange = (e) => {
     setAdminData({ ...AdminData, [e.target.name]: e.target.value })
@@ -44,8 +44,8 @@ export function AdminForm() {
       await axios.post("http://127.0.0.1:8000/api/addAdmin", AdminData)
 
       toast({
-        title: "Success",
-        description: "Admin added successfully!",
+        title: "Admin added successfully!",
+        status: "success",
         duration: 5000,
       })
 
@@ -66,9 +66,8 @@ export function AdminForm() {
       console.error("Failed to submit form", error)
 
       toast({
-        title: "Error",
-        description: "Failed to submit form",
-        variant: "destructive",
+        title: "Failed to add admin.",
+        status: "error",
         duration: 5000,
       })
     } finally {

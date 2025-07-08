@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button"
 import { Droplets, Heart, Users, Clock, Moon, Sun, TrendingUp, Calendar, MapPin } from "lucide-react"
 import { Header } from "@/components/header"
 import Footer from "./footer/footer"
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@chakra-ui/react"
 
 const Dashboard = () => {
   const [colorMode, setColorMode] = useState("light")

@@ -21,7 +21,7 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@chakra-ui/react"
 import { Header } from "@/components/header";
 import Footer from "./footer/footer"
 
@@ -39,7 +39,7 @@ export function LabTechForm() {
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { toast } = useToast()
+  const toast = useToast()
 
   const handleChange = (e) => {
     setLabTechData({ ...LabTechData, [e.target.name]: e.target.value })
@@ -56,17 +56,14 @@ export function LabTechForm() {
     try {
       const response = await axios.post("http://127.0.0.1:8000/api/addLabTech", LabTechData)
       toast({
-        title: "Success",
-        description: "Lab Technician added successfully!",
-        duration: 5000,
+        title: "Lab Tech added successfully!",
+        status: "success",
       })
       // Functionality preserved - no form clearing as per original
     } catch (error) {
       toast({
-        title: "Error",
-        description: "Failed to submit form",
-        variant: "destructive",
-        duration: 5000,
+        title: "Failed to add lab tech.",
+        status: "error",
       })
     } finally {
       setIsSubmitting(false)

@@ -13,6 +13,7 @@ import {
   useToast
 } from '@chakra-ui/react';
 import { Header } from "@/components/header";;import Footer from './footer/footer';
+import { useToast as useCustomToast } from "@/hooks/use-toast";
 
 export const BloodRequestForm = () => {
     const [BloodType, setBloodType] = useState([]);
@@ -24,7 +25,7 @@ export const BloodRequestForm = () => {
         hospital_id: ''
     });
 
-    const toast = useToast();
+    const toast = useCustomToast();
 
     useEffect(() => {
         axios.get('http://127.0.0.1:8000/api/getHospitals')

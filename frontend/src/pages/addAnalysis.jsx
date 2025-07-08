@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { useToast } from "@/hooks/use-toast"
+import { useToast } from "@chakra-ui/react"
 import { Header } from "@/components/header";
 import Footer from "./footer/footer"
 
@@ -23,7 +23,7 @@ export const AnalysisForm = () => {
     AnalysisReport: "",
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const { toast } = useToast()
+  const toast = useToast()
 
   useEffect(() => {
     const fetchDonation = async () => {
@@ -74,16 +74,15 @@ export const AnalysisForm = () => {
         },
       })
       toast({
-        title: "Success",
-        description: "Analysis data successfully submitted.",
+        title: "Analysis added successfully!",
+        status: "success",
         duration: 9000,
       })
     } catch (error) {
       console.error("Failed to submit form", error.response?.data || error)
       toast({
-        title: "Error",
-        description: "Failed to submit analysis data.",
-        variant: "destructive",
+        title: "Failed to add analysis.",
+        status: "error",
         duration: 9000,
       })
     } finally {
